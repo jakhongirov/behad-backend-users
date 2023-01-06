@@ -53,3 +53,15 @@ CREATE TABLE sms_token (
     sms_token text not null,
     sms_create_date timestamptz DEFAULT CURRENT_TIMESTAMP
 );
+
+CREATE TABLE news (
+    new_id bigserial PRIMARY KEY,
+    new_title text not null,
+    new_description text not null,
+    new_img text not null,
+    new_img_name text not null,
+    likes_count int DEFAULT 0,
+    dislike_count int DEFAULT 0,
+    views_count int DEFAULT 0,
+    new_create_date timestamptz DEFAULT CURRENT_TIMESTAMP
+);

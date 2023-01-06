@@ -1,6 +1,7 @@
 const express = require("express")
 const router = express.Router()
 const { AUTH } = require('../middleware/auth')
+const FileUpload = require('../middleware/multer')
 
 const Login = require('./login/login')
 const Users = require('./users/users')
@@ -8,6 +9,7 @@ const App = require('./apps/apps')
 const Admin = require('./admin/admin')
 const AppUser = require('./app-user/app-user')
 const Forget = require('./forget/forget')
+const News = require("./news/news")
 
 router
     .get('/users', Users.GET_USERS)
@@ -25,9 +27,16 @@ router
     .put('/updeteApp', AUTH, App.PUT_APP)
     .delete('/deleteApp', AUTH, App.DELETE_APP)
 
-    .get('/appUsers',  AppUser.GET_APP_USERS)
+    .get('/appUsers', AppUser.GET_APP_USERS)
 
-    .post('/forgetPassword/:url',  Forget.POST_PHONE);
+    .get('/news', News.GET_NEWS)
+    .post('/addnew', AUTH, FileUpload.single("photo"), News.POST_NEW)
+    .put('/updatenew', AUTH, FileUpload.single("photo"), News.PUT_NEW)
+    .put('/updateCount/:url', News.PUT_NEW)
+    .delete('/deletenew', AUTH, News.DELETE_NEW)
+
+
+    .post('/forgetPassword/:url', Forget.POST_PHONE);
 
 
 module.exports = router

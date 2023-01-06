@@ -11,6 +11,7 @@ const router = require("./src/modules");
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 app.use(express.json());
-app.use("/api", router);
+app.use('/public', express.static(path.resolve(__dirname, '..','public')))
+app.use("/api/v1", router);
 
 app.listen(PORT, console.log(PORT));
