@@ -5,6 +5,7 @@ module.exports = {
         const { click_trans_id, merchant_trans_id, error, error_note } = req.body
 
         console.log(req.body);
+        console.log("clickPrepare")
 
         console.log(click_trans_id, merchant_trans_id, error, error_note);
 
