@@ -7,6 +7,7 @@ module.exports = {
         console.log(click_trans_id, merchant_trans_id, error, error_note);
 
         res.json({
+            merchant_prepare_id: 5,
             merchant_trans_id: merchant_trans_id,
             click_trans_id: click_trans_id,
             merchant_confirm_id: null,
