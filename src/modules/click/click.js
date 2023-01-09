@@ -4,14 +4,14 @@ module.exports = {
     POST: async (req, res) => {
         const body = req.body
         console.log(body);
-        console.log(1);
+        console.log("clickPrepare");
         res.send("ok")
     },
     
     POST_2: async (req, res) => {
         const body = req.body
         console.log(body);
-        console.log(2);
+        console.log("clickComplete");
         res.send("ok")
     }
 }
