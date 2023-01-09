@@ -10,6 +10,7 @@ const Admin = require('./admin/admin')
 const AppUser = require('./app-user/app-user')
 const Forget = require('./forget/forget')
 const News = require("./news/news")
+const Click = require('./click/click')
 
 router
     .get('/users', Users.GET_USERS)
@@ -28,6 +29,10 @@ router
     .delete('/deleteApp', AUTH, App.DELETE_APP)
 
     .get('/appUsers', AppUser.GET_APP_USERS)
+    .post('/click', Click.POST)
+    .post('/click2', Click.POST_2)
+
+
 
     .get('/news', News.GET_NEWS)
     .post('/addnew', AUTH, FileUpload.single("photo"), News.POST_NEW)
