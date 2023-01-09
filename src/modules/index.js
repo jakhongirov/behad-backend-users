@@ -29,8 +29,9 @@ router
     .delete('/deleteApp', AUTH, App.DELETE_APP)
 
     .get('/appUsers', AppUser.GET_APP_USERS)
-    .post('/click', Click.POST)
-    .post('/click2', Click.POST_2)
+
+    .post('/clickPrepare', Click.POST)
+    .post('/clickComplete', Click.POST_2)
 
 
 
