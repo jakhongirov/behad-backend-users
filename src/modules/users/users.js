@@ -146,26 +146,6 @@ module.exports = {
         }
     },
 
-    PUT_USER_BALANCE: async (req, res) => {
-        try {
-            const { id, balance } = req.body
-            const userBalance = await model.addUserBalance(id, balance);
-
-            res.json({
-                status: 200,
-                message: "Success",
-                data: userBalance.user_balance
-            })
-
-        } catch (error) {
-            console.log(error);
-            res.json({
-                status: 500,
-                message: "Internal Server Error"
-            })
-        }
-    },
-
     PUT_COMMENT_USER_ADMIN: async (req, res) => {
         try {
             const { id, comment } = req.body

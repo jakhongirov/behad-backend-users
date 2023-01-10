@@ -98,15 +98,6 @@ const DELETE_USER = `
     RETURNING *;
 `
 
-const ADD_BALANCE_USER = `
-    UPDATE
-        users
-    SET
-        user_balance = $2,
-    WHERE
-        user_id = $1 RETURNING * ;
-`;
-
 const ADD_COMMENT_ADMIN = `
     UPDATE
         users
@@ -134,7 +125,6 @@ const getfoundbySurnameUser = (surname) => fetchALL(BY_SURNAME, surname);
 const getfoundbyAgeUser = (age) => fetchALL(BY_AGE, age);
 const putUser = (id, name, surname, age, who, phone, pass_hash, location,) => fetch(UPDATE_USER, id, name, surname, age, who, phone, pass_hash, location);
 const deleteUser = (id) => fetch(DELETE_USER, id);
-const addUserBalance = (id, balance) => fetch(ADD_BALANCE_USER, id, balance)
 const addComment = (id, comment) => fetch(ADD_COMMENT_ADMIN, id, comment)
 const updateComment = (id, comment) => fetch(ADD_COMMENT, id, comment)
 
@@ -148,7 +138,6 @@ module.exports = {
     getfoundbyAgeUser,
     putUser,
     deleteUser,
-    addUserBalance,
     addComment,
     updateComment
 };

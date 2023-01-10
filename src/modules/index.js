@@ -23,7 +23,7 @@ router
 
     .post('/admin', Admin.LOGIN)
 
-    .get('/apps', AUTH, App.GET_APP)
+    .get('/apps', App.GET_APP)
     .post('/addApp', AUTH, App.ADD_APP)
     .put('/updeteApp', AUTH, App.PUT_APP)
     .delete('/deleteApp', AUTH, App.DELETE_APP)
