@@ -116,6 +116,38 @@ const ADD_COMMENT = `
         user_id = $1 RETURNING * ;
 `
 
+const BY_KEY_USER_ID = `
+    select
+        *, to_char(app_user_install_date, 'HH24:MM/MM.DD.YYYY')
+    from
+        apps_user a
+    inner join
+        users b
+    on a.user_id = b.user_id
+    inner join
+        apps c
+    on a.app_key = c.app_key
+    where 
+        a.user_id = $1 and a.app_key = $2
+    ORDER BY
+        a.app_user_id DESC;
+`
+
+const ADD_APP_USER = `
+    INSERT INTO
+        apps_user (
+            app_user_notification_token,
+            user_id,
+            app_key
+    )
+    VALUES
+    (
+        $1,
+        $2,
+        $3
+    ) RETURNING *;
+`
+
 const getallUsers = () => fetchALL(All_USERS);
 const getfoundbyIdUser = (id) => fetch(BY_ID, id);
 const getfoundbyTokenUser = (token) => fetch(BY_TOKEN, token)
@@ -127,6 +159,8 @@ const putUser = (id, name, surname, age, who, phone, pass_hash, location,) => fe
 const deleteUser = (id) => fetch(DELETE_USER, id);
 const addComment = (id, comment) => fetch(ADD_COMMENT_ADMIN, id, comment)
 const updateComment = (id, comment) => fetch(ADD_COMMENT, id, comment)
+const getAppUser = (id, key) => fetch(BY_KEY_USER_ID, id, key)
+const addAppUser = (notification, id, key) => fetch(ADD_APP_USER, notification, id, key)
 
 module.exports = {
     getallUsers,
@@ -139,5 +173,7 @@ module.exports = {
     putUser,
     deleteUser,
     addComment,
-    updateComment
+    updateComment,
+    getAppUser,
+    addAppUser
 };

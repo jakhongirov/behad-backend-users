@@ -66,14 +66,28 @@ const BY_KEY = `
         a.app_user_id DESC;
 `
 
+const USER_ID_BY_KEY = `
+    select
+        *, to_char(app_user_install_date, 'HH24:MM/MM.DD.YYYY')
+    from
+        apps_user   
+    where
+        user_id = $1 and app_key = $2
+    ORDER BY
+        app_user_id DESC;
+`
+
 const getAllAppUser = () => fetchALL(ALL_APP_USER)
 const getByName = (name) => fetchALL(APP_USER_BY_NAME, name)
 const getById = (id) => fetchALL(BY_ID, id)
 const getByKey = (key) => fetchALL(BY_KEY, key)
+const getAppUserByUserIdKEy = (userId, key) => fetch(USER_ID_BY_KEY, userId, key)
 
 module.exports = {
     getAllAppUser,
     getByName,
     getById,
-    getByKey
+    getByKey,
+    getAppUserByUserIdKEy
 }
+

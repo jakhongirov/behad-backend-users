@@ -3,10 +3,20 @@ const model = require('./model')
 module.exports = {
     GET_APP_USERS: async (req, res) => {
         try {
-            const { name, id, key } = req.query
+            const { name, id, key, userId } = req.query
 
-            if (name || id || key) {
-                if (name) {
+            if (name || id || key || userId) {
+
+                if(userId && key) {
+                    const appUserByUserIdKEy = await model.getAppUserByUserIdKEy(userId, key)
+                    
+                    return res.json({
+                        status: 200,
+                        message: "Success",
+                        data: appUserByUserIdKEy
+                    });
+                    
+                } else if (name) {
                     const appUserByName = await model.getByName(`%${name}%`)
 
                     return res.json({

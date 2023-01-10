@@ -6,10 +6,39 @@ const fetch = require('node-fetch')
 module.exports = {
     GET_USERS: async (req, res) => {
         try {
-            const { id, phone, name, surname, age, token } = req.query;
-            if (id || phone || name || surname || age || token) {
-                if (id) {
+            const { id, phone, name, surname, age, token, key, notification } = req.query;
+            if (id || phone || name || surname || age || token || key || notification) {
 
+                if (token && key && notification) {
+                    const foundbyTokenUser = await model.getfoundbyTokenUser(token);
+
+                    if (foundbyTokenUser) {
+                        const appUser = await model.getAppUser(foundbyTokenUser.id, key)
+                        if (appUser) {
+                            return res.json({
+                                status: 200,
+                                message: "Success",
+                                data: foundbyTokenUser
+                            });
+                        } else {
+                            const addAppUser = await model.addAppUser(notification, foundbyTokenUser.id, key)
+                            if (addAppUser) {
+                                return res.json({
+                                    status: 200,
+                                    message: "Success",
+                                    data: foundbyTokenUser
+                                });
+                            }
+                        }
+                    } else {
+                        return res.json({
+                            status: 404,
+                            message: "Not found",
+                        })
+                    }
+
+
+                } else if (id) {
                     const foundbyIdUser = await model.getfoundbyIdUser(id);
                     return res.json({
                         status: 200,
@@ -29,7 +58,7 @@ module.exports = {
                     // fetch(`https://ipapi.co/json`)
                     //     .then(res => res.json())
                     //     .then(data => console.log(data))
-                    //     .catch(e => console.log(e))
+                    //     .catch(e => console.log(e))   
 
                     // // *-------
 
