@@ -17,8 +17,8 @@ module.exports = {
             }
 
             if (error_note === 'Success') {
-                const updateUserBalance = await model.updateUserBalance(param3, param2)
-                const addProVersion = await model.addProVersion(param3, amount)
+                const updateUserBalance = await model.updateUserBalance(param3, amount)
+                const addProVersion = await model.addProVersion(param3, param2, click_trans_id)
             }
 
             makeCode(4)
