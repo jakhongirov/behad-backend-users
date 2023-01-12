@@ -9,8 +9,11 @@ module.exports = {
             const { id, phone, name, surname, age, token, key, notification } = req.query;
             if (id || phone || name || surname || age || token || key || notification) {
 
+                console.log(key, notification);
+                
                 if (token && key && notification) {
                     const foundbyTokenUser = await model.getfoundbyTokenUser(token);
+                    console.log(foundbyTokenUser);
 
                     if (foundbyTokenUser) {
                         const appUser = await model.getAppUser(foundbyTokenUser.id, key)
