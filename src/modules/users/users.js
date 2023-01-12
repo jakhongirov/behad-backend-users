@@ -9,14 +9,11 @@ module.exports = {
             const { id, phone, name, surname, age, token, key, notification } = req.query;
             if (id || phone || name || surname || age || token || key || notification) {
 
-                console.log(key, notification);
-                
                 if (token && key && notification) {
                     const foundbyTokenUser = await model.getfoundbyTokenUser(token);
-                    console.log(foundbyTokenUser);
 
                     if (foundbyTokenUser) {
-                        const appUser = await model.getAppUser(foundbyTokenUser.id, key)
+                        const appUser = await model.getAppUser(foundbyTokenUser.user_id, key)
                         if (appUser) {
                             return res.json({
                                 status: 200,
@@ -24,7 +21,7 @@ module.exports = {
                                 data: foundbyTokenUser
                             });
                         } else {
-                            const addAppUser = await model.addAppUser(notification, foundbyTokenUser.id, key)
+                            const addAppUser = await model.addAppUser(notification, foundbyTokenUser.user_id, key)
                             if (addAppUser) {
                                 return res.json({
                                     status: 200,
