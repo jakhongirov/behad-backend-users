@@ -85,11 +85,11 @@ const GET_APP_USER = `
 
 const DELETE_USER_DEVICE_ID = `
     SELECT 
-        array_remove(user_device_id, $2) 
+        array_remove(user_device_id, $1) 
     FROM 
         users 
     WHERE
-        user_id = $1 and $2 = any (user_device_id);
+         $1 = any (user_device_id);
 `
 
 const getUser = (phone) => fetch(foundUser, phone);
@@ -98,7 +98,7 @@ const addTokenUser = (id, token) => fetch(ADD_TOKEN_USER, id, token)
 const addAppUser = (notification_token, id, app_key) => fetch(ADD_APP_USER, notification_token, id, app_key)
 const checkUser = (phone) => fetch(BY_PHONE, phone)
 const getAppUser = (id, key) => fetch(GET_APP_USER, id, key)
-const deleteUserDeviceId = (id, temptoken) => fetchALL(DELETE_USER_DEVICE_ID, id, temptoken)
+const deleteUserDeviceId = (temptoken) => fetchALL(DELETE_USER_DEVICE_ID, temptoken)
 
 module.exports = {
     getUser,
