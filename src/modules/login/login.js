@@ -15,7 +15,7 @@ module.exports = {
 
                 if (validPass) {
                     const token = await new JWT({ id: foundUser.user_id, name: foundUser.user_name }).sign()
-                    const deleteUserDeviceId = await model.deleteUserDeviceId(temptoken)
+                    const deleteUserDeviceId = await model.deleteUserDeviceId(foundUser.user_id, temptoken)
                     const AddtokenUser = await model.addTokenUser(foundUser.user_id, temptoken)
                     const app_user = await model.getAppUser(foundUser.user_id, app_key)
 
@@ -33,6 +33,7 @@ module.exports = {
 
                 } else {
                     res.json({
+                        
                         status: 401,
                         message: "Unauthorized"
                     })
