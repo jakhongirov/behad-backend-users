@@ -1,4 +1,4 @@
-const { fetch } = require("../../lib/postgres");
+const { fetch, fetchALL } = require("../../lib/postgres");
 
 const foundUser = `
     SELECT
@@ -83,12 +83,22 @@ const GET_APP_USER = `
         app_user_id DESC;
 `
 
+const DELETE_USER_DEVICE_ID = `
+    SELECT 
+        array_remove(user_device_id, $1) 
+    FROM 
+        users 
+    WHERE
+         $1 = any (user_device_id);
+`
+
 const getUser = (phone) => fetch(foundUser, phone);
 const registerUser = (name, surname, age, who, phone, pass_hash, country, capital, temptoken) => fetch(ADD_USER, name, surname, age, who, phone, pass_hash, country, capital, temptoken)
 const addTokenUser = (id, token) => fetch(ADD_TOKEN_USER, id, token)
 const addAppUser = (notification_token, id, app_key) => fetch(ADD_APP_USER, notification_token, id, app_key)
 const checkUser = (phone) => fetch(BY_PHONE, phone)
 const getAppUser = (id, key) => fetch(GET_APP_USER, id, key)
+const deleteUserDeviceId = (temptoken) => fetchALL(DELETE_USER_DEVICE_ID, temptoken)
 
 module.exports = {
     getUser,
@@ -96,5 +106,6 @@ module.exports = {
     addTokenUser,
     addAppUser,
     checkUser,
-    getAppUser
+    getAppUser,
+    deleteUserDeviceId
 }
