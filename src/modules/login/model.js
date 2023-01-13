@@ -84,12 +84,12 @@ const GET_APP_USER = `
 `
 
 const DELETE_USER_DEVICE_ID = `
-    SELECT 
-        array_remove(user_device_id, $1) 
-    FROM 
+    UPDATE
         users 
+    SET
+        user_device_id= array_remove(user_device_id, $1) 
     WHERE
-         $1 = any (user_device_id);
+        $1 = any (user_device_id) RETURNING *;
 `
 
 const getUser = (phone) => fetch(foundUser, phone);
