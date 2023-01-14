@@ -6,7 +6,7 @@ const BY_PHONE = `
     FROM
         users
     WHERE
-        user_phone = $1
+        user_phone LIKE $1
     ORDER BY
         user_id DESC;
 `;

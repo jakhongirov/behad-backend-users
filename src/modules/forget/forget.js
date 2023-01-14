@@ -20,7 +20,7 @@ module.exports = {
 
             if (url == "phone") {
                 const { phone } = req.body
-                const getUser = await model.getUser(phone)
+                const getUser = await model.getUser(`%${phone}`)
 
 
                 cron.schedule('* * * */23 * *', () => {
