@@ -3,9 +3,9 @@ const model = require('./model');
 module.exports = {
     GET_APP: async (req, res) => {
         try {
-            const { name, id, app_key } = req.query
+            const { name, id, app_key, key } = req.query
 
-            if (name || id || app_key) {
+            if (name || id || app_key, key) {
 
                 if (id) {
                     const AppbyId = await model.getAppbyId(Number(id))
@@ -27,6 +27,13 @@ module.exports = {
                         status: 200,
                         message: "Succcess",
                         data: AppbyKey
+                    })
+                } else if (key) {
+                    const getAppbyKeyApp = await model.getAppbyKeyApp(key)
+                    res.json({
+                        status: 200,
+                        message: "Succcess",
+                        data: getAppbyKeyApp
                     })
                 }
 
@@ -50,7 +57,7 @@ module.exports = {
 
     ADD_APP: async (req, res) => {
         try {
-            const { name, current_vs, min_vs, key , price} = req.body
+            const { name, current_vs, min_vs, key, price } = req.body
 
             const AddApp = await model.addApp(name, current_vs, min_vs, key, price)
 

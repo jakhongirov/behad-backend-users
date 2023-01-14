@@ -42,6 +42,17 @@ const BY_KEY = `
         app_id DESC;
 `;
 
+const BY_KEY_2 = `
+    SELECT
+        *, to_char(app_create_date, 'HH24:MM/MM.DD.YYYY')
+    FROM
+        apps
+    WHERE
+        app_key = $1
+    ORDER BY
+        app_id DESC;
+`;
+
 const ADD_APP = `
     INSERT INTO
         apps (
@@ -86,6 +97,7 @@ const getAllApps = () => fetchALL(All_APPS);
 const getAppbyId = (id) => fetchALL(BY_ID, id);
 const getAppbyName = (name) => fetchALL(BY_NAME, name)
 const getAppbyKey = (app_key) => fetchALL(BY_KEY, app_key)
+const getAppbyKeyApp = (key) => fetchALL(BY_KEY_2, key)
 const addApp = (name, current_vs, min_vs, key, price) => fetch(ADD_APP, name, current_vs, min_vs, key, price)
 const putApp = (id, name, current_vs, min_vs, key, price) => fetch(UPADATE_APP, id, name, current_vs, min_vs, key, price)
 const deleteApp = (id) => fetch(DELETE_APP, id)
@@ -95,6 +107,7 @@ module.exports = {
     getAppbyId,
     getAppbyName,
     getAppbyKey,
+    getAppbyKeyApp,
     addApp,
     putApp,
     deleteApp
