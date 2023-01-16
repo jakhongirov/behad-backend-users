@@ -15,13 +15,12 @@ app.use(cors({
 app.use(express.json());
 app.use('/public', express.static(path.resolve(__dirname, "..", 'public')))
 app.use(function (req, res, next) {
-    req.header('Access-Control-Allow-Origin', '*')
-    req .header(
-        'Access-Control-Allow-Headers',
-        'Origin, X-Requested-With, Content-Type, Accept'
-    )
-    next()
-})
+    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:8888');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+    res.setHeader('Access-Control-Allow-Credentials', true);
+    next();
+});
 app.use("/api/v1", router);
 
 app.listen(PORT, console.log(PORT));
