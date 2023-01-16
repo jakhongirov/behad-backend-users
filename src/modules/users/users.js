@@ -127,18 +127,18 @@ module.exports = {
             const pass_hash = await bcryptjs.hash(password, 10)
             let location;
 
-            const parseIp = (req) =>
-                req.headers['x-forwarded-for']?.split(',').shift()
-                || req.socket?.remoteAddress
+            // const parseIp = (req) =>
+            //     req.headers['x-forwarded-for']?.split(',').shift()
+            //     || req.socket?.remoteAddress
 
-            const ip = await parseIp(req)
+            // const ip = await parseIp(req)
 
-            fetch(`https://ipinfo.io/${ip}?token=0166032ebc35f8`)
-                .then(res => res.json())
-                .then(data => location = data)
-                .catch(e => console.log(e))
+            // fetch(`https://ipinfo.io/${ip}?token=0166032ebc35f8`)
+            //     .then(res => res.json())
+            //     .then(data => location = data)
+            //     .catch(e => console.log(e))
 
-            console.log(location);
+            // console.log(location);
 
 
             const updatedUser = await model.putUser(id, name, surname, age, who, phone, pass_hash,);
