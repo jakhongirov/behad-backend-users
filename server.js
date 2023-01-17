@@ -13,7 +13,10 @@ app.use(function(req, res, next) {
   });
 
 app.use(express.urlencoded({ extended: true }));
-app.use(cors())
+app.use(cors({
+    "Access-Control-Allow-Origin":  "*",
+    origin: "*"
+}))
 app.use(express.json());
 app.use('/public', express.static(path.resolve(__dirname, "..", 'public')))
 app.use("/api/v1", router);
