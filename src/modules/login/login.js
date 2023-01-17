@@ -46,6 +46,11 @@ module.exports = {
             }
 
         } catch (err) {
+            console.log(err)
+            res.json({
+                status: 500,
+                message: "Internal Server Error",
+            })
         }
     },
 
