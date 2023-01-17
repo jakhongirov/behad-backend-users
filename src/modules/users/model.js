@@ -84,8 +84,7 @@ const UPDATE_USER = `
         user_age = $4,
         user_who = $5,
         user_phone = $6,
-        user_password = $7,
-        user_location = $8
+        user_password = $7
     WHERE
         user_id = $1 RETURNING * ;
 `;
