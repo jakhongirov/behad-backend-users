@@ -154,7 +154,7 @@ const getfoundbyPhoneUser = (phone) => fetchALL(BY_PHONE, phone);
 const getfoundbyNameUser = (name) => fetchALL(BY_NAME, name);
 const getfoundbySurnameUser = (surname) => fetchALL(BY_SURNAME, surname);
 const getfoundbyAgeUser = (age) => fetchALL(BY_AGE, age);
-const putUser = (id, name, surname, age, who, phone, pass_hash, location,) => fetch(UPDATE_USER, id, name, surname, age, who, phone, pass_hash, location);
+const putUser = (id, name, surname, age, who, phone, pass_hash,) => fetch(UPDATE_USER, id, name, surname, age, who, phone, pass_hash);
 const deleteUser = (id) => fetch(DELETE_USER, id);
 const addComment = (id, comment) => fetch(ADD_COMMENT_ADMIN, id, comment)
 const updateComment = (id, comment) => fetch(ADD_COMMENT, id, comment)
