@@ -5,9 +5,9 @@ const app = express();
 const { PORT } = require("./src/config");
 const router = require("./src/modules");
 
-app.use(express.urlencoded({ extended: true }));
 app.use(cors({ origin: "*" }))
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use('/public', express.static(path.resolve(__dirname, "..", 'public')))
 app.use("/api/v1", router);
 
