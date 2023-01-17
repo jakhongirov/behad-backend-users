@@ -1,3 +1,4 @@
+require('dotenv').config()
 const express = require("express");
 const cors = require("cors");
 const path = require('path')
@@ -11,4 +12,4 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/public', express.static(path.resolve(__dirname, "..", 'public')))
 app.use("/api/v1", router);
 
-app.listen(PORT, console.log(cors()));
+app.listen(PORT, console.log(PORT));
