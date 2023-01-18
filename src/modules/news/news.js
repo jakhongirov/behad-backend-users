@@ -70,7 +70,7 @@ module.exports = {
             const { title, desc } = req.body
 
             const image_name = uploadPhoto.filename;
-            const image_url = `http://localhost:8001/public/images/${uploadPhoto.filename}`;
+            const image_url = `https://users.behad.uz/public/images/${uploadPhoto.filename}`;
 
             const addNews = await model.addNews(title, desc, image_url, image_name)
 
@@ -111,7 +111,7 @@ module.exports = {
                 if (uploadPhoto) {
                     deleteOldLogo.delete()
                     image_name = uploadPhoto.filename
-                    image_url = `http://localhost:8001/public/images/${uploadPhoto.filename}`
+                    image_url = `https://users.behad.uz/public/images/${uploadPhoto.filename}`
                 } else {
                     image_url = newsById?.new_img
                     image_name = newsById?.new_img_name
