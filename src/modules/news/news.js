@@ -67,12 +67,12 @@ module.exports = {
     POST_NEW: async (req, res) => {
         try {
             const uploadPhoto = req.file;
-            const { name, desc } = req.body
+            const { title, desc } = req.body
 
             const image_name = uploadPhoto.filename;
-            const image_url = `http://localhost:8001/${uploadPhoto.filename}`;
+            const image_url = `http://localhost:8001/public/images/${uploadPhoto.filename}`;
 
-            const addNews = await model.addNews(name, desc, image_url, image_name)
+            const addNews = await model.addNews(title, desc, image_url, image_name)
 
             if (addNews) {
                 return res.json({
@@ -99,7 +99,7 @@ module.exports = {
     PUT_NEW: async (req, res) => {
         try {
             const uploadPhoto = req.file;
-            const { id, name, desc } = req.body
+            const { id, title, desc } = req.body
             const newsById = await model.getnewsById(id)
 
             let image_name = "";
@@ -111,13 +111,13 @@ module.exports = {
                 if (uploadPhoto) {
                     deleteOldLogo.delete()
                     image_name = uploadPhoto.filename
-                    image_url = `http://localhost:8001/${uploadPhoto.filename}`
+                    image_url = `http://localhost:8001/public/images/${uploadPhoto.filename}`
                 } else {
                     image_url = newsById?.new_img
                     image_name = newsById?.new_img_name
                 }
 
-                const updateNew = await model.updateNew(id, name, desc, image_url, image_name)
+                const updateNew = await model.updateNew(id, title, desc, image_url, image_name)
 
                 if (updateNew) {
                     return res.json({
@@ -144,9 +144,12 @@ module.exports = {
     DELETE_NEW: async (req, res) => {
         try {
             const { id } = req.body
+            const newsById = await model.getnewsById(id)
+            const deleteOldLogo = new FS(path.resolve(__dirname, '..', '..', '..', 'public', 'images', `${newsById?.new_img_name}`))
             const deleteNew = await model.deleteNew(id)
 
             if (deleteNew) {
+                deleteOldLogo.delete()
                 return res.json({
                     status: 200,
                     message: "Success"
