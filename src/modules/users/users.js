@@ -124,29 +124,24 @@ module.exports = {
     PUT_USER: async (req, res) => {
         try {
             const { id, name, surname, age, phone, password, who } = req.body
-            const pass_hash = await bcryptjs.hash(password, 10)
-            let location;
 
-            const parseIp = (req) =>
-                req.headers['x-forwarded-for']?.split(',').shift()
-                || req.socket?.remoteAddress
+            if (password) {
+                const pass_hash = await bcryptjs.hash(password, 10)
+                const updatedUser = await model.putUser(id, name, surname, age, who, phone, pass_hash,);
+                return res.json({
+                    status: 200,
+                    message: "Updated",
+                    data: updatedUser
+                });
+            } else {
+                const updatedUser = await model.putUserWithoutPass(id, name, surname, age, who, phone);
+                return res.json({
+                    status: 200,
+                    message: "Updated",
+                    data: updatedUser
+                });
+            }
 
-            const ip = await parseIp(req)
-
-            fetch(`https://ipinfo.io/${ip}?token=0166032ebc35f8`)
-                .then(res => res.json())
-                .then(data => location = data)
-                .catch(e => console.log(e))
-
-            console.log(location);
-
-
-            const updatedUser = await model.putUser(id, name, surname, age, who, phone, pass_hash,);
-            return res.json({
-                status: 200,
-                message: "Updated",
-                data: updatedUser
-            });
 
         } catch (error) {
             console.log(error);

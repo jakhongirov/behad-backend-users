@@ -67,12 +67,12 @@ module.exports = {
     POST_NEW: async (req, res) => {
         try {
             const uploadPhoto = req.file;
-            const { title, desc } = req.body
+            const { title, desc, app_key } = req.body
 
             const image_name = uploadPhoto.filename;
             const image_url = `https://users.behad.uz/public/images/${uploadPhoto.filename}`;
 
-            const addNews = await model.addNews(title, desc, image_url, image_name)
+            const addNews = await model.addNews(title, desc, image_url, image_name, app_key)
 
             if (addNews) {
                 return res.json({
@@ -99,7 +99,7 @@ module.exports = {
     PUT_NEW: async (req, res) => {
         try {
             const uploadPhoto = req.file;
-            const { id, title, desc } = req.body
+            const { id, title, desc, app_key } = req.body
             const newsById = await model.getnewsById(id)
 
             let image_name = "";
@@ -117,7 +117,7 @@ module.exports = {
                     image_name = newsById?.new_img_name
                 }
 
-                const updateNew = await model.updateNew(id, title, desc, image_url, image_name)
+                const updateNew = await model.updateNew(id, title, desc, image_url, image_name, app_key)
 
                 if (updateNew) {
                     return res.json({

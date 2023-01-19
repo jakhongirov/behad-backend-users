@@ -62,6 +62,7 @@ CREATE TABLE news (
     new_description text not null,
     new_img text not null,
     new_img_name text not null,
+    app_key text DEFAULT "all",
     likes_count int DEFAULT 0,
     dislike_count int DEFAULT 0,
     views_count int DEFAULT 0,

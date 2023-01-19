@@ -89,6 +89,19 @@ const UPDATE_USER = `
         user_id = $1 RETURNING * ;
 `;
 
+const UPDATE_USER_WITHOUT_PASS = `
+    UPDATE
+        users
+    SET
+        user_name = $2,
+        user_surname = $3,
+        user_age = $4,
+        user_who = $5,
+        user_phone = $6,
+    WHERE
+        user_id = $1 RETURNING * ;
+`;
+
 const DELETE_USER = `
     DELETE FROM
         users
@@ -155,6 +168,7 @@ const getfoundbyNameUser = (name) => fetchALL(BY_NAME, name);
 const getfoundbySurnameUser = (surname) => fetchALL(BY_SURNAME, surname);
 const getfoundbyAgeUser = (age) => fetchALL(BY_AGE, age);
 const putUser = (id, name, surname, age, who, phone, pass_hash,) => fetch(UPDATE_USER, id, name, surname, age, who, phone, pass_hash);
+const putUserWithoutPass = (id, name, surname, age, who, phone) => fetch(UPDATE_USER_WITHOUT_PASS, id, name, surname, age, who, phone);
 const deleteUser = (id) => fetch(DELETE_USER, id);
 const addComment = (id, comment) => fetch(ADD_COMMENT_ADMIN, id, comment)
 const updateComment = (id, comment) => fetch(ADD_COMMENT, id, comment)
@@ -174,5 +188,6 @@ module.exports = {
     addComment,
     updateComment,
     getAppUser,
-    addAppUser
+    addAppUser,
+    putUserWithoutPass
 };

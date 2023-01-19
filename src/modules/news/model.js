@@ -37,14 +37,16 @@ const ADD_NEW = `
             new_title,
             new_description,
             new_img,
-            new_img_name
+            new_img_name,
+            app_key
         )
     VALUES  
         (
             $1,
             $2,
             $3,
-            $4
+            $4,
+            $5
     ) RETURNING *;
 `
 
@@ -55,7 +57,8 @@ const UPADATE_NEW = `
         new_title = $2,
         new_description = $3,
         new_img = $4,
-        new_img_name= $5
+        new_img_name= $5,
+        app_key = $6
     WHERE
         new_id = $1 RETURNING * ;
 `;
@@ -98,8 +101,8 @@ const UPDATE_VIEW_COUNT = `
 const getnewsById = (id) => fetch(NEW_BY_ID, id)
 const getnewsByTitle = (title) => fetchALL(NEWS_BY_TITLE, title)
 const getAllNews = () => fetchALL(NEWS)
-const addNews = (name, desc, image_url, image_name) => fetch(ADD_NEW, name, desc, image_url, image_name)
-const updateNew = (id, name, desc, image_url, image_name) => fetch(UPADATE_NEW, id, name, desc, image_url, image_name)
+const addNews = (name, desc, image_url, image_name, app_key) => fetch(ADD_NEW, name, desc, image_url, image_name,app_key)
+const updateNew = (id, name, desc, image_url, image_name, app_key) => fetch(UPADATE_NEW, id, name, desc, image_url, image_name, app_key)
 const deleteNew = (id) => fetch(DELETE_NEW, id)
 const updateLike = (id, count) => fetch(UPDATE_LIKE_COUNT, id, count)
 const updateDisike = (id, count) => fetch(UPDATE_DISLIKE_COUNT, id, count)
