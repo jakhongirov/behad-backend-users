@@ -60,7 +60,8 @@ const ADD_APP = `
             app_current_version,
             app_min_version,
             app_key,
-            app_price
+            app_price,
+            app_payment
         )
     VALUES
         (
@@ -68,7 +69,8 @@ const ADD_APP = `
             $2,
             $3,
             $4,
-            $5
+            $5,
+            $6
         ) RETURNING *;
 `
 
@@ -80,7 +82,8 @@ const UPADATE_APP = `
         app_current_version = $3,
         app_min_version = $4,
         app_key = $5,
-        app_price = $6
+        app_price = $6,
+        app_payment = $7,
     WHERE
         app_id = $1 RETURNING * ;
 `;
@@ -98,8 +101,8 @@ const getAppbyId = (id) => fetchALL(BY_ID, id);
 const getAppbyName = (name) => fetchALL(BY_NAME, name)
 const getAppbyKey = (app_key) => fetchALL(BY_KEY, app_key)
 const getAppbyKeyApp = (key) => fetchALL(BY_KEY_2, key)
-const addApp = (name, current_vs, min_vs, key, price) => fetch(ADD_APP, name, current_vs, min_vs, key, price)
-const putApp = (id, name, current_vs, min_vs, key, price) => fetch(UPADATE_APP, id, name, current_vs, min_vs, key, price)
+const addApp = (name, current_vs, min_vs, key, price, payment) => fetch(ADD_APP, name, current_vs, min_vs, key, price, payment)
+const putApp = (id, name, current_vs, min_vs, key, price, payment) => fetch(UPADATE_APP, id, name, current_vs, min_vs, key, price, payment)
 const deleteApp = (id) => fetch(DELETE_APP, id)
 
 module.exports = {

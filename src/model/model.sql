@@ -28,6 +28,7 @@ CREATE TABLE apps(
     app_min_version int not null,
     app_key text not null PRIMARY KEY,
     app_price int not null,
+    app_payment text,
     app_create_date timestamptz DEFAULT CURRENT_TIMESTAMP
 );
 
