@@ -29,6 +29,7 @@ CREATE TABLE apps(
     app_key text not null PRIMARY KEY,
     app_price int not null,
     app_payment text,
+    app_post BOOLEAN DEFAULT false,
     app_create_date timestamptz DEFAULT CURRENT_TIMESTAMP
 );
 
