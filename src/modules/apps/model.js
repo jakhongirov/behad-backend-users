@@ -83,7 +83,7 @@ const UPADATE_APP = `
         app_min_version = $4,
         app_key = $5,
         app_price = $6,
-        app_payment = $7,
+        app_payment = $7
     WHERE
         app_id = $1 RETURNING * ;
 `;
