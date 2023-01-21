@@ -97,7 +97,7 @@ const UPDATE_USER_WITHOUT_PASS = `
         user_surname = $3,
         user_age = $4,
         user_who = $5,
-        user_phone = $6,
+        user_phone = $6
     WHERE
         user_id = $1 RETURNING * ;
 `;
