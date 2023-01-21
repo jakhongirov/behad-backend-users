@@ -11,6 +11,7 @@ module.exports = {
 
                 if (token && key && notification) {
                     const foundbyTokenUser = await model.getfoundbyTokenUser(token);
+                    console.log(foundbyTokenUser);
 
                     if (foundbyTokenUser) {
                         const appUser = await model.getAppUser(foundbyTokenUser.user_id, key)
