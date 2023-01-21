@@ -38,7 +38,7 @@ router
     .get('/news', News.GET_NEWS)
     .post('/addnew', AUTH, FileUpload.single("photo"), News.POST_NEW)
     .put('/updatenew', AUTH, FileUpload.single("photo"), News.PUT_NEW)
-    .put('/updateCount/:url', News.PUT_NEW)
+    .put('/updateCount/:url', News.UPDATE_COUNT)
     .delete('/deletenew', AUTH, News.DELETE_NEW)
 
 

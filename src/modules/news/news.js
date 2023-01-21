@@ -173,6 +173,7 @@ module.exports = {
     UPDATE_COUNT: async (req, res) => {
         try {
             const { url } = req.params
+            console.log(url);
 
             if (url == "like") {
                 const { id } = req.body

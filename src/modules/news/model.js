@@ -75,7 +75,7 @@ const UPDATE_LIKE_COUNT = `
     UPDATE
         news
     SET
-        likes_count = $2,
+        likes_count = $2
     WHERE
         new_id = $1 RETURNING * ;
 `;
@@ -84,7 +84,7 @@ const UPDATE_DISLIKE_COUNT = `
     UPDATE
         news
     SET
-        dislike_count = $2,
+        dislike_count = $2
     WHERE
         new_id = $1 RETURNING * ;
 `;
@@ -93,7 +93,7 @@ const UPDATE_VIEW_COUNT = `
     UPDATE
         news
     SET
-        views_count = $2,
+        views_count = $2
     WHERE
         new_id = $1 RETURNING * ;
 `;
