@@ -29,6 +29,7 @@ router
     .delete('/deleteApp', AUTH, App.DELETE_APP)
 
     .get('/appUsers', AppUser.GET_APP_USERS)
+    .put('/editProVersion', AppUser.PUT_PRO_VERSION)
 
     .post('/clickPrepare', Click.POST)
     .post('/clickComplete', Click.POST_2)

@@ -7,15 +7,15 @@ module.exports = {
 
             if (name || id || key || userId) {
 
-                if(userId && key) {
+                if (userId && key) {
                     const appUserByUserIdKEy = await model.getAppUserByUserIdKEy(userId, key)
-                    
+
                     return res.json({
                         status: 200,
                         message: "Success",
                         data: appUserByUserIdKEy
                     });
-                    
+
                 } else if (name) {
                     const appUserByName = await model.getByName(`%${name}%`)
 
@@ -59,4 +59,30 @@ module.exports = {
             })
         }
     },
+
+    PUT_PRO_VERSION: async (req, res) => {
+        try {
+            const { id, pro_v } = req.body
+            const changeProVersion = await model.changeProVersion(id, pro_v)
+
+            if (changeProVersion) {
+                res.json({
+                    status: 200,
+                    message: "Success"
+                })
+            } else {
+                return res.json({
+                    status: 400,
+                    message: "Bad request"
+                })
+            }
+
+        } catch (error) {
+            console.log(error);
+            res.json({
+                status: 500,
+                message: "Internal Server Error"
+            })
+        }
+    }
 }
