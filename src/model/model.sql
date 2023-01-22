@@ -70,3 +70,10 @@ CREATE TABLE news (
     views_count int DEFAULT 0,
     new_create_date timestamptz DEFAULT CURRENT_TIMESTAMP
 );
+
+CREATE TABLE tracking_users (
+    tracking_user_id bigserial PRIMARY KEY,
+    user_id int not null REFERENCES users(user_id) ON DELETE CASCADE,
+    app_key text not null REFERENCES apps(app_key) ON DELETE CASCADE,
+    new_tracking_user_create_date timestamptz DEFAULT CURRENT_TIMESTAMP
+);

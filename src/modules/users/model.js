@@ -160,6 +160,19 @@ const ADD_APP_USER = `
     ) RETURNING *;
 `
 
+const ADD_TRACKING_USER = `
+    INSERT INTO
+        tracking_users (
+            user_id,
+            app_key
+    )
+    VALUES
+    (
+        $1,
+        $2
+    ) RETURNING *;
+`
+
 const getallUsers = () => fetchALL(All_USERS);
 const getfoundbyIdUser = (id) => fetch(BY_ID, id);
 const getfoundbyTokenUser = (token) => fetch(BY_TOKEN, token)
@@ -174,6 +187,7 @@ const addComment = (id, comment) => fetch(ADD_COMMENT_ADMIN, id, comment)
 const updateComment = (id, comment) => fetch(ADD_COMMENT, id, comment)
 const getAppUser = (id, key) => fetch(BY_KEY_USER_ID, id, key)
 const addAppUser = (notification, id, key) => fetch(ADD_APP_USER, notification, id, key)
+const addTrackingUser = (id, key) => fetch(ADD_TRACKING_USER, id, key)
 
 module.exports = {
     getallUsers,
@@ -189,5 +203,6 @@ module.exports = {
     updateComment,
     getAppUser,
     addAppUser,
-    putUserWithoutPass
+    putUserWithoutPass,
+    addTrackingUser
 };

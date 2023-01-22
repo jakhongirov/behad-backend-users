@@ -15,6 +15,7 @@ module.exports = {
 
                     if (foundbyTokenUser) {
                         const appUser = await model.getAppUser(foundbyTokenUser.user_id, key)
+                        await model.addTrackingUser(foundbyTokenUser.user_id, key)
                         if (appUser) {
                             return res.json({
                                 status: 200,
