@@ -2,7 +2,7 @@ const { fetch, fetchALL } = require("../../lib/postgres");
 
 const All_APPS = `
     SELECT
-        *, to_char(app_create_date, 'HH24:MM/MM.DD.YYYY')
+        *, to_char(app_create_date at time zone 'Asia/Tashkent', 'HH24:MM/MM.DD.YYYY')
     FROM
         apps
     ORDER BY
@@ -11,7 +11,7 @@ const All_APPS = `
 
 const BY_ID = `
     SELECT
-        *, to_char(app_create_date, 'HH24:MM/MM.DD.YYYY')
+        *, to_char(app_create_date at time zone 'Asia/Tashkent', 'HH24:MM/MM.DD.YYYY')
     FROM
         apps
     WHERE
@@ -22,7 +22,7 @@ const BY_ID = `
 
 const BY_NAME = `
     SELECT
-        *, to_char(app_create_date, 'HH24:MM/MM.DD.YYYY')
+        *, to_char(app_create_date at time zone 'Asia/Tashkent', 'HH24:MM/MM.DD.YYYY')
     FROM
         apps
     WHERE
@@ -33,7 +33,7 @@ const BY_NAME = `
 
 const BY_KEY = `
     SELECT
-        *, to_char(app_create_date, 'HH24:MM/MM.DD.YYYY')
+        *, to_char(app_create_date at time zone 'Asia/Tashkent', 'HH24:MM/MM.DD.YYYY')
     FROM
         apps
     WHERE
@@ -44,7 +44,7 @@ const BY_KEY = `
 
 const BY_KEY_2 = `
     SELECT
-        *, to_char(app_create_date, 'HH24:MM/MM.DD.YYYY')
+        *, to_char(app_create_date at time zone 'Asia/Tashkent', 'HH24:MM/MM.DD.YYYY')
     FROM
         apps
     WHERE

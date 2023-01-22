@@ -2,7 +2,7 @@ const { fetch, fetchALL } = require("../../lib/postgres");
 
 const All_USERS = `
     SELECT
-        *, to_char(user_create_date, 'HH24:MM/MM.DD.YYYY')
+        *, to_char(user_create_date at time zone 'Asia/Tashkent', 'HH24:MM/MM.DD.YYYY')
     FROM
         users
     ORDER BY
@@ -11,7 +11,7 @@ const All_USERS = `
 
 const BY_ID = `
     SELECT
-        *, to_char(user_create_date, 'HH24:MM/MM.DD.YYYY')
+        *, to_char(user_create_date at time zone 'Asia/Tashkent', 'HH24:MM/MM.DD.YYYY')
     FROM
         users
     WHERE
@@ -22,7 +22,7 @@ const BY_ID = `
 
 const BY_TOKEN = `
     SELECT
-        *, to_char(user_create_date, 'HH24:MM/MM.DD.YYYY')
+        *, to_char(user_create_date at time zone 'Asia/Tashkent', 'HH24:MM/MM.DD.YYYY')
     FROM
         users
     WHERE
@@ -33,7 +33,7 @@ const BY_TOKEN = `
 
 const BY_PHONE = `
     SELECT
-        *, to_char(user_create_date, 'HH24:MM/MM.DD.YYYY')
+        *, to_char(user_create_date at time zone 'Asia/Tashkent', 'HH24:MM/MM.DD.YYYY')
     FROM
         users
     WHERE
@@ -44,7 +44,7 @@ const BY_PHONE = `
 
 const BY_NAME = `
     SELECT
-        *, to_char(user_create_date, 'HH24:MM/MM.DD.YYYY')
+        *, to_char(user_create_date at time zone 'Asia/Tashkent', 'HH24:MM/MM.DD.YYYY')
     FROM
         users
     WHERE
@@ -55,7 +55,7 @@ const BY_NAME = `
 
 const BY_SURNAME = `
     SELECT
-        *, to_char(user_create_date, 'HH24:MM/MM.DD.YYYY')
+        *, to_char(user_create_date at time zone 'Asia/Tashkent', 'HH24:MM/MM.DD.YYYY')
     FROM
         users
     WHERE
@@ -66,7 +66,7 @@ const BY_SURNAME = `
 
 const BY_AGE = `
     SELECT
-        *, to_char(user_create_date, 'HH24:MM/MM.DD.YYYY')
+        *, to_char(user_create_date at time zone 'Asia/Tashkent', 'HH24:MM/MM.DD.YYYY')
     FROM
         users
     WHERE

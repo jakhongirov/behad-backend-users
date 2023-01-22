@@ -11,6 +11,7 @@ const AppUser = require('./app-user/app-user')
 const Forget = require('./forget/forget')
 const News = require("./news/news")
 const Click = require('./click/click')
+const Tracking = require("./tracking/tracking")
 
 router
     .get('/users', Users.GET_USERS)
@@ -22,6 +23,8 @@ router
     .delete('/deleteUser', AUTH, Users.DELETE_USER)
 
     .post('/admin', Admin.LOGIN)
+
+    .get('/trackingUsers', AUTH, Tracking.GET)
 
     .get('/apps', App.GET_APP)
     .post('/addApp', AUTH, App.ADD_APP)

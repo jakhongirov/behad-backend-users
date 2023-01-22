@@ -2,7 +2,7 @@ const { fetch, fetchALL } = require("../../lib/postgres");
 
 const NEWS = `
     SELECT
-        *, to_char(new_create_date, 'HH24:MM/MM.DD.YYYY')
+        *, to_char(new_create_date at time zone 'Asia/Tashkent', 'HH24:MM/MM.DD.YYYY')
     FROM
         news
     ORDER BY
@@ -11,7 +11,7 @@ const NEWS = `
 
 const NEW_BY_ID = `
     SELECT
-        *, to_char(new_create_date, 'HH24:MM/MM.DD.YYYY')
+        *, to_char(new_create_date at time zone 'Asia/Tashkent', 'HH24:MM/MM.DD.YYYY')
     FROM
         news
     WHERE
@@ -22,7 +22,7 @@ const NEW_BY_ID = `
 
 const NEWS_BY_TITLE = `
     SELECT
-        *, to_char(new_create_date, 'HH24:MM/MM.DD.YYYY')
+        *, to_char(new_create_date at time zone 'Asia/Tashkent', 'HH24:MM/MM.DD.YYYY')
     FROM
         news
     WHERE

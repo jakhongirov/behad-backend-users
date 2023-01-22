@@ -41,7 +41,8 @@ CREATE TABLE apps_user (
     app_user_notification_token text,
     user_id int not null REFERENCES users(user_id) ON DELETE CASCADE,
     app_key text not null REFERENCES apps(app_key) ON DELETE CASCADE,
-    click_id text
+    click_id text,
+    app_user_install_date timestamptz DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE sms_users (
@@ -75,5 +76,5 @@ CREATE TABLE tracking_users (
     tracking_user_id bigserial PRIMARY KEY,
     user_id int not null REFERENCES users(user_id) ON DELETE CASCADE,
     app_key text not null REFERENCES apps(app_key) ON DELETE CASCADE,
-    new_tracking_user_create_date timestamptz DEFAULT CURRENT_TIMESTAMP
+    new_tracking_user_create_date timestamptz DEFAULT CURRENT_TIMESTAMP at time zone 'utc' at time zone 'Asia/Tashkent'
 );

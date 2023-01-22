@@ -2,7 +2,7 @@ const { fetch, fetchALL } = require("../../lib/postgres");
 
 const ALL_APP_USER = `
     select 
-        *, to_char(app_user_install_date, 'HH24:MM/MM.DD.YYYY')
+        *, to_char(app_user_install_date at time zone 'Asia/Tashkent', 'HH24:MM/MM.DD.YYYY')
      from
             apps_user a
      inner join
@@ -17,7 +17,7 @@ const ALL_APP_USER = `
 
 const APP_USER_BY_NAME = `
     select
-        *, to_char(app_user_install_date, 'HH24:MM/MM.DD.YYYY')
+        *, to_char(app_user_install_date at time zone 'Asia/Tashkent', 'HH24:MM/MM.DD.YYYY')
     from
         apps_user a
     inner join
@@ -34,7 +34,7 @@ const APP_USER_BY_NAME = `
 
 const BY_ID = `
     select
-        *, to_char(app_user_install_date, 'HH24:MM/MM.DD.YYYY')
+        *, to_char(app_user_install_date at time zone 'Asia/Tashkent', 'HH24:MM/MM.DD.YYYY')
     from
         apps_user a
     inner join
@@ -51,7 +51,7 @@ const BY_ID = `
 
 const BY_KEY = `
     select
-        *, to_char(app_user_install_date, 'HH24:MM/MM.DD.YYYY')
+        *, to_char(app_user_install_date at time zone 'Asia/Tashkent', 'HH24:MM/MM.DD.YYYY')
     from
         apps_user a
     inner join
@@ -68,7 +68,7 @@ const BY_KEY = `
 
 const USER_ID_BY_KEY = `
     select
-        *, to_char(app_user_install_date, 'HH24:MM/MM.DD.YYYY')
+        *, to_char(app_user_install_date at time zone 'Asia/Tashkent', 'HH24:MM/MM.DD.YYYY')
     from
         apps_user   
     where
