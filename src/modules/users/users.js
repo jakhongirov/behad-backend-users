@@ -6,10 +6,10 @@ const fetch = require('node-fetch')
 module.exports = {
     GET_USERS: async (req, res) => {
         try {
-            const { id, phone, name, surname, age, token, key, notification } = req.query;
+            const { id, phone, name, surname, age, token, key, notification, region } = req.query;
             if (id || phone || name || surname || age || token || key || notification) {
 
-                if (token && key && notification) {
+                if (token && key && notification && region) {
                     const foundbyTokenUser = await model.getfoundbyTokenUser(token);
                     console.log(foundbyTokenUser);
 

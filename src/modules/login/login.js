@@ -59,24 +59,6 @@ module.exports = {
             const { temptoken, app_key, notification_token } = req.params
             const { name, surname, age, who, phone, password, country, capital } = req.body
 
-            let location;
-
-            const parseIp = (req) =>
-                req.headers['x-forwarded-for']?.split(',').shift()
-                || req.socket?.remoteAddress
-
-            const ip = await parseIp(req)
-
-            await fetch(`https://ipinfo.io/${ip}?token=0166032ebc35f8`)
-                .then(res => res.json())
-                .then(data => {
-                    console.log(data);
-                    location += data
-                })
-                .catch(e => console.log(e))
-
-            console.log(location);
-
             const checkUser = await model.checkUser(phone)
 
             if (!checkUser) {

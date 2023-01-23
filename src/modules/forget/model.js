@@ -46,7 +46,7 @@ const UPDATE_SMS_TOKEN = `
     UPDATE
         sms_token
     SET
-        sms_token = $2
+        sms_token = $1
     WHERE
         sms_token_id = 1 RETURNING * ;
 `
