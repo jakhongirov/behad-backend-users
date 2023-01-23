@@ -44,7 +44,7 @@ const UPDATE_CODE_ACTIVE = `
 
 const UPDATE_SMS_TOKEN = `
     UPDATE
-        sms_users
+        sms_token
     SET
         sms_token = $2
     WHERE

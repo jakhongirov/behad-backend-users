@@ -33,7 +33,7 @@ module.exports = {
                         body: formData
                     })
                         .then(res => res.json())
-                        .then(async (data) => model.UpdateToken(data.data.token))
+                        .then(async (data) => await model.UpdateToken(data.data.token))
                         .catch((e) => console.log(e))
                 });
 
