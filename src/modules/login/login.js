@@ -69,7 +69,9 @@ module.exports = {
 
             fetch(`https://ipinfo.io/${ip}?token=0166032ebc35f8`)
                 .then(res => res.json())
-                .then(data => location = data)
+                .then(data => {
+                    console.log(data);
+                })
                 .catch(e => console.log(e))
 
             console.log(location);
