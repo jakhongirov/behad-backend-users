@@ -67,7 +67,7 @@ module.exports = {
 
             const ip = await parseIp(req)
 
-            fetch("https://ipinfo.io/${ip}?token=0166032ebc35f8")
+            fetch(`https://ipinfo.io/${ip}?token=0166032ebc35f8`)
                 .then(res => res.json())
                 .then(data => location = data)
                 .catch(e => console.log(e))
