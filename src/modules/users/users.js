@@ -12,8 +12,8 @@ module.exports = {
                 if (token && key && notification && city && region) {
                     const foundbyTokenUser = await model.getfoundbyTokenUser(token);
                     if (region != 0) {
-                        await model.putUserCity(foundbyTokenUser.user_id, city);
-                        await model.putUserRegion(foundbyTokenUser.user_id, region);
+                        await model.putUserCity(foundbyTokenUser?.user_id, city);
+                        await model.putUserRegion(foundbyTokenUser?.user_id, region);
                     }
                     console.log(foundbyTokenUser);
 
