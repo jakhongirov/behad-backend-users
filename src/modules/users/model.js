@@ -173,7 +173,7 @@ const ADD_TRACKING_USER = `
     ) RETURNING *;
 `
 
-const UPDATE_USER_COUNTRY = `
+const UPDATE_USER_CITY = `
     UPDATE
         users
     SET
@@ -206,7 +206,7 @@ const updateComment = (id, comment) => fetch(ADD_COMMENT, id, comment)
 const getAppUser = (id, key) => fetch(BY_KEY_USER_ID, id, key)
 const addAppUser = (notification, id, key) => fetch(ADD_APP_USER, notification, id, key)
 const addTrackingUser = (id, key) => fetch(ADD_TRACKING_USER, id, key)
-const putUserCity = (id, region) => fetch(UPDATE_USER_COUNTRY, id, region)
+const putUserCity = (id, city) => fetch(UPDATE_USER_CITY, id, city)
 const putUserRegion = (id, region) => fetch(UPDATE_USER_REGION, id, region)
 
 module.exports = {
