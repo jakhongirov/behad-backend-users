@@ -16,6 +16,7 @@ module.exports = {
                         await model.putUserRegion(foundbyTokenUser?.user_id, region);
                     }
                     console.log(foundbyTokenUser);
+                    console.log(token);
 
                     if (foundbyTokenUser) {
                         const appUser = await model.getAppUser(foundbyTokenUser.user_id, key)
