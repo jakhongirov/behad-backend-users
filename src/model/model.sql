@@ -14,6 +14,7 @@ CREATE TABLE users (
     user_password text not null,
     user_country text not null,
     user_capital text not null,
+    user_region text,
     user_balance int DEFAULT 0,
     user_device_id text [] not null,
     user_survays int [],

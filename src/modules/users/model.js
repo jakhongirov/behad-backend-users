@@ -182,6 +182,15 @@ const UPDATE_USER_COUNTRY = `
         user_id = $1 RETURNING * ;
 `
 
+const UPDATE_USER_REGION = `
+    UPDATE
+        users
+    SET
+        user_region = $2
+    WHERE
+        user_id = $1 RETURNING * ;
+`
+
 const getallUsers = () => fetchALL(All_USERS);
 const getfoundbyIdUser = (id) => fetch(BY_ID, id);
 const getfoundbyTokenUser = (token) => fetch(BY_TOKEN, token)
@@ -198,6 +207,7 @@ const getAppUser = (id, key) => fetch(BY_KEY_USER_ID, id, key)
 const addAppUser = (notification, id, key) => fetch(ADD_APP_USER, notification, id, key)
 const addTrackingUser = (id, key) => fetch(ADD_TRACKING_USER, id, key)
 const putUserCity = (id, region) => fetch(UPDATE_USER_COUNTRY, id, region)
+const putUserRegion = (id, region) => fetch(UPDATE_USER_REGION, id, region)
 
 module.exports = {
     getallUsers,
@@ -215,5 +225,6 @@ module.exports = {
     addAppUser,
     putUserWithoutPass,
     addTrackingUser,
-    putUserCity
+    putUserCity,
+    putUserRegion
 };
