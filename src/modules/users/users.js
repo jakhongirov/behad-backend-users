@@ -14,8 +14,10 @@ module.exports = {
                     console.log(token, key, notification, city, region);
                     console.log(foundbyTokenUser);
                     if (region != "not") {
-                        await model.putUserCity(foundbyTokenUser?.user_id, city);
                         await model.putUserRegion(foundbyTokenUser?.user_id, region);
+                    }
+                    if (city != "not") {
+                        await model.putUserCity(foundbyTokenUser?.user_id, city);
                     }
 
                     if (foundbyTokenUser) {
