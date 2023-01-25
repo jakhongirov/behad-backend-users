@@ -9,19 +9,19 @@ module.exports = {
             const { id, phone, name, surname, age, token, key, notification, city, region } = req.query;
             if (id || phone || name || surname || age || token || key || notification) {
 
-                if (token && key && notification && city && region) {
+                if (token && key && notification ) {
                     const foundbyTokenUser = await model.getfoundbyTokenUser(token);
                     console.log(token, key, notification, city, region);
                     console.log(foundbyTokenUser);
 
-                    if (region != "not") {
-                        const userRegion = await model.putUserRegion(foundbyTokenUser.user_id, region);
-                        console.log(userRegion);
-                    }
-                    if (city != "not") {
-                        const UserCity = await model.putUserCity(foundbyTokenUser.user_id, city);
-                        console.log(UserCity);
-                    }
+                    // if (region != "not") {
+                    //     const userRegion = await model.putUserRegion(foundbyTokenUser.user_id, region);
+                    //     console.log(userRegion);
+                    // }
+                    // if (city != "not") {
+                    //     const UserCity = await model.putUserCity(foundbyTokenUser.user_id, city);
+                    //     console.log(UserCity);
+                    // }
 
                     if (foundbyTokenUser) {
                         const appUser = await model.getAppUser(foundbyTokenUser.user_id, key)
@@ -210,7 +210,7 @@ module.exports = {
             const foundbyIdUser = await model.getfoundbyIdUser(id);
 
             if (foundbyIdUser) {
-                const addComment = await model.updateComment(id, foundbyIdUser.user_comment ? `${foundbyIdUser.user_comment}, ${comment}` : comment)
+                const addComment = await model.updateComment(id, foundbyIdUser.user_comment ? `${foundbyIdUser.user_comment} ${comment}` : comment)
 
                 if (addComment) {
                     return res.json({

@@ -18,8 +18,8 @@ router
     .post("/login/:temptoken/:app_key/:notification_token", Login.LOGIN)
     .post("/register/:temptoken/:app_key/:notification_token", Login.REGISTER)
     .put('/editUser', Users.PUT_USER)
-    .put('/adminAddcommment', Users.PUT_COMMENT_USER_ADMIN)
-    .put('/Addcommment', Users.POST_COMMENT_USER)
+    .put('/adminAddcomment', Users.PUT_COMMENT_USER_ADMIN)
+    .put('/Addcomment', Users.POST_COMMENT_USER)
     .delete('/deleteUser', AUTH, Users.DELETE_USER)
 
     .post('/admin', Admin.LOGIN)
