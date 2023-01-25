@@ -69,6 +69,14 @@ module.exports = {
                 } else if (token) {
                     const foundbyTokenUser = await model.getfoundbyTokenUser(token)
 
+                     fetch("https://ipgeolocation.abstractapi.com/v1/?api_key=6b36fe128061468990f8f8d79177fd9f").then(
+                            (res) => res.json()
+                        ).then(
+                             (data) => {
+                                console.log(data);
+                            }
+                        )
+
                     if (foundbyTokenUser) {
                         return res.json({
                             status: 200,
