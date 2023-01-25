@@ -192,7 +192,7 @@ const UPDATE_USER_REGION = `
 `
 
 const getallUsers = () => fetchALL(All_USERS);
-const getfoundbyIdUser = (id) => fetch(BY_ID, id);
+const getfoundbyIdUser = (id) => fetchALL(BY_ID, id);
 const getfoundbyTokenUser = (token) => fetch(BY_TOKEN, token)
 const getfoundbyPhoneUser = (phone) => fetchALL(BY_PHONE, phone);
 const getfoundbyNameUser = (name) => fetchALL(BY_NAME, name);
