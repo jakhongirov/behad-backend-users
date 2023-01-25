@@ -37,7 +37,7 @@ const BY_PHONE = `
     FROM
         users
     WHERE
-        user_phone LIKE $1
+        user_phone ILIKE $1
     ORDER BY
         user_id DESC;
 `;
@@ -48,7 +48,7 @@ const BY_NAME = `
     FROM
         users
     WHERE
-        user_name LIKE $1
+        user_name ILIKE $1
     ORDER BY
         user_id DESC;
 `;
@@ -59,7 +59,7 @@ const BY_SURNAME = `
     FROM
         users
     WHERE
-        user_surname LIKE $1
+        user_surname ILIKE $1
     ORDER BY
         user_id DESC;
 `;

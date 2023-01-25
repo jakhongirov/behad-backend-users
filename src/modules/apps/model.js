@@ -26,7 +26,7 @@ const BY_NAME = `
     FROM
         apps
     WHERE
-        app_name LIKE $1
+        app_name ILIKE $1
     ORDER BY
         app_id DESC;
 `;
@@ -37,7 +37,7 @@ const BY_KEY = `
     FROM
         apps
     WHERE
-        app_key LIKE $1
+        app_key ILIKE $1
     ORDER BY
         app_id DESC;
 `;
