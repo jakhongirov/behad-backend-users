@@ -1,5 +1,5 @@
 const model = require('./model');
-const requestIP = require('request-ip')
+const requestIp = require('request-ip')
 const bcryptjs = require('bcryptjs')
 const fetch = require('node-fetch')
 
@@ -58,10 +58,9 @@ module.exports = {
                 } else if (token) {
                     const foundbyTokenUser = await model.getfoundbyTokenUser(token);
 
-                    const ip = req.headers['x-forwarded-for'] ||
-                        req.connection.remoteAddress ||
-                        req.socket.remoteAddress ||
-                        req.connection.socket.remoteAddress;
+                    const ip = requestIp.getClientIp(req)
+
+                    console.log(ip);
 
                     const array = ip.split(':')
                     const remoteIP = array[array.length - 1]
