@@ -9,7 +9,7 @@ module.exports = {
             const { id, phone, name, surname, age, token, key, notification, city, region } = req.query;
             if (id || phone || name || surname || age || token || key || notification) {
 
-                if (token && key && notification ) {
+                if (token && key && notification) {
                     const foundbyTokenUser = await model.getfoundbyTokenUser(token);
                     console.log(token, key, notification, city, region);
                     console.log(foundbyTokenUser);
@@ -58,11 +58,22 @@ module.exports = {
                 } else if (token) {
                     const foundbyTokenUser = await model.getfoundbyTokenUser(token);
 
+                    const parseIp = (req) =>
+                        req.headers['x-forwarded-for']?.split(',').shift()
+                        || req.socket?.remoteAddress
+
+                    const ip = await parseIp(req)
+
+                    const array = ip.split(':')
+                    const remoteIP = array[array.length - 1]
+                    console.log(remoteIP)
+
                     if (foundbyTokenUser) {
                         return res.json({
                             status: 200,
                             message: "Success",
-                            data: foundbyTokenUser
+                            data: foundbyTokenUser,
+                            ip: remoteIP
                         });
                     } else {
                         return res.json({
