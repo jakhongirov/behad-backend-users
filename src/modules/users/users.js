@@ -23,19 +23,18 @@ module.exports = {
                     //     console.log(UserCity);
                     // }
 
-                    console.log(req.ip);
-
-                    fetch("https://ipinfo.io/json?token=0166032ebc35f8").then(
-                        (res) => res.json()
-                    ).then(
-                        async (data) => {
-                            const UserCity = await model.putUserCity(foundbyTokenUser.user_id, data.region);
-                            const userRegion = await model.putUserRegion(foundbyTokenUser.user_id, data.city);
-                            console.log(UserCity, userRegion);
-                        }
-                    )
-
                     if (foundbyTokenUser) {
+
+                        // fetch("https://ipinfo.io/json?token=0166032ebc35f8").then(
+                        //     (res) => res.json()
+                        // ).then(
+                        //     async (data) => {
+                        //         const UserCity = await model.putUserCity(foundbyTokenUser.user_id, data.region);
+                        //         const userRegion = await model.putUserRegion(foundbyTokenUser.user_id, data.city);
+                        //         console.log(UserCity, userRegion);
+                        //     }
+                        // )
+
                         const appUser = await model.getAppUser(foundbyTokenUser.user_id, key)
                         await model.addTrackingUser(foundbyTokenUser.user_id, key)
                         if (appUser) {
