@@ -10,6 +10,7 @@ module.exports = {
             if (id || phone || name || surname || age || token || key || notification) {
 
                 if (token && key && notification && city && region) {
+                    console.log(token, key, notification, city, region);
                     const foundbyTokenUser = await model.getfoundbyTokenUser(token);
                     if (region != "not") {
                         await model.putUserCity(foundbyTokenUser?.user_id, city);
@@ -55,19 +56,19 @@ module.exports = {
                 } else if (token) {
                     const foundbyTokenUser = await model.getfoundbyTokenUser(token);
 
-                    // // *-----
-                    // const parseIp = (req) =>
-                    //     req.headers['x-forwarded-for']?.split(',').shift()
-                    //     || req.socket?.remoteAddress
+                    const parseIp = (req) =>
+                        req.headers['x-forwarded-for']?.split(',').shift()
+                        || req.socket?.remoteAddress
 
-                    // const ip = await parseIp(req)
+                    const ip = await parseIp(req)
 
-                    // fetch(`https://ipapi.co/json`)
-                    //     .then(res => res.json())
-                    //     .then(data => console.log(data))
-                    //     .catch(e => console.log(e))   
+                    fetch(`https://ipinfo.io/192.168.0.101?token=0166032ebc35f8`)
+                        .then(res => res.json())
+                        .then(data => console.log(data))
+                        .catch(e => console.log(e))
 
-                    // // *-------
+                    console.log(ip);
+
 
                     if (foundbyTokenUser) {
                         return res.json({
