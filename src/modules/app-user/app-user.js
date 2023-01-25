@@ -84,5 +84,33 @@ module.exports = {
                 message: "Internal Server Error"
             })
         }
+    },
+
+    UPDATE_USER_INTERESTED: async (req, res) => {
+        try {
+            const { key, userId } = req.query
+
+            if (key, userId) {
+                const updateUserInterested = await model.updateUserInterested(key, userId)
+
+                if (updateUserInterested) {
+                    res.json({
+                        status: 200,
+                        message: "Success"
+                    })
+                } else {
+                    return res.json({
+                        status: 400,
+                        message: "Bad request"
+                    })
+                }
+            }
+        } catch (error) {
+            console.log(error);
+            res.json({
+                status: 500,
+                message: "Internal Server Error"
+            })
+        }
     }
 }

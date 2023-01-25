@@ -38,7 +38,7 @@ CREATE TABLE apps_user (
     app_user_id bigserial PRIMARY KEY,
     app_user_install_date timestamptz DEFAULT CURRENT_TIMESTAMP,
     app_user_isPayed BOOLEAN DEFAULT false,
-    app_user_isterested_to_buy int DEFAULT 0,
+    app_user_interested_to_buy int DEFAULT 0,
     app_user_notification_token text,
     user_id int not null REFERENCES users(user_id) ON DELETE CASCADE,
     app_key text not null REFERENCES apps(app_key) ON DELETE CASCADE,

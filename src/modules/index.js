@@ -33,6 +33,7 @@ router
 
     .get('/appUsers', AppUser.GET_APP_USERS)
     .put('/editProVersion', AppUser.PUT_PRO_VERSION)
+    .get('/updateInterested', AppUser.UPDATE_USER_INTERESTED)
 
     .post('/clickPrepare', Click.POST)
     .post('/clickComplete', Click.POST_2)

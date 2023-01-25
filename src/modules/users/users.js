@@ -48,8 +48,6 @@ module.exports = {
                             message: "Not found",
                         })
                     }
-
-
                 } else if (id) {
                     const foundbyIdUser = await model.getfoundbyIdUser(id);
                     return res.json({

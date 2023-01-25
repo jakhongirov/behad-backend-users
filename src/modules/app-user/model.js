@@ -86,12 +86,23 @@ const UPDATE_APP_USER_PRO = `
     RETURNING * ;
 `;
 
+const UPDATE_USER_INTERESTED = `
+    UPDATE
+        apps_user
+    SET
+        app_user_interested_to_buy = app_user_interested_to_buy + 1
+    WHERE
+        user_id = $1 and app_key = $2
+    RETURNING * ;
+`;
+
 const getAllAppUser = () => fetchALL(ALL_APP_USER)
 const getByName = (name) => fetchALL(APP_USER_BY_NAME, name)
 const getById = (id) => fetchALL(BY_ID, id)
 const getByKey = (key) => fetchALL(BY_KEY, key)
 const getAppUserByUserIdKEy = (userId, key) => fetch(USER_ID_BY_KEY, userId, key)
 const changeProVersion = (id, pro_v) => fetch(UPDATE_APP_USER_PRO, id, pro_v)
+const updateUserInterested = (key, userId) => fetch(UPDATE_USER_INTERESTED, key, userId)
 
 module.exports = {
     getAllAppUser,
@@ -99,6 +110,7 @@ module.exports = {
     getById,
     getByKey,
     getAppUserByUserIdKEy,
-    changeProVersion
+    changeProVersion,
+    updateUserInterested
 }
 
