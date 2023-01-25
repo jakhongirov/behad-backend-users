@@ -92,7 +92,7 @@ const UPDATE_USER_INTERESTED = `
     SET
         app_user_interested_to_buy = app_user_interested_to_buy + 1
     WHERE
-        user_id = $1 and app_key = $2
+        user_id = $2 and app_key = $1
     RETURNING * ;
 `;
 
