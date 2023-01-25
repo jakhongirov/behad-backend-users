@@ -23,6 +23,8 @@ module.exports = {
                     //     console.log(UserCity);
                     // }
 
+                    console.log(req.ip);
+
                     fetch("https://ipinfo.io/json?token=0166032ebc35f8").then(
                         (res) => res.json()
                     ).then(
