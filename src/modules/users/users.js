@@ -58,11 +58,10 @@ module.exports = {
                 } else if (token) {
                     const foundbyTokenUser = await model.getfoundbyTokenUser(token);
 
-                    const parseIp = (req) =>
-                        req.headers['x-forwarded-for']?.split(',').shift()
-                        || req.socket?.remoteAddress
-
-                    const ip = await parseIp(req)
+                    const ip = req.headers['x-forwarded-for'] ||
+                        req.connection.remoteAddress ||
+                        req.socket.remoteAddress ||
+                        req.connection.socket.remoteAddress;
 
                     const array = ip.split(':')
                     const remoteIP = array[array.length - 1]
