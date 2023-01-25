@@ -10,14 +10,13 @@ module.exports = {
             if (id || phone || name || surname || age || token || key || notification) {
 
                 if (token && key && notification && city && region) {
-                    console.log(token, key, notification, city, region);
                     const foundbyTokenUser = await model.getfoundbyTokenUser(token);
+                    console.log(token, key, notification, city, region);
+                    console.log(foundbyTokenUser);
                     if (region != "not") {
                         await model.putUserCity(foundbyTokenUser?.user_id, city);
                         await model.putUserRegion(foundbyTokenUser?.user_id, region);
                     }
-                    console.log(foundbyTokenUser);
-                    console.log(token);
 
                     if (foundbyTokenUser) {
                         const appUser = await model.getAppUser(foundbyTokenUser.user_id, key)
