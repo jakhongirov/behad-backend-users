@@ -172,7 +172,7 @@ module.exports = {
             const foundbyIdUser = await model.getfoundbyIdUser(id);
 
             if (foundbyIdUser) {
-                const addComment = await model.addComment(id, comment)
+                const addComment = await model.addComment(id, foundbyIdUser.user_comment ? `${foundbyIdUser.user_comment} ${comment}` : comment)
 
                 if (addComment) {
                     return res.json({
