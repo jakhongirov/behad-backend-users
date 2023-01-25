@@ -60,20 +60,6 @@ module.exports = {
                 } else if (token) {
                     const foundbyTokenUser = await model.getfoundbyTokenUser(token);
 
-                    const parseIp = (req) =>
-                        req.headers['x-forwarded-for']?.split(',').shift()
-                        || req.socket?.remoteAddress
-
-                    const ip = await parseIp(req)
-
-                    fetch(`https://ipinfo.io/192.168.0.101?token=0166032ebc35f8`)
-                        .then(res => res.json())
-                        .then(data => console.log(data))
-                        .catch(e => console.log(e))
-
-                    console.log(ip);
-
-
                     if (foundbyTokenUser) {
                         return res.json({
                             status: 200,
