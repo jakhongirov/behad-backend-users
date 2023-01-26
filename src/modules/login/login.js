@@ -9,14 +9,13 @@ module.exports = {
             const { phone, password } = req.body
             const foundUser = await model.getUser(phone)
 
-
             if (foundUser) {
                 const validPass = await bcryptjs.compare(password, foundUser.user_password)
 
                 if (validPass) {
                     const token = await new JWT({ id: foundUser.user_id, name: foundUser.user_name }).sign()
-                    const deleteUserDeviceId = await model.deleteUserDeviceId(temptoken)
-                    const AddtokenUser = await model.addTokenUser(foundUser.user_id, temptoken)
+                    await model.deleteUserDeviceId(temptoken)
+                    await model.addTokenUser(foundUser.user_id, temptoken)
                     const app_user = await model.getAppUser(foundUser.user_id, app_key)
 
 

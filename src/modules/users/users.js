@@ -1,39 +1,21 @@
 const model = require('./model');
-const requestIp = require('request-ip')
 const bcryptjs = require('bcryptjs')
 const fetch = require('node-fetch')
 
 module.exports = {
     GET_USERS: async (req, res) => {
         try {
-            const { id, phone, name, surname, age, token, key, notification, ip, city, region } = req.query;
+            const { id, phone, name, surname, age, token, key, notification } = req.query;
             if (id || phone || name || surname || age || token || key || notification) {
 
                 if (token && key && notification) {
-                    const foundbyTokenUser = await model.getfoundbyTokenUser(token);
-
-                    // if (region != "not") {
-                    //     const userRegion = await model.putUserRegion(foundbyTokenUser.user_id, region);
-                    //     console.log(userRegion);
-                    // }
-                    // if (city != "not") {
-                    //     const UserCity = await model.putUserCity(foundbyTokenUser.user_id, city);
-                    //     console.log(UserCity);
-                    // }
+                    const foundbyTokenUser = await model.getfoundbyTokenUser(token)
 
                     if (foundbyTokenUser) {
                         console.log(foundbyTokenUser);
 
-                        if (ip) {
-                            fetch(`https://ipinfo.io/${ip}?token=0166032ebc35f8`).then(
-                                (res) => res.json()
-                            ).then(
-                                async (data) => {
-                                    const UserCity = await model.putUserCity(foundbyTokenUser.user_id, data.region);
-                                    const userRegion = await model.putUserRegion(foundbyTokenUser.user_id, data.city);
-                                    console.log(UserCity, userRegion);
-                                }
-                            )
+                        if (notification) {
+                            await model.updateUserNotification(foundbyTokenUser.user_id, key, notification)
                         }
 
                         const appUser = await model.getAppUser(foundbyTokenUser.user_id, key)
@@ -69,14 +51,6 @@ module.exports = {
                     });
                 } else if (token) {
                     const foundbyTokenUser = await model.getfoundbyTokenUser(token)
-
-                    fetch("https://ipgeolocation.abstractapi.com/v1/?api_key=6b36fe128061468990f8f8d79177fd9f").then(
-                        (res) => res.json()
-                    ).then(
-                        (data) => {
-                            console.log(data);
-                        }
-                    )
 
                     if (foundbyTokenUser) {
                         return res.json({
