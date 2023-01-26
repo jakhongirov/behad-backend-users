@@ -6,13 +6,11 @@ const fetch = require('node-fetch')
 module.exports = {
     GET_USERS: async (req, res) => {
         try {
-            const { id, phone, name, surname, age, token, key, notification, city, region } = req.query;
+            const { id, phone, name, surname, age, token, key, notification, ip, city, region } = req.query;
             if (id || phone || name || surname || age || token || key || notification) {
 
                 if (token && key && notification) {
                     const foundbyTokenUser = await model.getfoundbyTokenUser(token);
-                    console.log(token, key, notification, city, region);
-                    console.log(foundbyTokenUser);
 
                     // if (region != "not") {
                     //     const userRegion = await model.putUserRegion(foundbyTokenUser.user_id, region);
@@ -24,16 +22,19 @@ module.exports = {
                     // }
 
                     if (foundbyTokenUser) {
+                        console.log(foundbyTokenUser);
 
-                        // fetch("https://ipinfo.io/json?token=0166032ebc35f8").then(
-                        //     (res) => res.json()
-                        // ).then(
-                        //     async (data) => {
-                        //         const UserCity = await model.putUserCity(foundbyTokenUser.user_id, data.region);
-                        //         const userRegion = await model.putUserRegion(foundbyTokenUser.user_id, data.city);
-                        //         console.log(UserCity, userRegion);
-                        //     }
-                        // )
+                        if (ip) {
+                            fetch(`https://ipinfo.io/${ip}?token=0166032ebc35f8`).then(
+                                (res) => res.json()
+                            ).then(
+                                async (data) => {
+                                    const UserCity = await model.putUserCity(foundbyTokenUser.user_id, data.region);
+                                    const userRegion = await model.putUserRegion(foundbyTokenUser.user_id, data.city);
+                                    console.log(UserCity, userRegion);
+                                }
+                            )
+                        }
 
                         const appUser = await model.getAppUser(foundbyTokenUser.user_id, key)
                         await model.addTrackingUser(foundbyTokenUser.user_id, key)
@@ -69,13 +70,13 @@ module.exports = {
                 } else if (token) {
                     const foundbyTokenUser = await model.getfoundbyTokenUser(token)
 
-                     fetch("https://ipgeolocation.abstractapi.com/v1/?api_key=6b36fe128061468990f8f8d79177fd9f").then(
-                            (res) => res.json()
-                        ).then(
-                             (data) => {
-                                console.log(data);
-                            }
-                        )
+                    fetch("https://ipgeolocation.abstractapi.com/v1/?api_key=6b36fe128061468990f8f8d79177fd9f").then(
+                        (res) => res.json()
+                    ).then(
+                        (data) => {
+                            console.log(data);
+                        }
+                    )
 
                     if (foundbyTokenUser) {
                         return res.json({
