@@ -10,6 +10,7 @@ module.exports = {
 
                 if (token && key && notification) {
                     const foundbyTokenUser = await model.getfoundbyTokenUser(token)
+                    console.log(token);
 
                     if (foundbyTokenUser) {
                         console.log(foundbyTokenUser);
