@@ -7,7 +7,6 @@ module.exports = {
 
             if (name || id || app_key || key || position) {
 
-                console.log(position);
                 if (position === 'next' && id) {
                     const appLimitById = await model.appLimitByIdNext(id)
 

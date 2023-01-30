@@ -12,7 +12,8 @@ const ALL_APP_USER = `
             apps c
     on a.app_key = c.app_key
     ORDER BY
-        a.app_user_id DESC;
+        a.app_user_id DESC
+    LIMIT 100;
 `
 
 const APP_USER_BY_NAME = `
