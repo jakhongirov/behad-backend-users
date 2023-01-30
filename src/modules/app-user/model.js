@@ -2,7 +2,7 @@ const { fetch, fetchALL } = require("../../lib/postgres");
 
 const ALL_APP_USER = `
     select 
-        *, to_char(app_user_install_date at time zone 'Asia/Tashkent', 'HH24:MM/MM.DD.YYYY')
+        *, to_char(app_user_install_date at time zone 'Asia/Tashkent', 'HH24:MI/DD.MM.YYYY')
      from
             apps_user a
      inner join
@@ -17,7 +17,7 @@ const ALL_APP_USER = `
 
 const APP_USER_BY_NAME = `
     select
-        *, to_char(app_user_install_date at time zone 'Asia/Tashkent', 'HH24:MM/MM.DD.YYYY')
+        *, to_char(app_user_install_date at time zone 'Asia/Tashkent', 'HH24:MI/DD.MM.YYYY')
     from
         apps_user a
     inner join
@@ -34,7 +34,7 @@ const APP_USER_BY_NAME = `
 
 const BY_ID = `
     select
-        *, to_char(app_user_install_date at time zone 'Asia/Tashkent', 'HH24:MM/MM.DD.YYYY')
+        *, to_char(app_user_install_date at time zone 'Asia/Tashkent', 'HH24:MI/DD.MM.YYYY')
     from
         apps_user a
     inner join
@@ -51,7 +51,7 @@ const BY_ID = `
 
 const BY_KEY = `
     select
-        *, to_char(app_user_install_date at time zone 'Asia/Tashkent', 'HH24:MM/MM.DD.YYYY')
+        *, to_char(app_user_install_date at time zone 'Asia/Tashkent', 'HH24:MI/DD.MM.YYYY')
     from
         apps_user a
     inner join
@@ -68,7 +68,7 @@ const BY_KEY = `
 
 const USER_ID_BY_KEY = `
     select
-        *, to_char(app_user_install_date at time zone 'Asia/Tashkent', 'HH24:MM/MM.DD.YYYY')
+        *, to_char(app_user_install_date at time zone 'Asia/Tashkent', 'HH24:MI/DD.MM.YYYY')
     from
         apps_user   
     where
@@ -96,6 +96,46 @@ const UPDATE_USER_INTERESTED = `
     RETURNING * ;
 `;
 
+const APP_USER_LIMIT_NEXT_BY_ID =`
+    select
+        *, to_char(app_user_install_date at time zone 'Asia/Tashkent', 'HH24:MI/DD.MM.YYYY')
+    from
+        apps_user a
+    inner join
+        users b
+    on 
+        a.user_id = b.user_id
+    inner join
+        apps c
+    on
+        a.app_key = c.app_key
+    where 
+        a.app_user_id < $1
+    ORDER BY
+        a.app_user_id DESC
+    LIMIT 100;
+`
+
+const APP_USER_LIMIT_PREV_BY_ID =`
+    select
+        *, to_char(app_user_install_date at time zone 'Asia/Tashkent', 'HH24:MI/DD.MM.YYYY')
+    from
+        apps_user a
+    inner join
+        users b
+    on 
+        a.user_id = b.user_id
+    inner join
+        apps c
+    on
+        a.app_key = c.app_key
+    where 
+        a.app_user_id > $1
+    ORDER BY
+        a.app_user_id DESC
+    LIMIT 100;
+`
+
 const getAllAppUser = () => fetchALL(ALL_APP_USER)
 const getByName = (name) => fetchALL(APP_USER_BY_NAME, name)
 const getById = (id) => fetchALL(BY_ID, id)
@@ -103,6 +143,8 @@ const getByKey = (key) => fetchALL(BY_KEY, key)
 const getAppUserByUserIdKEy = (userId, key) => fetch(USER_ID_BY_KEY, userId, key)
 const changeProVersion = (id, pro_v) => fetch(UPDATE_APP_USER_PRO, id, pro_v)
 const updateUserInterested = (key, userId) => fetch(UPDATE_USER_INTERESTED, key, userId)
+const getAppUserByLimitNext = (id) => fetchALL(APP_USER_LIMIT_NEXT_BY_ID, id)
+const getAppUserByLimitPrev = (id) => fetchALL(APP_USER_LIMIT_PREV_BY_ID, id)
 
 module.exports = {
     getAllAppUser,
@@ -111,6 +153,8 @@ module.exports = {
     getByKey,
     getAppUserByUserIdKEy,
     changeProVersion,
-    updateUserInterested
+    updateUserInterested,
+    getAppUserByLimitNext,
+    getAppUserByLimitPrev
 }
 

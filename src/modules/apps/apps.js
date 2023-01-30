@@ -3,34 +3,53 @@ const model = require('./model');
 module.exports = {
     GET_APP: async (req, res) => {
         try {
-            const { name, id, app_key, key } = req.query
+            const { name, id, app_key, key, position } = req.query
 
-            if (name || id || app_key, key) {
+            if (name || id || app_key || key || position) {
 
-                if (id) {
+                console.log(position);
+                if (position === 'next' && id) {
+                    const appLimitById = await model.appLimitByIdNext(id)
+
+                    return res.json({
+                        status: 200,
+                        message: "Succcess",
+                        data: appLimitById
+                    })
+
+                } else if (position === 'prev' && id) {
+                    const appLimitById = await model.appLimitByIdPrev(id)
+
+                    return res.json({
+                        status: 200,
+                        message: "Succcess",
+                        data: appLimitById
+                    })
+
+                } else if (id) {
                     const AppbyId = await model.getAppbyId(Number(id))
-                    res.json({
+                    return res.json({
                         status: 200,
                         message: "Succcess",
                         data: AppbyId
                     })
                 } else if (name) {
                     const AppbyName = await model.getAppbyName(`%${name}%`)
-                    res.json({
+                    return res.json({
                         status: 200,
                         message: "Succcess",
                         data: AppbyName
                     })
                 } else if (app_key) {
                     const AppbyKey = await model.getAppbyKey(`%${app_key}%`)
-                    res.json({
+                    return res.json({
                         status: 200,
                         message: "Succcess",
                         data: AppbyKey
                     })
                 } else if (key) {
                     const getAppbyKeyApp = await model.getAppbyKeyApp(key)
-                    res.json({
+                    return res.json({
                         status: 200,
                         message: "Succcess",
                         data: getAppbyKeyApp
@@ -39,7 +58,7 @@ module.exports = {
 
             } else {
                 const allApps = await model.getAllApps()
-                res.json({
+                return res.json({
                     status: 200,
                     message: "Succcess",
                     data: allApps

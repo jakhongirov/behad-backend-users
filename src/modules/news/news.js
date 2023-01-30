@@ -5,9 +5,23 @@ const FS = require('../../lib/fs')
 module.exports = {
     GET_NEWS: async (req, res) => {
         try {
-            const { id, title } = req.query
+            const { id, title, position } = req.query
 
-            if (id) {
+            if (position === 'next' && id) {
+                const newsByIdLimitNext = await model.newsByIdLimitNext(id)
+                return res.json({
+                    status: 200,
+                    message: "Success",
+                    data: newsByIdLimitNext
+                })
+            } else if (position === 'prev' && id) {
+                const newsByIdLimitPrev = await model.newsByIdLimitPrev(id)
+                return res.json({
+                    status: 200,
+                    message: "Success",
+                    data: newsByIdLimitPrev
+                })
+            } else if (id) {
                 const newsById = await model.getnewsById(id)
 
                 if (newsById) {

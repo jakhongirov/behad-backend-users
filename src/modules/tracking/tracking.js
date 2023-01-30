@@ -1,16 +1,34 @@
 const model = require('./model');
 
 module.exports = {
-    GET: async (_, res) => {
+    GET: async (req, res) => {
         try {
-            const trackingUsers = await model.getTrackingUsers()
+            const { id, position, userId } = req.query
 
-            if (trackingUsers) {
+            if (position == 'next' && id && userId) {
+                const userTrackingLimitNext = await model.userTrackingLimitNext(userId, id)
                 return res.json({
                     status: 200,
                     message: "Success",
-                    data: trackingUsers
+                    data: userTrackingLimitNext
                 });
+            } else if (position == 'prev' && id && userId) {
+                const userTrackingLimitPrev = await model.userTrackingLimitPrev(userId, id)
+                return res.json({
+                    status: 200,
+                    message: "Success",
+                    data: userTrackingLimitPrev
+                });
+            } else {
+                const trackingUsers = await model.getTrackingUsers(userId)
+
+                if (trackingUsers) {
+                    return res.json({
+                        status: 200,
+                        message: "Success",
+                        data: trackingUsers
+                    });
+                }
             }
 
         } catch (error) {

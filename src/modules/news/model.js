@@ -2,7 +2,7 @@ const { fetch, fetchALL } = require("../../lib/postgres");
 
 const NEWS = `
     SELECT
-        *, to_char(new_create_date at time zone 'Asia/Tashkent', 'HH24:MM/MM.DD.YYYY')
+        *, to_char(new_create_date at time zone 'Asia/Tashkent', 'HH24:MI/DD.MM.YYYY')
     FROM
         news
     ORDER BY
@@ -11,7 +11,7 @@ const NEWS = `
 
 const NEW_BY_ID = `
     SELECT
-        *, to_char(new_create_date at time zone 'Asia/Tashkent', 'HH24:MM/MM.DD.YYYY')
+        *, to_char(new_create_date at time zone 'Asia/Tashkent', 'HH24:MI/DD.MM.YYYY')
     FROM
         news
     WHERE
@@ -22,7 +22,7 @@ const NEW_BY_ID = `
 
 const NEWS_BY_TITLE = `
     SELECT
-        *, to_char(new_create_date at time zone 'Asia/Tashkent', 'HH24:MM/MM.DD.YYYY')
+        *, to_char(new_create_date at time zone 'Asia/Tashkent', 'HH24:MI/DD.MM.YYYY')
     FROM
         news
     WHERE
@@ -98,15 +98,41 @@ const UPDATE_VIEW_COUNT = `
         new_id = $1 RETURNING * ;
 `;
 
+const NEW_BY_ID_LIMIT_NEXT = `
+    SELECT
+        *, to_char(new_create_date at time zone 'Asia/Tashkent', 'HH24:MI/DD.MM.YYYY')
+    FROM
+        news
+    WHERE
+        new_id < $1
+    ORDER BY
+        new_id DESC
+    LIMIT 100;
+`;
+
+const NEW_BY_ID_LIMIT_PREV = `
+    SELECT
+        *, to_char(new_create_date at time zone 'Asia/Tashkent', 'HH24:MI/DD.MM.YYYY')
+    FROM
+        news
+    WHERE
+        new_id > $1
+    ORDER BY
+        new_id DESC
+    LIMIT 100;
+`;
+
 const getnewsById = (id) => fetch(NEW_BY_ID, id)
 const getnewsByTitle = (title) => fetchALL(NEWS_BY_TITLE, title)
 const getAllNews = () => fetchALL(NEWS)
-const addNews = (name, desc, image_url, image_name, app_key) => fetch(ADD_NEW, name, desc, image_url, image_name,app_key)
+const addNews = (name, desc, image_url, image_name, app_key) => fetch(ADD_NEW, name, desc, image_url, image_name, app_key)
 const updateNew = (id, name, desc, image_url, image_name, app_key) => fetch(UPADATE_NEW, id, name, desc, image_url, image_name, app_key)
 const deleteNew = (id) => fetch(DELETE_NEW, id)
 const updateLike = (id, count) => fetch(UPDATE_LIKE_COUNT, id, count)
 const updateDisike = (id, count) => fetch(UPDATE_DISLIKE_COUNT, id, count)
 const updateView = (id, count) => fetch(UPDATE_VIEW_COUNT, id, count)
+const newsByIdLimitNext = (id) => fetchALL(NEW_BY_ID_LIMIT_NEXT, id)
+const getusersByLimitPrev = (id) => fetchALL(NEW_BY_ID_LIMIT_PREV, id)
 
 module.exports = {
     getnewsById,
@@ -117,5 +143,7 @@ module.exports = {
     deleteNew,
     updateLike,
     updateDisike,
-    updateView
+    updateView,
+    newsByIdLimitNext,
+    getusersByLimitPrev
 }

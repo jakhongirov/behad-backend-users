@@ -5,7 +5,7 @@ const fetch = require('node-fetch')
 module.exports = {
     GET_USERS: async (req, res) => {
         try {
-            const { id, phone, name, surname, age, token, key, notification } = req.query;
+            const { id, phone, name, surname, age, token, key, notification, position } = req.query;
             if (id || phone || name || surname || age || token || key || notification) {
 
                 if (token && key && notification) {
@@ -43,6 +43,20 @@ module.exports = {
                             message: "Not found",
                         })
                     }
+                } else if (position == 'next' && id) {
+                    const usersByLimitNext = await model.getusersByLimitNext(id)
+                    return res.json({
+                        status: 200,
+                        message: "Success",
+                        data: usersByLimitNext
+                    });
+                } else if (position == 'prev' && id) {
+                    const usersByLimitPrev = await model.getusersByLimitPrev(id)
+                    return res.json({
+                        status: 200,
+                        message: "Success",
+                        data: usersByLimitPrev
+                    });
                 } else if (id) {
                     const foundbyIdUser = await model.getfoundbyIdUser(id);
                     return res.json({

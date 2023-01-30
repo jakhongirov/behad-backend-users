@@ -2,7 +2,7 @@ const { fetch, fetchALL } = require("../../lib/postgres");
 
 const All_USERS = `
     SELECT
-        *, to_char(user_create_date at time zone 'Asia/Tashkent', 'HH24:MM/MM.DD.YYYY')
+        *, to_char(user_create_date at time zone 'Asia/Tashkent', 'HH24:MI/DD.MM.YYYY')
     FROM
         users
     ORDER BY
@@ -11,7 +11,7 @@ const All_USERS = `
 
 const BY_ID = `
     SELECT
-        *, to_char(user_create_date at time zone 'Asia/Tashkent', 'HH24:MM/MM.DD.YYYY')
+        *, to_char(user_create_date at time zone 'Asia/Tashkent', 'HH24:MI/DD.MM.YYYY')
     FROM
         users
     WHERE
@@ -22,7 +22,7 @@ const BY_ID = `
 
 const BY_TOKEN = `
     SELECT
-        *, to_char(user_create_date at time zone 'Asia/Tashkent', 'HH24:MM/MM.DD.YYYY')
+        *, to_char(user_create_date at time zone 'Asia/Tashkent', 'HH24:MI/DD.MM.YYYY')
     FROM
         users
     WHERE
@@ -33,7 +33,7 @@ const BY_TOKEN = `
 
 const BY_PHONE = `
     SELECT
-        *, to_char(user_create_date at time zone 'Asia/Tashkent', 'HH24:MM/MM.DD.YYYY')
+        *, to_char(user_create_date at time zone 'Asia/Tashkent', 'HH24:MI/DD.MM.YYYY')
     FROM
         users
     WHERE
@@ -44,7 +44,7 @@ const BY_PHONE = `
 
 const BY_NAME = `
     SELECT
-        *, to_char(user_create_date at time zone 'Asia/Tashkent', 'HH24:MM/MM.DD.YYYY')
+        *, to_char(user_create_date at time zone 'Asia/Tashkent', 'HH24:MI/DD.MM.YYYY')
     FROM
         users
     WHERE
@@ -55,7 +55,7 @@ const BY_NAME = `
 
 const BY_SURNAME = `
     SELECT
-        *, to_char(user_create_date at time zone 'Asia/Tashkent', 'HH24:MM/MM.DD.YYYY')
+        *, to_char(user_create_date at time zone 'Asia/Tashkent', 'HH24:MI/DD.MM.YYYY')
     FROM
         users
     WHERE
@@ -66,7 +66,7 @@ const BY_SURNAME = `
 
 const BY_AGE = `
     SELECT
-        *, to_char(user_create_date at time zone 'Asia/Tashkent', 'HH24:MM/MM.DD.YYYY')
+        *, to_char(user_create_date at time zone 'Asia/Tashkent', 'HH24:MI/DD.MM.YYYY')
     FROM
         users
     WHERE
@@ -130,7 +130,7 @@ const ADD_COMMENT = `
 
 const BY_KEY_USER_ID = `
     select
-        *, to_char(app_user_install_date, 'HH24:MM/MM.DD.YYYY')
+        *, to_char(app_user_install_date, 'HH24:MI/DD.MM.YYYY')
     from
         apps_user a
     inner join
@@ -200,6 +200,30 @@ const UPDATE_USER_NOTIFICATION = `
         user_id = $1 and app_key = $2 RETURNING * ;
 `
 
+const USER_LIMIT_NEXT_BY_ID = `
+    SELECT
+        *, to_char(user_create_date at time zone 'Asia/Tashkent', 'HH24:MI/DD.MM.YYYY')
+    FROM
+        users
+    WHERE
+        user_id < $1
+    ORDER BY
+        user_id DESC
+    LIMIT 100;
+`;
+
+const USER_LIMIT_PREV_BY_ID = `
+    SELECT
+        *, to_char(user_create_date at time zone 'Asia/Tashkent', 'HH24:MI/DD.MM.YYYY')
+    FROM
+        users
+    WHERE
+        user_id > $1
+    ORDER BY
+        user_id DESC
+    LIMIT 100;
+`;
+
 const getallUsers = () => fetchALL(All_USERS);
 const getfoundbyIdUser = (id) => fetchALL(BY_ID, id);
 const getfoundbyTokenUser = (token) => fetch(BY_TOKEN, token)
@@ -217,7 +241,9 @@ const addAppUser = (notification, id, key) => fetch(ADD_APP_USER, notification, 
 const addTrackingUser = (id, key) => fetch(ADD_TRACKING_USER, id, key)
 const putUserCity = (id, city) => fetch(UPDATE_USER_CITY, id, city)
 const putUserRegion = (id, region) => fetch(UPDATE_USER_REGION, id, region)
-const updateUserNotification = (id ,key, notification) => fetch(UPDATE_USER_NOTIFICATION, id, key, notification)
+const updateUserNotification = (id, key, notification) => fetch(UPDATE_USER_NOTIFICATION, id, key, notification)
+const getusersByLimitNext = (id) => fetchALL(USER_LIMIT_NEXT_BY_ID, id)
+const getusersByLimitPrev = (id) => fetchALL(USER_LIMIT_PREV_BY_ID, id)
 
 module.exports = {
     getallUsers,
@@ -237,5 +263,7 @@ module.exports = {
     addTrackingUser,
     putUserCity,
     putUserRegion,
-    updateUserNotification
+    updateUserNotification,
+    getusersByLimitNext,
+    getusersByLimitPrev
 };

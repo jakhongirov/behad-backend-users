@@ -3,11 +3,27 @@ const model = require('./model')
 module.exports = {
     GET_APP_USERS: async (req, res) => {
         try {
-            const { name, id, key, userId } = req.query
+            const { name, id, key, userId, position } = req.query
 
-            if (name || id || key || userId) {
+            if (name || id || key || userId || position) {
+                if (position === 'next' && id) {
+                    const appUserByLimitNext = await model.getAppUserByLimitNext(id)
 
-                if (userId && key) {
+                    return res.json({
+                        status: 200,
+                        message: "Success",
+                        data: appUserByLimitNext
+                    });
+
+                } else if (position === 'prev' && id) {
+                    const appUserByLimitPrev = await model.getAppUserByLimitPrev(id)
+
+                    return res.json({
+                        status: 200,
+                        message: "Success",
+                        data: appUserByLimitPrev
+                    });
+                } else if (userId && key) {
                     const appUserByUserIdKEy = await model.getAppUserByUserIdKEy(userId, key)
 
                     return res.json({
