@@ -24,7 +24,7 @@ router
 
     .post('/admin', Admin.LOGIN)
 
-    .get('/trackingUsers',  Tracking.GET)
+    .get('/trackingUsers', AUTH, Tracking.GET)
 
     .get('/apps', App.GET_APP)
     .post('/addApp', AUTH, App.ADD_APP)

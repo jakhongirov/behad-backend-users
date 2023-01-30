@@ -6,7 +6,8 @@ const All_USERS = `
     FROM
         users
     ORDER BY
-        user_id DESC;
+        user_id DESC
+    LIMIT 200;
 `;
 
 const BY_ID = `
