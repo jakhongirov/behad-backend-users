@@ -45,7 +45,7 @@ const BY_ID = `
         apps c
     on a.app_key = c.app_key
     where 
-        b.user_id = $1
+        a.user_id = $1
     ORDER BY
         a.app_user_id DESC;
 `;
