@@ -14,7 +14,7 @@ const ALL_TRACKING_USERS = `
     on 
         a.app_key = c.app_key
     WHERE
-        b.user_id = $1
+        a.user_id = $1 and a.app_key = $2
     ORDER BY
         a.tracking_user_id DESC
     LIMIT 50;
@@ -34,7 +34,7 @@ const TRACKING_USERS_LIMIT_NEXT = `
     on 
         a.app_key = c.app_key
     WHERE
-        a.user_id = $1 and tracking_user_id < $2
+        a.user_id = $1 and a.tracking_user_id < $2 and a.app_key = $3 
     ORDER BY
         a.tracking_user_id DESC
     LIMIT 50;
@@ -54,16 +54,16 @@ const TRACKING_USERS_LIMIT_PREV = `
     on 
         a.app_key = c.app_key
     WHERE
-        a.user_id = $1 and tracking_user_id > $2
+        a.user_id = $1 and tracking_user_id > $2 and a.app_key = $3
     ORDER BY
         a.tracking_user_id DESC
     LIMIT 50;
 `;
 
 
-const getTrackingUsers = (userId) => fetchALL(ALL_TRACKING_USERS, userId)
-const userTrackingLimitNext = (userId, id) => fetchALL(TRACKING_USERS_LIMIT_NEXT, userId, id)
-const userTrackingLimitPrev = (userId, id) => fetchALL(TRACKING_USERS_LIMIT_PREV, userId, id)
+const getTrackingUsers = (userId, key) => fetchALL(ALL_TRACKING_USERS, userId, key)
+const userTrackingLimitNext = (userId, id, key) => fetchALL(TRACKING_USERS_LIMIT_NEXT, userId, id, key)
+const userTrackingLimitPrev = (userId, id, key) => fetchALL(TRACKING_USERS_LIMIT_PREV, userId, id, key)
 
 module.exports = {
     getTrackingUsers,
