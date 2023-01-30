@@ -7,7 +7,7 @@ const All_USERS = `
         users
     ORDER BY
         user_id DESC
-    LIMIT 200;
+    LIMIT 50;
 `;
 
 const BY_ID = `
@@ -210,7 +210,7 @@ const USER_LIMIT_NEXT_BY_ID = `
         user_id < $1
     ORDER BY
         user_id DESC
-    LIMIT 200;
+    LIMIT 50;
 `;
 
 const USER_LIMIT_PREV_BY_ID = `
@@ -222,7 +222,7 @@ const USER_LIMIT_PREV_BY_ID = `
         user_id > $1
     ORDER BY
         user_id DESC
-    LIMIT 200;
+    LIMIT 50;
 `;
 
 const getallUsers = () => fetchALL(All_USERS);

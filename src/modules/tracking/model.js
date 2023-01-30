@@ -17,7 +17,7 @@ const ALL_TRACKING_USERS = `
         b.user_id = $1
     ORDER BY
         a.tracking_user_id DESC
-    LIMIT 30;
+    LIMIT 50;
 `;
 
 const TRACKING_USERS_LIMIT_NEXT = `
@@ -36,7 +36,8 @@ const TRACKING_USERS_LIMIT_NEXT = `
     WHERE
         a.user_id = $1 and tracking_user_id < $2
     ORDER BY
-        a.tracking_user_id DESC;
+        a.tracking_user_id DESC
+    LIMIT 50;
 `;
 
 const TRACKING_USERS_LIMIT_PREV = `
@@ -55,7 +56,8 @@ const TRACKING_USERS_LIMIT_PREV = `
     WHERE
         a.user_id = $1 and tracking_user_id > $2
     ORDER BY
-        a.tracking_user_id DESC;
+        a.tracking_user_id DESC
+    LIMIT 50;
 `;
 
 

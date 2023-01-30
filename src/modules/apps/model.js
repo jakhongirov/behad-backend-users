@@ -7,7 +7,7 @@ const All_APPS = `
         apps
     ORDER BY
         app_id DESC
-    LIMIT 110;
+    LIMIT 50;
 `;
 
 const BY_ID = `
@@ -109,7 +109,7 @@ const BY_ID_LIMIT_NEXT = `
         app_id < $1
     ORDER BY
         app_id DESC
-    LIMIT 1;
+    LIMIT 50;
 `;
 
 const BY_ID_LIMIT_PREV = `
@@ -121,7 +121,7 @@ const BY_ID_LIMIT_PREV = `
         app_id > $1
     ORDER BY
         app_id DESC
-    LIMIT 1;
+    LIMIT 50;
 `;
 
 const getAllApps = () => fetchALL(All_APPS);

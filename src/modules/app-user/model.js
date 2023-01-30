@@ -13,7 +13,7 @@ const ALL_APP_USER = `
     on a.app_key = c.app_key
     ORDER BY
         a.app_user_id DESC
-    LIMIT 100;
+    LIMIT 50;
 `
 
 const APP_USER_BY_NAME = `
@@ -114,7 +114,7 @@ const APP_USER_LIMIT_NEXT_BY_ID =`
         a.app_user_id < $1
     ORDER BY
         a.app_user_id DESC
-    LIMIT 100;
+    LIMIT 50;
 `
 
 const APP_USER_LIMIT_PREV_BY_ID =`
@@ -134,7 +134,7 @@ const APP_USER_LIMIT_PREV_BY_ID =`
         a.app_user_id > $1
     ORDER BY
         a.app_user_id DESC
-    LIMIT 100;
+    LIMIT 50;
 `
 
 const getAllAppUser = () => fetchALL(ALL_APP_USER)

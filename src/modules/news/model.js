@@ -7,7 +7,7 @@ const NEWS = `
         news
     ORDER BY
         new_id DESC
-    LIMIT 110;
+    LIMIT 50;
 `;
 
 const NEW_BY_ID = `
@@ -108,7 +108,7 @@ const NEW_BY_ID_LIMIT_NEXT = `
         new_id < $1
     ORDER BY
         new_id DESC
-    LIMIT 100;
+    LIMIT 50;
 `;
 
 const NEW_BY_ID_LIMIT_PREV = `
@@ -120,7 +120,7 @@ const NEW_BY_ID_LIMIT_PREV = `
         new_id > $1
     ORDER BY
         new_id DESC
-    LIMIT 100;
+    LIMIT 50;
 `;
 
 const getnewsById = (id) => fetch(NEW_BY_ID, id)
