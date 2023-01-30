@@ -18,8 +18,7 @@ const BY_ID = `
     WHERE
         user_id = $1
     ORDER BY
-        user_id DESC
-    LIMIT 200;
+        user_id DESC;
 `;
 
 const BY_TOKEN = `
@@ -30,8 +29,7 @@ const BY_TOKEN = `
     WHERE
          $1 = ANY (user_device_id)
     ORDER BY
-        user_id DESC
-    LIMIT 200; 
+        user_id DESC; 
 `;
 
 const BY_PHONE = `
@@ -42,8 +40,7 @@ const BY_PHONE = `
     WHERE
         user_phone ILIKE $1
     ORDER BY
-        user_id DESC
-    LIMIT 200;
+        user_id DESC;
 `;
 
 const BY_NAME = `
@@ -54,8 +51,7 @@ const BY_NAME = `
     WHERE
         user_name ILIKE $1
     ORDER BY
-        user_id DESC
-    LIMIT 200;
+        user_id DESC;
 `;
 
 const BY_SURNAME = `
@@ -66,8 +62,7 @@ const BY_SURNAME = `
     WHERE
         user_surname ILIKE $1
     ORDER BY
-        user_id DESC
-    LIMIT 200;
+        user_id DESC;
 `;
 
 const BY_AGE = `
@@ -78,8 +73,7 @@ const BY_AGE = `
     WHERE
         user_age = $1
     ORDER BY
-        user_id DESC
-    LIMIT 200;
+        user_id DESC;
 `;
 
 const UPDATE_USER = `

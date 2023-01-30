@@ -6,7 +6,8 @@ const NEWS = `
     FROM
         news
     ORDER BY
-        new_id DESC;
+        new_id DESC
+    LIMIT 110;
 `;
 
 const NEW_BY_ID = `
