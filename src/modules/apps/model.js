@@ -6,7 +6,8 @@ const All_APPS = `
     FROM
         apps
     ORDER BY
-        app_id DESC;
+        app_id DESC
+    LIMIT 110;
 `;
 
 const BY_ID = `
