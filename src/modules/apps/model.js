@@ -134,6 +134,7 @@ const putApp = (id, name, current_vs, min_vs, key, price, payment, app_post) => 
 const deleteApp = (id) => fetch(DELETE_APP, id)
 const appLimitByIdNext = (id) => fetchALL(BY_ID_LIMIT_NEXT, id)
 const appLimitByIdPrev = (id) => fetchALL(BY_ID_LIMIT_PREV, id)
+const getAppbyKeyAppAuth = (key) => fetch(BY_KEY_2, key)
 
 module.exports = {
     getAllApps,
@@ -145,5 +146,6 @@ module.exports = {
     putApp,
     deleteApp,
     appLimitByIdNext,
-    appLimitByIdPrev
+    appLimitByIdPrev,
+    getAppbyKeyAppAuth
 }
