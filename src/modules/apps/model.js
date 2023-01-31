@@ -125,7 +125,7 @@ const BY_ID_LIMIT_PREV = `
 `;
 
 const getAllApps = () => fetchALL(All_APPS);
-const getAppbyId = (id) => fetchALL(BY_ID, id);
+const getAppbyId = (id) => fetchALL(BY_ID, id); 
 const getAppbyName = (name) => fetchALL(BY_NAME, name)
 const getAppbyKey = (app_key) => fetchALL(BY_KEY, app_key)
 const getAppbyKeyApp = (key) => fetchALL(BY_KEY_2, key)
