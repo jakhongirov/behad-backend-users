@@ -3,7 +3,7 @@ const model = require('./model')
 module.exports = {
     GET_APP_USERS: async (req, res) => {
         try {
-            const { name, key, userId, position } = req.query
+            const { name, key, userId, position, id } = req.query
 
             if (name || key || userId || position) {
                 if (position === 'next' && id) {
