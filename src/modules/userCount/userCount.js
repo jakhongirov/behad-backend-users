@@ -65,9 +65,9 @@ module.exports = {
 
     GET_COUNTRY_CITY: async (req, res) => {
         try {
-            const { postion, id, country, city } = req.query
+            const { position, id, country, city } = req.query
 
-            if (postion === 'next' && id && country && city) {
+            if (position === 'next' && id && country && city) {
                 const userByCountryCityLimitNext = await model.getUserByCountryCityLimitNext(id, country, city)
 
                 if (userByCountryCityLimitNext) {
@@ -83,7 +83,7 @@ module.exports = {
                     })
                 }
 
-            } else if (postion === 'prev' && id && country && city) {
+            } else if (position === 'prev' && id && country && city) {
                 const userByCountryCityLimitPrev = await model.getUserByCountryCityLimitPrev(id, country, city)
 
                 if (userByCountryCityLimitPrev) {
