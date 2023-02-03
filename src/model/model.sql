@@ -22,8 +22,6 @@ CREATE TABLE users (
     user_create_date timestamptz DEFAULT CURRENT_TIMESTAMP
 );
 
-select count(user_id) as users_count from users group by user_country;
-
 CREATE TABLE apps(
     app_id bigserial,
     app_name text not null,
@@ -33,6 +31,7 @@ CREATE TABLE apps(
     app_price int not null,
     app_payment text,
     app_post BOOLEAN DEFAULT false,
+    content_version int DEFAULT 0,
     app_create_date timestamptz DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -81,3 +80,6 @@ CREATE TABLE tracking_users (
     app_key text not null REFERENCES apps(app_key) ON DELETE CASCADE,
     new_tracking_user_create_date timestamptz DEFAULT CURRENT_TIMESTAMP
 );
+
+
+-- select count(user_id) as users_count from users group by user_country;
