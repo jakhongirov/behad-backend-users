@@ -98,12 +98,12 @@ module.exports = {
         try {
             const { id, name, current_vs, min_vs, key, price, payment, app_post } = req.body
 
-            const upadateApp = await model.putApp(id, name, current_vs, min_vs, key, price, payment, app_post)
+            const updateApp = await model.putApp(id, name, current_vs, min_vs, key, price, payment, app_post)
 
             res.json({
                 status: 200,
                 message: "Updated",
-                data: upadateApp
+                data: updateApp
             })
 
         } catch (error) {
@@ -126,6 +126,27 @@ module.exports = {
                 message: "Deleted",
                 data: deleteApp
             })
+
+        } catch (error) {
+            console.log(error)
+            res.json({
+                status: 500,
+                message: "Internal Server Error",
+            })
+        }
+    },
+
+    PUT_VERSION: async (req, res) => {
+        try {
+            const { app_key } = req.body
+            const updateContentVersionApp = await model.updateContentVersionApp(app_key)
+
+            if (updateContentVersionApp) {
+                return res.json({
+                    status: 200,
+                    message: "Success"
+                })
+            }
 
         } catch (error) {
             console.log(error)

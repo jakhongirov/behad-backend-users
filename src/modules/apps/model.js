@@ -124,8 +124,17 @@ const BY_ID_LIMIT_PREV = `
     LIMIT 50;
 `;
 
+const UPDATE_CONTENT_VERSION = `
+    UPDATE
+        apps
+    SET
+        content_version = content_version + 1
+    WHERE
+        app_key = $1 RETURNING * ;
+`
+
 const getAllApps = () => fetchALL(All_APPS);
-const getAppbyId = (id) => fetchALL(BY_ID, id); 
+const getAppbyId = (id) => fetchALL(BY_ID, id);
 const getAppbyName = (name) => fetchALL(BY_NAME, name)
 const getAppbyKey = (app_key) => fetchALL(BY_KEY, app_key)
 const getAppbyKeyApp = (key) => fetchALL(BY_KEY_2, key)
@@ -135,6 +144,7 @@ const deleteApp = (id) => fetch(DELETE_APP, id)
 const appLimitByIdNext = (id) => fetchALL(BY_ID_LIMIT_NEXT, id)
 const appLimitByIdPrev = (id) => fetchALL(BY_ID_LIMIT_PREV, id)
 const getAppbyKeyAppAuth = (key) => fetch(BY_KEY_2, key)
+const updateContentVersionApp = (key) => fetch(UPDATE_CONTENT_VERSION, key)
 
 module.exports = {
     getAllApps,
@@ -147,5 +157,6 @@ module.exports = {
     deleteApp,
     appLimitByIdNext,
     appLimitByIdPrev,
-    getAppbyKeyAppAuth
+    getAppbyKeyAppAuth,
+    updateContentVersionApp
 }

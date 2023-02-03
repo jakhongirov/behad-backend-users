@@ -34,6 +34,7 @@ router
     .get('/apps', AUTH, App.GET_APP)
     .post('/addApp', AUTH, App.ADD_APP)
     .put('/updeteApp', AUTH, App.PUT_APP)
+    .put('/updeteContentVersionApp', AUTH, App.PUT_VERSION)
     .delete('/deleteApp', AUTH, App.DELETE_APP)
 
     .get('/appUsers', AUTH, AppUser.GET_APP_USERS)
@@ -43,16 +44,12 @@ router
     .post('/clickPrepare', Click.POST)
     .post('/clickComplete', Click.POST_2)
 
-
-
     .get('/news', AUTH, News.GET_NEWS)
     .post('/addnew', AUTH, FileUpload.single("photo"), News.POST_NEW)
     .put('/updatenew', AUTH, FileUpload.single("photo"), News.PUT_NEW)
     .put('/updateCount/:url', News.UPDATE_COUNT)
     .delete('/deletenew', AUTH, News.DELETE_NEW)
 
-
     .post('/forgetPassword/:url',    Forget.POST_PHONE);
-
 
 module.exports = router
