@@ -12,7 +12,7 @@ CREATE TABLE users (
     user_who text DEFAULT 'erkak',
     user_phone text not null,
     user_password text not null,
-    user_country text not null,
+    user_country text not null,  
     user_capital text not null,
     user_region text,
     user_balance int DEFAULT 0,
@@ -21,6 +21,8 @@ CREATE TABLE users (
     user_comment text DEFAULT 'Comment:',
     user_create_date timestamptz DEFAULT CURRENT_TIMESTAMP
 );
+
+select count(user_id) as users_count from users group by user_country;
 
 CREATE TABLE apps(
     app_id bigserial,
@@ -52,7 +54,7 @@ CREATE TABLE sms_users (
     user_phone text not null,
     sms_isActive BOOLEAN DEFAULT true,
     sms_create_date timestamptz DEFAULT CURRENT_TIMESTAMP
-);  
+);
 
 CREATE TABLE sms_token (
     sms_token_id bigserial PRIMARY KEY,
@@ -77,5 +79,5 @@ CREATE TABLE tracking_users (
     tracking_user_id bigserial PRIMARY KEY,
     user_id int not null REFERENCES users(user_id) ON DELETE CASCADE,
     app_key text not null REFERENCES apps(app_key) ON DELETE CASCADE,
-    new_tracking_user_create_date timestamptz DEFAULT CURRENT_TIMESTAMP at time zone 'utc' at time zone 'Asia/Tashkent'
+    new_tracking_user_create_date timestamptz DEFAULT CURRENT_TIMESTAMP
 );

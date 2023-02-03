@@ -31,14 +31,14 @@ module.exports = {
                     })
 
                 } else {
-                    res.json({
+                    return res.json({
                         status: 401,
                         message: "Unauthorized"
                     })
                 }
 
             } else {
-                res.json({
+                return res.json({
                     status: 404,
                     message: "Not found"
                 })
@@ -63,17 +63,18 @@ module.exports = {
             if (!checkUser) {
                 const pass_hash = await bcryptjs.hash(password, 10)
                 const addUser = await model.registerUser(name, surname, age, who, phone, pass_hash, country, capital, temptoken)
-                const addApp = await model.addAppUser(notification_token ? notification_token : "", addUser.user_id, app_key)
+                await model.addAppUser(notification_token ? notification_token : "", addUser.user_id, app_key)
 
                 const token = await new JWT({ id: addUser.user_id, name: addUser.user_name }).sign()
 
-                res.json({
+                return res.json({
                     status: 200,
                     message: "Success",
                     data: token
                 })
+
             } else {
-                res.json({
+                return res.json({
                     status: 302,
                     message: "Found"
                 })
