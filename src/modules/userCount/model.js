@@ -50,7 +50,7 @@ const USER_CITY_BY_COUNTRY_CITY_PREV = `
     from 
         users 
     where 
-        user_id < $1 and user_country = $2 and user_capital= $3
+        user_id > $1 and user_country = $2 and user_capital= $3
     order by
         user_id desc
     LIMIT 50;
