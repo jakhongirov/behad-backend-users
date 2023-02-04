@@ -38,6 +38,8 @@ router
     .delete('/deleteApp', AUTH, App.DELETE_APP)
 
     .get('/appUsers', AUTH, AppUser.GET_APP_USERS)
+    .get('/appUsersCount', AUTH, AppUser.GET_USER_BY_APP_KEY_COUNT)
+    .get('/appUsersByKey', AUTH, AppUser.GET_USER_BY_APP_KEY_USERS)
     .put('/editProVersion', AUTH, AppUser.PUT_PRO_VERSION)
     .get('/updateInterested', AUTH, AppUser.UPDATE_USER_INTERESTED)
 
@@ -50,6 +52,6 @@ router
     .put('/updateCount/:url', News.UPDATE_COUNT)
     .delete('/deletenew', AUTH, News.DELETE_NEW)
 
-    .post('/forgetPassword/:url',    Forget.POST_PHONE);
+    .post('/forgetPassword/:url', Forget.POST_PHONE);
 
 module.exports = router

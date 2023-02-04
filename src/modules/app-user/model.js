@@ -7,10 +7,12 @@ const ALL_APP_USER = `
             apps_user a
      inner join
             users b
-    on a.user_id = b.user_id
+    on 
+        a.user_id = b.user_id
     inner join
             apps c
-    on a.app_key = c.app_key
+    on 
+        a.app_key = c.app_key
     ORDER BY
         a.app_user_id DESC
     LIMIT 50;
@@ -23,12 +25,14 @@ const APP_USER_BY_NAME = `
         apps_user a
     inner join
         users b
-    on a.user_id = b.user_id
+    on 
+        a.user_id = b.user_id
     inner join
         apps c
-    on a.app_key = c.app_key
+    on 
+        a.app_key = c.app_key
     where 
-        b.user_name like $1
+        b.user_name ilike $1
     ORDER BY
         a.app_user_id DESC;
 `
@@ -40,10 +44,12 @@ const BY_ID = `
         apps_user a
     inner join
         users b
-    on a.user_id = b.user_id
+    on 
+        a.user_id = b.user_id
     inner join
         apps c
-    on a.app_key = c.app_key
+    on 
+        a.app_key = c.app_key
     where 
         a.user_id = $1
     ORDER BY
@@ -57,12 +63,14 @@ const BY_KEY = `
         apps_user a
     inner join
         users b
-    on a.user_id = b.user_id
+    on 
+        a.user_id = b.user_id
     inner join
         apps c
-    on a.app_key = c.app_key
+    on 
+        a.app_key = c.app_key
     where 
-        c.app_key like $1
+        a.app_key ilike $1
     ORDER BY
         a.app_user_id DESC;
 `
@@ -97,7 +105,7 @@ const UPDATE_USER_INTERESTED = `
     RETURNING * ;
 `;
 
-const APP_USER_LIMIT_NEXT_BY_ID =`
+const APP_USER_LIMIT_NEXT_BY_ID = `
     select
         *, to_char(app_user_install_date at time zone 'Asia/Tashkent', 'HH24:MI/DD.MM.YYYY')
     from
@@ -117,7 +125,7 @@ const APP_USER_LIMIT_NEXT_BY_ID =`
     LIMIT 50;
 `
 
-const APP_USER_LIMIT_PREV_BY_ID =`
+const APP_USER_LIMIT_PREV_BY_ID = `
     select
         *, to_char(app_user_install_date at time zone 'Asia/Tashkent', 'HH24:MI/DD.MM.YYYY')
     from
@@ -137,6 +145,75 @@ const APP_USER_LIMIT_PREV_BY_ID =`
     LIMIT 50;
 `
 
+const APP_USER_BY_APP_KEY_COUNT = `
+    SELECT 
+        app_key, count(app_user_id) 
+    FROM 
+        apps_user 
+    GROUP BY 
+        app_key;
+`
+
+const APP_USER_BY_APP_KEY_USERS = `
+    select
+        *, to_char(app_user_install_date at time zone 'Asia/Tashkent', 'HH24:MI/DD.MM.YYYY')
+    from
+        apps_user a
+    inner join
+        users b
+    on 
+        a.user_id = b.user_id
+    inner join
+        apps c
+    on 
+        a.app_key = c.app_key
+    where 
+        a.app_key = $1
+    ORDER BY
+        a.app_user_id DESC
+    LIMIT 50;
+`
+
+const APP_USER_BY_APP_KEY_USERS_LIMIT_NEXT = `
+    select
+        *, to_char(app_user_install_date at time zone 'Asia/Tashkent', 'HH24:MI/DD.MM.YYYY')
+    from
+        apps_user a
+    inner join
+        users b
+    on 
+        a.user_id = b.user_id
+    inner join
+        apps c
+    on
+        a.app_key = c.app_key
+    where 
+        a.app_user_id < $1 and a.app_key = $2
+    ORDER BY
+        a.app_user_id DESC
+    LIMIT 50;
+`
+
+const APP_USER_BY_APP_KEY_USERS_LIMIT_PREV = `
+    select
+        *, to_char(app_user_install_date at time zone 'Asia/Tashkent', 'HH24:MI/DD.MM.YYYY')
+    from
+        apps_user a
+    inner join
+        users b
+    on 
+        a.user_id = b.user_id
+    inner join
+        apps c
+    on
+        a.app_key = c.app_key
+    where 
+        a.app_user_id > $1 and a.app_key = $2
+    ORDER BY
+        a.app_user_id DESC
+    LIMIT 50;
+`
+
 const getAllAppUser = () => fetchALL(ALL_APP_USER)
 const getByName = (name) => fetchALL(APP_USER_BY_NAME, name)
 const getById = (id) => fetchALL(BY_ID, id)
@@ -146,6 +223,10 @@ const changeProVersion = (id, pro_v) => fetch(UPDATE_APP_USER_PRO, id, pro_v)
 const updateUserInterested = (key, userId) => fetch(UPDATE_USER_INTERESTED, key, userId)
 const getAppUserByLimitNext = (id) => fetchALL(APP_USER_LIMIT_NEXT_BY_ID, id)
 const getAppUserByLimitPrev = (id) => fetchALL(APP_USER_LIMIT_PREV_BY_ID, id)
+const appUserByAppKeyCount = () => fetchALL(APP_USER_BY_APP_KEY_COUNT)
+const appUserByAppKeyUsers = (key) => fetchALL(APP_USER_BY_APP_KEY_USERS, key)
+const appUserByAppKeyUsersLimitNext = (id, key) => fetchALL(APP_USER_BY_APP_KEY_USERS_LIMIT_NEXT, id, key)
+const appUserByAppKeyUsersLimitPrev = (id, key) => fetchALL(APP_USER_BY_APP_KEY_USERS_LIMIT_PREV, id, key)
 
 module.exports = {
     getAllAppUser,
@@ -156,6 +237,10 @@ module.exports = {
     changeProVersion,
     updateUserInterested,
     getAppUserByLimitNext,
-    getAppUserByLimitPrev
+    getAppUserByLimitPrev,
+    appUserByAppKeyCount,
+    appUserByAppKeyUsers,
+    appUserByAppKeyUsersLimitNext,
+    appUserByAppKeyUsersLimitPrev
 }
 
