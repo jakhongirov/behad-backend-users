@@ -21,6 +21,7 @@ router
     .put('/editUser', AUTH, Users.PUT_USER)
     .put('/adminAddcomment', AUTH, Users.PUT_COMMENT_USER_ADMIN)
     .put('/Addcomment', Users.POST_COMMENT_USER)
+    .put('/putUserPhoneInfo', Users.PUT_USER_PHONE_INFO)
     .delete('/deleteUser', AUTH, Users.DELETE_USER)
 
     .post('/admin', Admin.LOGIN)

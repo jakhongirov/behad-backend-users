@@ -247,5 +247,49 @@ module.exports = {
                 message: "Internal Server Error"
             })
         }
-    }
+    },
+
+    PUT_USER_PHONE_INFO: async (req, res) => {
+        try {
+            const { id, phone_model, phone_brand, phone_lang, phone_android_v } = req.body
+            const checkAndroidVersion = await model.checkAndroidVersion(id, phone_android_v)
+
+            if (checkAndroidVersion) {
+                const putUserPhoneInfoWithoutAndroidVersion = await model.putUserPhoneInfoWithoutAndroidVersion(id, phone_model, phone_brand, phone_lang)
+
+                if (putUserPhoneInfoWithoutAndroidVersion) {
+                    return res.json({
+                        status: 200,
+                        message: "Success"
+                    })
+                } else {
+                    return res.json({
+                        status: 400,
+                        message: "Bad request",
+                    })
+                }
+            } else {
+                const putUserPhoneInfo = await model.putUserPhoneInfo(id, phone_model, phone_brand, phone_lang, phone_android_v)
+
+                if (putUserPhoneInfo) {
+                    return res.json({
+                        status: 200,
+                        message: "Success"
+                    })
+                } else {
+                    return res.json({
+                        status: 400,
+                        message: "Bad request",
+                    })
+                }
+            }
+
+        } catch (error) {
+            console.log(error);
+            res.json({
+                status: 500,
+                message: "Internal Server Error"
+            })
+        }
+    },
 }

@@ -225,6 +225,40 @@ const USER_LIMIT_PREV_BY_ID = `
     LIMIT 50;
 `;
 
+const CHECK_USER_ANDROID_VERSION = `
+    SELECT
+        *, to_char(user_create_date at time zone 'Asia/Tashkent', 'HH24:MI/DD.MM.YYYY')
+    FROM
+        users
+    WHERE
+        user_id = $1 and $2 = ANY (user_phone_android_version)
+    ORDER BY
+        user_id DESC; 
+`
+
+const PUT_USER_PHONE_INFO_WITHOUT_ANDROID_V =`
+    UPDATE
+        users
+    SET
+        user_phone_model = $2,
+        user_phone_brand = $3,
+        user_phone_lang = $4
+    WHERE
+        user_id = $1 RETURNING * ;
+`;
+
+const PUT_USER_PHONE_INFO =`
+    UPDATE
+        users
+    SET
+        user_phone_model = $2,
+        user_phone_brand = $3,
+        user_phone_lang = $4,
+        user_phone_android_version =  array_append(user_phone_android_version, $2)
+    WHERE
+        user_id = $1 RETURNING * ;
+`;
+
 const getallUsers = () => fetchALL(All_USERS);
 const getfoundbyIdUser = (id) => fetchALL(BY_ID, id);
 const getfoundbyTokenUser = (token) => fetch(BY_TOKEN, token)
@@ -245,6 +279,9 @@ const putUserRegion = (id, region) => fetch(UPDATE_USER_REGION, id, region)
 const updateUserNotification = (id, key, notification) => fetch(UPDATE_USER_NOTIFICATION, id, key, notification)
 const getusersByLimitNext = (id) => fetchALL(USER_LIMIT_NEXT_BY_ID, id)
 const getusersByLimitPrev = (id) => fetchALL(USER_LIMIT_PREV_BY_ID, id)
+const checkAndroidVersion = (id, phone_android_v) => fetch(CHECK_USER_ANDROID_VERSION, id, phone_android_v)
+const putUserPhoneInfoWithoutAndroidVersion = (id, phone_model, phone_brand, phone_lang) => fetch(PUT_USER_PHONE_INFO_WITHOUT_ANDROID_V, id, phone_model, phone_brand, phone_lang)
+const putUserPhoneInfo = (id, phone_model, phone_brand, phone_lang, phone_android_v) => fetch(PUT_USER_PHONE_INFO, id, phone_model, phone_brand, phone_lang, phone_android_v)
 
 module.exports = {
     getallUsers,
@@ -266,5 +303,8 @@ module.exports = {
     putUserRegion,
     updateUserNotification,
     getusersByLimitNext,
-    getusersByLimitPrev
+    getusersByLimitPrev,
+    checkAndroidVersion,
+    putUserPhoneInfoWithoutAndroidVersion,
+    putUserPhoneInfo
 };

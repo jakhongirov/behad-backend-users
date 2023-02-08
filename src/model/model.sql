@@ -19,6 +19,10 @@ CREATE TABLE users (
     user_device_id text [] not null,
     user_survays int [],
     user_comment text DEFAULT 'Comment:',
+    user_phone_model text DEFAULT '-',
+    user_phone_brand text DEFAULT '-',
+    user_phone_lang text DEFAULT '-',
+    user_phone_android_version text [],
     user_create_date timestamptz DEFAULT CURRENT_TIMESTAMP
 );
 
