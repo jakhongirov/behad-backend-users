@@ -127,5 +127,26 @@ module.exports = {
                 message: "Internal Server Error"
             })
         }
+    },
+
+    GET_USERS_ALL_COUNT: async (req, res) => {
+        try {
+            const allUsersCount = await model.allUsersCount()
+
+            if (allUsersCount) {
+                return res.json({
+                    status: 200,
+                    message: "Success",
+                    count: allUsersCount.count
+                })
+            }
+
+        } catch (error) {
+            console.log(error);
+            res.json({
+                status: 500,
+                message: "Internal Server Error"
+            })
+        }
     }
 }

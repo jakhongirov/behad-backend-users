@@ -56,16 +56,25 @@ const USER_CITY_BY_COUNTRY_CITY_PREV = `
     LIMIT 50;
 `;
 
+const ALL_USERS_COUNT =`
+    select 
+        count(user_id) 
+    from 
+        users;
+`;
+
 const getUserCountry = () => fetchALL(USER_COUNTRY)
 const getUserCityByCountry = (country) => fetchALL(USER_CITY_BY_COUNTRY, country)
 const getUserByCountryCity = (country, city) => fetchALL(USER_CITY_BY_COUNTRY_CITY, country, city)
 const getUserByCountryCityLimitNext = (id, country, city) => fetchALL(USER_CITY_BY_COUNTRY_CITY_NEXT, id, country, city)
 const getUserByCountryCityLimitPrev = (id, country, city) => fetchALL(USER_CITY_BY_COUNTRY_CITY_PREV, id, country, city)
+const allUsersCount = () => fetch(ALL_USERS_COUNT)
 
 module.exports = {
     getUserCountry,
     getUserCityByCountry,
     getUserByCountryCity,
     getUserByCountryCityLimitNext,
-    getUserByCountryCityLimitPrev
+    getUserByCountryCityLimitPrev,
+    allUsersCount
 }

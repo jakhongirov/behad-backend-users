@@ -31,7 +31,8 @@ router
 
     .get('/userCountry', AUTH, UserCount.GET_COUNTRY)
     .get('/userCity', AUTH, UserCount.GET_CITY)
-    .get('/userCountry-City', UserCount.GET_COUNTRY_CITY)
+    .get('/userCountry-City', AUTH, UserCount.GET_COUNTRY_CITY)
+    .get('/userCount', UserCount.GET_USERS_ALL_COUNT)
 
     .get('/apps', App.GET_APP)
     .post('/addApp', AUTH, App.ADD_APP)
