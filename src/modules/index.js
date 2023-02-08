@@ -13,7 +13,6 @@ const News = require("./news/news")
 const Click = require('./click/click')
 const Tracking = require("./tracking/tracking")
 const UserCount = require('./userCount/userCount')
-const TrackingUser = require('./trackingCount/trackingCount')
 
 router
     .get('/users', Users.GET_USERS)
@@ -28,7 +27,6 @@ router
 
     .get('/trackingUsers', AUTH, Tracking.GET)
     .get('/trackingUsersFilter', AUTH, Tracking.GET_USER_TRACKING_FILTER)
-    .get("/trackingUserCount", AUTH, TrackingUser.GET)
 
     .get('/userCountry', AUTH, UserCount.GET_COUNTRY)
     .get('/userCity', AUTH, UserCount.GET_CITY)
