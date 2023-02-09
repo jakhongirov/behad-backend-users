@@ -254,7 +254,7 @@ const PUT_USER_PHONE_INFO =`
         user_phone_model = $2,
         user_phone_brand = $3,
         user_phone_lang = $4,
-        user_phone_android_version =  array_append(user_phone_android_version, $2)
+        user_phone_android_version =  array_append(user_phone_android_version, $5)
     WHERE
         user_id = $1 RETURNING * ;
 `;
