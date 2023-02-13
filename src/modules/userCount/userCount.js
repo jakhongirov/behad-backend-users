@@ -42,7 +42,7 @@ module.exports = {
 
     GET_CITY: async (req, res) => {
         try {
-            const { country } = req.query
+            const { sort, country } = req.query
 
             if (country) {
 
