@@ -52,7 +52,7 @@ module.exports = {
                     from 
                         users 
                     where 
-                        user_country = ${country} 
+                        user_country = '${country}' 
                     group by 
                         user_capital
                     order by 
