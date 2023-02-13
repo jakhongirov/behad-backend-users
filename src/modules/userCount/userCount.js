@@ -1,9 +1,22 @@
 const model = require('./model');
 
 module.exports = {
-    GET_COUNTRY: async (_, res) => {
+    GET_COUNTRY: async (req, res) => {
         try {
-            const userCountry = await model.getUserCountry()
+            const { sort } = req.query
+
+            const USER_COUNTRY = `
+                select 
+                    user_country, count(user_id) as users_count 
+                from 
+                    users  
+                group by 
+                    user_country 
+                order by 
+                    ${sort};
+`;
+
+            const userCountry = await model.getUserCountry(USER_COUNTRY)
 
             if (userCountry) {
                 return res.json({

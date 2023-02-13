@@ -63,7 +63,7 @@ const ALL_USERS_COUNT =`
         users;
 `;
 
-const getUserCountry = () => fetchALL(USER_COUNTRY)
+const getUserCountry = (query) => fetchALL(query)
 const getUserCityByCountry = (country) => fetchALL(USER_CITY_BY_COUNTRY, country)
 const getUserByCountryCity = (country, city) => fetchALL(USER_CITY_BY_COUNTRY_CITY, country, city)
 const getUserByCountryCityLimitNext = (id, country, city) => fetchALL(USER_CITY_BY_COUNTRY_CITY_NEXT, id, country, city)

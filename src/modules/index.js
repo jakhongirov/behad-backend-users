@@ -29,7 +29,7 @@ router
     .get('/trackingUsers', AUTH, Tracking.GET)
     .get('/trackingUsersFilter', AUTH, Tracking.GET_USER_TRACKING_FILTER)
 
-    .get('/userCountry', AUTH, UserCount.GET_COUNTRY)
+    .get('/userCountry',  UserCount.GET_COUNTRY)
     .get('/userCity', AUTH, UserCount.GET_CITY)
     .get('/userCountry-City', AUTH, UserCount.GET_COUNTRY_CITY)
     .get('/userCount', UserCount.GET_USERS_ALL_COUNT)
