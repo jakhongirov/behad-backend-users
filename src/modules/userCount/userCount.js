@@ -14,7 +14,7 @@ module.exports = {
                     user_country 
                 order by 
                     ${sort};
-`;
+            `;
 
             const userCountry = await model.getUserCountry(USER_COUNTRY)
 
@@ -45,7 +45,21 @@ module.exports = {
             const { country } = req.query
 
             if (country) {
-                const userCityByCountry = await model.getUserCityByCountry(country)
+
+                const USER_CITY_BY_COUNTRY = `
+                    select 
+                        user_capital, count(user_id) as users_count 
+                    from 
+                        users 
+                    where 
+                        user_country = ${country} 
+                    group by 
+                        user_capital
+                    order by 
+                        ${sort};
+                `;
+
+                const userCityByCountry = await model.getUserCityByCountry(USER_CITY_BY_COUNTRY)
 
                 if (userCityByCountry) {
                     return res.json({
