@@ -49,7 +49,8 @@ module.exports = {
                         data: appUserById
                     });
                 } else if (phone) {
-                    const getByPhone = await model.getByPhone(`%${phone}%`)
+                    console.log(phone);
+                    const getByPhone = await model.getByPhone(phone)
 
                     return res.json({
                         status: 200,
