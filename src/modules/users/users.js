@@ -100,22 +100,21 @@ module.exports = {
                         message: "Success",
                         data: foundbyAgeUser
                     });
+                } else if (offset) {
+                    const usersByLimitPagination = await model.getusersByLimitPagination(offset)
+                    return res.json({
+                        status: 200,
+                        message: "Success",
+                        data: usersByLimitPagination
+                    });
+                } else {
+                    const allUsers = await model.getallUsers();
+                    return res.json({
+                        status: 200,
+                        message: "Success",
+                        data: allUsers
+                    });
                 }
-            }
-            else if (offset) {
-                const usersByLimitPagination = await model.getusersByLimitPagination(offset)
-                return res.json({
-                    status: 200,
-                    message: "Success",
-                    data: usersByLimitPagination
-                });
-            } else {
-                const allUsers = await model.getallUsers();
-                return res.json({
-                    status: 200,
-                    message: "Success",
-                    data: allUsers
-                });
             }
 
         } catch (error) {
