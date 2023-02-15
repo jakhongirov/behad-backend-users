@@ -164,15 +164,6 @@ const APP_USER_LIMIT_PREV_BY_ID = `
     LIMIT 50;
 `
 
-const APP_USER_BY_APP_KEY_COUNT = `
-    SELECT 
-        app_key, count(app_user_id) 
-    FROM 
-        apps_user 
-    GROUP BY 
-        app_key;
-`
-
 const APP_USER_BY_APP_KEY_USERS = `
     select
         *, to_char(app_user_install_date at time zone 'Asia/Tashkent', 'HH24:MI/DD.MM.YYYY')
@@ -243,7 +234,7 @@ const changeProVersion = (id, pro_v) => fetch(UPDATE_APP_USER_PRO, id, pro_v)
 const updateUserInterested = (key, userId) => fetch(UPDATE_USER_INTERESTED, key, userId)
 const getAppUserByLimitNext = (id) => fetchALL(APP_USER_LIMIT_NEXT_BY_ID, id)
 const getAppUserByLimitPrev = (id) => fetchALL(APP_USER_LIMIT_PREV_BY_ID, id)
-const appUserByAppKeyCount = () => fetchALL(APP_USER_BY_APP_KEY_COUNT)
+const appUserByAppKeyCount = (query) => fetchALL(query)
 const appUserByAppKeyUsers = (key) => fetchALL(APP_USER_BY_APP_KEY_USERS, key)
 const appUserByAppKeyUsersLimitNext = (id, key) => fetchALL(APP_USER_BY_APP_KEY_USERS_LIMIT_NEXT, id, key)
 const appUserByAppKeyUsersLimitPrev = (id, key) => fetchALL(APP_USER_BY_APP_KEY_USERS_LIMIT_PREV, id, key)

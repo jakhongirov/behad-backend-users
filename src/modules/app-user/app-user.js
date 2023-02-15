@@ -85,16 +85,35 @@ module.exports = {
         }
     },
 
-    GET_USER_BY_APP_KEY_COUNT: async (_, res) => {
+    GET_USER_BY_APP_KEY_COUNT: async (req, res) => {
         try {
-            const appUserByAppKeyCount = await model.appUserByAppKeyCount()
+            const { sort } = req.body
 
-            if (appUserByAppKeyCount) {
+            if (sort) {
+                const APP_USER_BY_APP_KEY_COUNT = `
+                    SELECT 
+                        app_key, count(app_user_id) 
+                    FROM 
+                        apps_user 
+                    GROUP BY 
+                        app_key
+                    ORDER BY
+                        ${sort};
+                `
+                const appUserByAppKeyCount = await model.appUserByAppKeyCount(APP_USER_BY_APP_KEY_COUNT)
+
+                if (appUserByAppKeyCount) {
+                    return res.json({
+                        status: 200,
+                        message: "Success",
+                        data: appUserByAppKeyCount
+                    });
+                }
+            } else {
                 return res.json({
-                    status: 200,
-                    message: "Success",
-                    data: appUserByAppKeyCount
-                });
+                    status: 400,
+                    message: "Bad request"
+                })
             }
 
         } catch (error) {
