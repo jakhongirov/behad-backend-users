@@ -46,7 +46,7 @@ module.exports = {
 
                         const formData = new FormData()
                         formData.append("mobile_phone", phone)
-                        formData.append("message", code)
+                        formData.append("message", `Behad - Tasdiqlash kodingiz:\n ${code}`)
                         formData.append("from", "4546")
 
                         fetch('https://notify.eskiz.uz/api/message/sms/send', {
