@@ -2,7 +2,7 @@ const { fetch, fetchALL } = require("../../lib/postgres");
 
 const ALL_APP_USER = `
     select 
-        a.app_key, a.user_id, b.user_name, b.user_phone, a.app_current_version, app_min_version, a.app_user_isPayed, a.app_user_interested_to_buy, to_char(app_user_install_date at time zone 'Asia/Tashkent', 'HH24:MI/DD.MM.YYYY')
+        app_key, user_id, user_name, user_phone, app_current_version, app_min_version, app_user_isPayed, app_user_interested_to_buy, to_char(app_user_install_date at time zone 'Asia/Tashkent', 'HH24:MI/DD.MM.YYYY')
      from
             apps_user a
      inner join
@@ -20,7 +20,7 @@ const ALL_APP_USER = `
 
 const APP_USER_BY_NAME = `
     select
-        a.app_key, a.user_id, b.user_name, b.user_phone, a.app_current_version, app_min_version, a.app_user_isPayed, a.app_user_interested_to_buy, to_char(app_user_install_date at time zone 'Asia/Tashkent', 'HH24:MI/DD.MM.YYYY')
+        app_key, user_id, user_name, user_phone, app_current_version, app_min_version, app_user_isPayed, app_user_interested_to_buy, to_char(app_user_install_date at time zone 'Asia/Tashkent', 'HH24:MI/DD.MM.YYYY')
     from
         apps_user a
     inner join
@@ -39,7 +39,7 @@ const APP_USER_BY_NAME = `
 
 const BY_ID = `
     select
-        a.app_key, a.user_id, b.user_name, b.user_phone, a.app_current_version, app_min_version, a.app_user_isPayed, a.app_user_interested_to_buy, to_char(app_user_install_date at time zone 'Asia/Tashkent', 'HH24:MI/DD.MM.YYYY')
+        app_key, user_id, user_name, user_phone, app_current_version, app_min_version, app_user_isPayed, app_user_interested_to_buy, to_char(app_user_install_date at time zone 'Asia/Tashkent', 'HH24:MI/DD.MM.YYYY')
     from
         apps_user a
     inner join
@@ -58,7 +58,7 @@ const BY_ID = `
 
 const BY_PHONE = `
     select
-        a.app_key, a.user_id, b.user_name, b.user_phone, a.app_current_version, app_min_version, a.app_user_isPayed, a.app_user_interested_to_buy, to_char(app_user_install_date at time zone 'Asia/Tashkent', 'HH24:MI/DD.MM.YYYY')
+        app_key, user_id, user_name, user_phone, app_current_version, app_min_version, app_user_isPayed, app_user_interested_to_buy, to_char(app_user_install_date at time zone 'Asia/Tashkent', 'HH24:MI/DD.MM.YYYY')
     from
         apps_user a
     inner join
@@ -77,7 +77,7 @@ const BY_PHONE = `
 
 const BY_KEY = `
     select
-        a.app_key, a.user_id, b.user_name, b.user_phone, a.app_current_version, app_min_version, a.app_user_isPayed, a.app_user_interested_to_buy, to_char(app_user_install_date at time zone 'Asia/Tashkent', 'HH24:MI/DD.MM.YYYY')
+        app_key, user_id, user_name, user_phone, app_current_version, app_min_version, app_user_isPayed, app_user_interested_to_buy, to_char(app_user_install_date at time zone 'Asia/Tashkent', 'HH24:MI/DD.MM.YYYY')
     from
         apps_user a
     inner join
@@ -96,7 +96,7 @@ const BY_KEY = `
 
 const USER_ID_BY_KEY = `
     select
-        a.app_key, a.user_id, b.user_name, b.user_phone, a.app_current_version, app_min_version, a.app_user_isPayed, a.app_user_interested_to_buy, to_char(app_user_install_date at time zone 'Asia/Tashkent', 'HH24:MI/DD.MM.YYYY')
+        app_key, user_id, user_name, user_phone, app_current_version, app_min_version, app_user_isPayed, app_user_interested_to_buy, to_char(app_user_install_date at time zone 'Asia/Tashkent', 'HH24:MI/DD.MM.YYYY')
     from
         apps_user   
     where
@@ -126,7 +126,7 @@ const UPDATE_USER_INTERESTED = `
 
 const APP_USER_LIMIT_NEXT_BY_ID = `
     select
-        a.app_key, a.user_id, b.user_name, b.user_phone, a.app_current_version, app_min_version, a.app_user_isPayed, a.app_user_interested_to_buy, to_char(app_user_install_date at time zone 'Asia/Tashkent', 'HH24:MI/DD.MM.YYYY')
+        app_key, user_id, user_name, user_phone, app_current_version, app_min_version, app_user_isPayed, app_user_interested_to_buy, to_char(app_user_install_date at time zone 'Asia/Tashkent', 'HH24:MI/DD.MM.YYYY')
     from
         apps_user a
     inner join
@@ -146,7 +146,7 @@ const APP_USER_LIMIT_NEXT_BY_ID = `
 
 const APP_USER_LIMIT_PREV_BY_ID = `
     select
-        a.app_key, a.user_id, b.user_name, b.user_phone, a.app_current_version, app_min_version, a.app_user_isPayed, a.app_user_interested_to_buy, to_char(app_user_install_date at time zone 'Asia/Tashkent', 'HH24:MI/DD.MM.YYYY')
+        app_key, user_id, user_name, user_phone, app_current_version, app_min_version, app_user_isPayed, app_user_interested_to_buy, to_char(app_user_install_date at time zone 'Asia/Tashkent', 'HH24:MI/DD.MM.YYYY')
     from
         apps_user a
     inner join
@@ -175,7 +175,7 @@ const APP_USER_BY_APP_KEY_COUNT = `
 
 const APP_USER_BY_APP_KEY_USERS = `
     select
-        a.app_key, a.user_id, b.user_name, b.user_phone, a.app_current_version, app_min_version, a.app_user_isPayed, a.app_user_interested_to_buy, to_char(app_user_install_date at time zone 'Asia/Tashkent', 'HH24:MI/DD.MM.YYYY')
+        app_key, user_id, user_name, user_phone, app_current_version, app_min_version, app_user_isPayed, app_user_interested_to_buy, to_char(app_user_install_date at time zone 'Asia/Tashkent', 'HH24:MI/DD.MM.YYYY')
     from
         apps_user a
     inner join
@@ -195,7 +195,7 @@ const APP_USER_BY_APP_KEY_USERS = `
 
 const APP_USER_BY_APP_KEY_USERS_LIMIT_NEXT = `
     select
-        a.app_key, a.user_id, b.user_name, b.user_phone, a.app_current_version, app_min_version, a.app_user_isPayed, a.app_user_interested_to_buy, to_char(app_user_install_date at time zone 'Asia/Tashkent', 'HH24:MI/DD.MM.YYYY')
+        app_key, user_id, user_name, user_phone, app_current_version, app_min_version, app_user_isPayed, app_user_interested_to_buy, to_char(app_user_install_date at time zone 'Asia/Tashkent', 'HH24:MI/DD.MM.YYYY')
     from
         apps_user a
     inner join
@@ -215,7 +215,7 @@ const APP_USER_BY_APP_KEY_USERS_LIMIT_NEXT = `
 
 const APP_USER_BY_APP_KEY_USERS_LIMIT_PREV = `
     select
-        a.app_key, a.user_id, b.user_name, b.user_phone, a.app_current_version, app_min_version, a.app_user_isPayed, a.app_user_interested_to_buy, to_char(app_user_install_date at time zone 'Asia/Tashkent', 'HH24:MI/DD.MM.YYYY')
+        app_key, user_id, user_name, user_phone, app_current_version, app_min_version, app_user_isPayed, app_user_interested_to_buy, to_char(app_user_install_date at time zone 'Asia/Tashkent', 'HH24:MI/DD.MM.YYYY')
     from
         apps_user a
     inner join
