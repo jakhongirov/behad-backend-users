@@ -1,12 +1,12 @@
 const model = require('./model');
 const bcryptjs = require('bcryptjs')
-const fetch = require('node-fetch')
 
 module.exports = {
     GET_USERS: async (req, res) => {
         try {
-            const { id, phone, name, surname, age, token, key, notification, position } = req.query;
-            if (id || phone || name || surname || age || token || key || notification) {
+            const { id, phone, name, surname, age, token, key, notification, offset, sort } = req.query;
+
+            if (id || phone || name || surname || age || token || key || notification || sort || offset) {
 
                 if (token && key && notification) {
                     const foundbyTokenUser = await model.getfoundbyTokenUser(token)
@@ -43,19 +43,12 @@ module.exports = {
                             message: "Not found",
                         })
                     }
-                } else if (position == 'next' && id) {
-                    const usersByLimitNext = await model.getusersByLimitNext(id)
+                } else if (offset && sort) {
+                    const usersByLimitPaginationBySort = await model.getusersByLimitPaginationBySort(offset, sort)
                     return res.json({
                         status: 200,
                         message: "Success",
-                        data: usersByLimitNext
-                    });
-                } else if (position == 'prev' && id) {
-                    const usersByLimitPrev = await model.getusersByLimitPrev(id)
-                    return res.json({
-                        status: 200,
-                        message: "Success",
-                        data: usersByLimitPrev
+                        data: usersByLimitPaginationBySort
                     });
                 } else if (id) {
                     const foundbyIdUser = await model.getfoundbyIdUser(id);
@@ -79,35 +72,43 @@ module.exports = {
                             message: "Not found",
                         });
                     }
-                } else if (phone) {
-                    const foundbyPhoneUser = await model.getfoundbyPhoneUser(`%${phone}%`);
+                } else if (offset && phone) {
+                    const foundbyPhoneUser = await model.getfoundbyPhoneUser(offset, `%${phone}%`);
                     return res.json({
                         status: 200,
                         message: "Success",
                         data: foundbyPhoneUser
                     });
-                } else if (name) {
-                    const foundbyNameUser = await model.getfoundbyNameUser(`%${name}%`);
+                } else if (offset && name) {
+                    const foundbyNameUser = await model.getfoundbyNameUser(offset, `%${name}%`);
                     return res.json({
                         status: 200,
                         message: "Success",
                         data: foundbyNameUser
                     });
-                } else if (surname) {
-                    const foundbySurnameUser = await model.getfoundbySurnameUser(`%${surname}%`);
+                } else if (offset && surname) {
+                    const foundbySurnameUser = await model.getfoundbySurnameUser(offset, `%${surname}%`);
                     return res.json({
                         status: 200,
                         message: "Success",
                         data: foundbySurnameUser
                     });
-                } else if (age) {
-                    const foundbyAgeUser = await model.getfoundbyAgeUser(Number(age));
+                } else if (offset && age) {
+                    const foundbyAgeUser = await model.getfoundbyAgeUser(offset, Number(age));
                     return res.json({
                         status: 200,
                         message: "Success",
                         data: foundbyAgeUser
                     });
                 }
+            }
+            else if (offset) {
+                const usersByLimitPagination = await model.getusersByLimitPagination(offset)
+                return res.json({
+                    status: 200,
+                    message: "Success",
+                    data: usersByLimitPagination
+                });
             } else {
                 const allUsers = await model.getallUsers();
                 return res.json({

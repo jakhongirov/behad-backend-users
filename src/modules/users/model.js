@@ -2,7 +2,7 @@ const { fetch, fetchALL } = require("../../lib/postgres");
 
 const All_USERS = `
     SELECT
-        *, to_char(user_create_date at time zone 'Asia/Tashkent', 'HH24:MI/DD.MM.YYYY')
+        user_id, user_name, user_surname, user_age, user_phone, user_who, user_country, user_capital, to_char(user_create_date at time zone 'Asia/Tashkent', 'HH24:MI/DD.MM.YYYY')
     FROM
         users
     ORDER BY
@@ -30,50 +30,6 @@ const BY_TOKEN = `
          $1 = ANY (user_device_id)
     ORDER BY
         user_id DESC; 
-`;
-
-const BY_PHONE = `
-    SELECT
-        *, to_char(user_create_date at time zone 'Asia/Tashkent', 'HH24:MI/DD.MM.YYYY')
-    FROM
-        users
-    WHERE
-        user_phone ILIKE $1
-    ORDER BY
-        user_id DESC;
-`;
-
-const BY_NAME = `
-    SELECT
-        *, to_char(user_create_date at time zone 'Asia/Tashkent', 'HH24:MI/DD.MM.YYYY')
-    FROM
-        users
-    WHERE
-        user_name ILIKE $1
-    ORDER BY
-        user_id DESC;
-`;
-
-const BY_SURNAME = `
-    SELECT
-        *, to_char(user_create_date at time zone 'Asia/Tashkent', 'HH24:MI/DD.MM.YYYY')
-    FROM
-        users
-    WHERE
-        user_surname ILIKE $1
-    ORDER BY
-        user_id DESC;
-`;
-
-const BY_AGE = `
-    SELECT
-        *, to_char(user_create_date at time zone 'Asia/Tashkent', 'HH24:MI/DD.MM.YYYY')
-    FROM
-        users
-    WHERE
-        user_age = $1
-    ORDER BY
-        user_id DESC;
 `;
 
 const UPDATE_USER = `
@@ -201,30 +157,6 @@ const UPDATE_USER_NOTIFICATION = `
         user_id = $1 and app_key = $2 RETURNING * ;
 `
 
-const USER_LIMIT_NEXT_BY_ID = `
-    SELECT
-        *, to_char(user_create_date at time zone 'Asia/Tashkent', 'HH24:MI/DD.MM.YYYY')
-    FROM
-        users
-    WHERE
-        user_id < $1
-    ORDER BY
-        user_id DESC
-    LIMIT 50;
-`;
-
-const USER_LIMIT_PREV_BY_ID = `
-    SELECT
-        *, to_char(user_create_date at time zone 'Asia/Tashkent', 'HH24:MI/DD.MM.YYYY')
-    FROM
-        users
-    WHERE
-        user_id > $1
-    ORDER BY
-        user_id DESC
-    LIMIT 50;
-`;
-
 const CHECK_USER_ANDROID_VERSION = `
     SELECT
         *, to_char(user_create_date at time zone 'Asia/Tashkent', 'HH24:MI/DD.MM.YYYY')
@@ -236,7 +168,7 @@ const CHECK_USER_ANDROID_VERSION = `
         user_id DESC; 
 `
 
-const PUT_USER_PHONE_INFO_WITHOUT_ANDROID_V =`
+const PUT_USER_PHONE_INFO_WITHOUT_ANDROID_V = `
     UPDATE
         users
     SET
@@ -247,7 +179,7 @@ const PUT_USER_PHONE_INFO_WITHOUT_ANDROID_V =`
         user_id = $1 RETURNING * ;
 `;
 
-const PUT_USER_PHONE_INFO =`
+const PUT_USER_PHONE_INFO = `
     UPDATE
         users
     SET
@@ -262,10 +194,6 @@ const PUT_USER_PHONE_INFO =`
 const getallUsers = () => fetchALL(All_USERS);
 const getfoundbyIdUser = (id) => fetchALL(BY_ID, id);
 const getfoundbyTokenUser = (token) => fetch(BY_TOKEN, token)
-const getfoundbyPhoneUser = (phone) => fetchALL(BY_PHONE, phone);
-const getfoundbyNameUser = (name) => fetchALL(BY_NAME, name);
-const getfoundbySurnameUser = (surname) => fetchALL(BY_SURNAME, surname);
-const getfoundbyAgeUser = (age) => fetchALL(BY_AGE, age);
 const putUser = (id, name, surname, age, who, phone, pass_hash,) => fetch(UPDATE_USER, id, name, surname, age, who, phone, pass_hash);
 const putUserWithoutPass = (id, name, surname, age, who, phone) => fetch(UPDATE_USER_WITHOUT_PASS, id, name, surname, age, who, phone);
 const deleteUser = (id) => fetch(DELETE_USER, id);
@@ -277,11 +205,107 @@ const addTrackingUser = (id, key) => fetch(ADD_TRACKING_USER, id, key)
 const putUserCity = (id, city) => fetch(UPDATE_USER_CITY, id, city)
 const putUserRegion = (id, region) => fetch(UPDATE_USER_REGION, id, region)
 const updateUserNotification = (id, key, notification) => fetch(UPDATE_USER_NOTIFICATION, id, key, notification)
-const getusersByLimitNext = (id) => fetchALL(USER_LIMIT_NEXT_BY_ID, id)
-const getusersByLimitPrev = (id) => fetchALL(USER_LIMIT_PREV_BY_ID, id)
 const checkAndroidVersion = (id, phone_android_v) => fetch(CHECK_USER_ANDROID_VERSION, id, phone_android_v)
 const putUserPhoneInfoWithoutAndroidVersion = (id, phone_model, phone_brand, phone_lang) => fetch(PUT_USER_PHONE_INFO_WITHOUT_ANDROID_V, id, phone_model, phone_brand, phone_lang)
 const putUserPhoneInfo = (id, phone_model, phone_brand, phone_lang, phone_android_v) => fetch(PUT_USER_PHONE_INFO, id, phone_model, phone_brand, phone_lang, phone_android_v)
+
+const getusersByLimitPagination = (offset) => {
+    const USER_LIMIT_PAGINATION = `
+        SELECT
+            user_id, user_name, user_surname, user_age, user_phone, user_who, user_country, user_capital, to_char(user_create_date at time zone 'Asia/Tashkent', 'HH24:MI/DD.MM.YYYY')
+        FROM
+            users
+        ORDER BY
+            user_id DESC
+        OFFSET ${offset}
+        LIMIT 50;
+    `;
+
+    return fetchALL(USER_LIMIT_PAGINATION)
+}
+
+const getusersByLimitPaginationBySort = (offset, sort) => {
+    const USER_LIMIT_PAGINATION = `
+        SELECT
+            user_id, user_name, user_surname, user_age, user_phone, user_who, user_country, user_capital, to_char(user_create_date at time zone 'Asia/Tashkent', 'HH24:MI/DD.MM.YYYY')
+        FROM
+            users
+        ORDER BY
+            ${sort}
+        OFFSET ${offset}
+        LIMIT 50;
+    `;
+
+    return fetchALL(USER_LIMIT_PAGINATION)
+}
+
+const getfoundbyPhoneUser = (offset, phone) => {
+    const BY_PHONE = `
+        SELECT
+            user_id, user_name, user_surname, user_age, user_phone, user_who, user_country, user_capital, to_char(user_create_date at time zone 'Asia/Tashkent', 'HH24:MI/DD.MM.YYYY')
+        FROM
+            users
+        WHERE
+            user_phone ILIKE '${phone}'
+        ORDER BY
+            user_id DESC
+        OFFSET ${offset}
+        LIMIT 50;
+    `;
+
+    return fetchALL(BY_PHONE)
+}
+
+const getfoundbyNameUser = (offset, name) => {
+    const BY_NAME = `
+        SELECT
+            user_id, user_name, user_surname, user_age, user_phone, user_who, user_country, user_capital, to_char(user_create_date at time zone 'Asia/Tashkent', 'HH24:MI/DD.MM.YYYY')
+        FROM
+            users
+        WHERE
+            user_name ILIKE '${name}'
+        ORDER BY
+            user_id DESC
+        OFFSET ${offset}
+        LIMIT 50;
+    `;
+
+    return fetchALL(BY_NAME)
+}
+
+const getfoundbySurnameUser = (offset, surname) => {
+    const BY_SURNAME = `
+        SELECT
+            user_id, user_name, user_surname, user_age, user_phone, user_who, user_country, user_capital, to_char(user_create_date at time zone 'Asia/Tashkent', 'HH24:MI/DD.MM.YYYY')
+        FROM
+            users
+        WHERE
+            user_surname ILIKE '${surname}'
+        ORDER BY
+            user_id DESC
+        OFFSET ${offset}
+        LIMIT 50;
+    `;
+
+    return fetchALL(BY_SURNAME)
+}
+
+const getfoundbyAgeUser = (offset, age) => {
+    const BY_AGE = `
+        SELECT
+            user_id, user_name, user_surname, user_age, user_phone, user_who, user_country, user_capital, to_char(user_create_date at time zone 'Asia/Tashkent', 'HH24:MI/DD.MM.YYYY')
+        FROM
+            users
+        WHERE
+            user_age = ${age}
+        ORDER BY
+            user_id DESC
+        OFFSET ${offset}
+        LIMIT 50;
+    `;
+
+    return fetchALL(BY_AGE)
+}
 
 module.exports = {
     getallUsers,
@@ -302,8 +326,8 @@ module.exports = {
     putUserCity,
     putUserRegion,
     updateUserNotification,
-    getusersByLimitNext,
-    getusersByLimitPrev,
+    getusersByLimitPagination,
+    getusersByLimitPaginationBySort,
     checkAndroidVersion,
     putUserPhoneInfoWithoutAndroidVersion,
     putUserPhoneInfo
