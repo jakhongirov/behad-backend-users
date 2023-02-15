@@ -50,7 +50,7 @@ module.exports = {
                     });
                 } else if (phone) {
                     console.log(phone);
-                    const getByPhone = await model.getByPhone(phone)
+                    const getByPhone = await model.getByPhone(`%${phone}%`)
 
                     return res.json({
                         status: 200,

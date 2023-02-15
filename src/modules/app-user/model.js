@@ -70,7 +70,7 @@ const BY_PHONE = `
     on 
         a.app_key = c.app_key
     where 
-        b.user_phone = $1
+        b.user_phone like $1
     ORDER BY
         a.app_user_id DESC;
 `;
