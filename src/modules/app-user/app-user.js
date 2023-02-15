@@ -5,7 +5,7 @@ module.exports = {
         try {
             const { name, key, userId, position, id, phone } = req.query
 
-            if (name || key || userId || position) {
+            if (name || key || userId || position || phone) {
                 if (position === 'next' && id) {
                     const appUserByLimitNext = await model.getAppUserByLimitNext(id)
 
