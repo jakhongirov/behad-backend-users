@@ -87,7 +87,7 @@ module.exports = {
 
     GET_USER_BY_APP_KEY_COUNT: async (req, res) => {
         try {
-            const { sort } = req.body
+            const { sort } = req.query
 
             if (sort) {
                 const APP_USER_BY_APP_KEY_COUNT = `
