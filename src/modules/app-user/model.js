@@ -56,6 +56,25 @@ const BY_ID = `
         a.app_user_id DESC;
 `;
 
+const BY_PHONE = `
+    select
+        *, to_char(app_user_install_date at time zone 'Asia/Tashkent', 'HH24:MI/DD.MM.YYYY')
+    from
+        apps_user a
+    inner join
+        users b
+    on 
+        a.user_id = b.user_id
+    inner join
+        apps c
+    on 
+        a.app_key = c.app_key
+    where 
+        b.user_phone ilike $1
+    ORDER BY
+        a.app_user_id DESC;
+`;
+
 const BY_KEY = `
     select
         *, to_char(app_user_install_date at time zone 'Asia/Tashkent', 'HH24:MI/DD.MM.YYYY')
@@ -217,6 +236,7 @@ const APP_USER_BY_APP_KEY_USERS_LIMIT_PREV = `
 const getAllAppUser = () => fetchALL(ALL_APP_USER)
 const getByName = (name) => fetchALL(APP_USER_BY_NAME, name)
 const getById = (id) => fetchALL(BY_ID, id)
+const getByPhone = (phone) => fetchALL(BY_PHONE, phone)
 const getByKey = (key) => fetchALL(BY_KEY, key)
 const getAppUserByUserIdKEy = (userId, key) => fetch(USER_ID_BY_KEY, userId, key)
 const changeProVersion = (id, pro_v) => fetch(UPDATE_APP_USER_PRO, id, pro_v)
@@ -232,6 +252,7 @@ module.exports = {
     getAllAppUser,
     getByName,
     getById,
+    getByPhone,
     getByKey,
     getAppUserByUserIdKEy,
     changeProVersion,

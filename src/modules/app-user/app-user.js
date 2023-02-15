@@ -3,7 +3,7 @@ const model = require('./model')
 module.exports = {
     GET_APP_USERS: async (req, res) => {
         try {
-            const { name, key, userId, position, id } = req.query
+            const { name, key, userId, position, id, phone } = req.query
 
             if (name || key || userId || position) {
                 if (position === 'next' && id) {
@@ -47,6 +47,14 @@ module.exports = {
                         status: 200,
                         message: "Success",
                         data: appUserById
+                    });
+                } else if (phone) {
+                    const getByPhone = await model.getByPhone(`%${phone}%`)
+
+                    return res.json({
+                        status: 200,
+                        message: "Success",
+                        data: getByPhone
                     });
                 } else if (key) {
                     const appUserByKey = await model.getByKey(`${key}%`)

@@ -17,7 +17,7 @@ const UPADATE_USER = `
     SET
         user_password = $2
     WHERE
-        user_phone = $1 RETURNING * ;
+        user_id = $1 RETURNING * ;
 `
 
 const ADD_CODE = `
@@ -68,7 +68,7 @@ const GET_CODE = `
 `
 
 const getUser = (phone) => fetch(BY_PHONE, phone)
-const putUser = (phone, pass_hash) => fetch(UPADATE_USER, phone, pass_hash)
+const putUser = (id, pass_hash) => fetch(UPADATE_USER, id, pass_hash)
 const postCode = (phone, code) => fetch(ADD_CODE, phone, code)
 const updeteActive = (id, status) => fetch(UPDATE_CODE_ACTIVE, id, status)
 const UpdateToken = (token) => fetch(UPDATE_SMS_TOKEN, token)

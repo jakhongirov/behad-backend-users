@@ -82,8 +82,6 @@ module.exports = {
             } else if (url == "sms") {
                 const { phone, sms } = req.body
 
-                console.log(sms);
-
                 if (sms) {
                     const checkCode = await model.getCode(phone, sms.toString())
                     console.log(checkCode);
@@ -116,14 +114,20 @@ module.exports = {
                 }
             } else if (url == "password") {
                 const { phone, password } = req.body
+                const getUser = await model.getUser(`%${phone}`)
                 const pass_hash = await bcryptjs.hash(password, 10)
-                const updatePass = await model.putUser(phone, pass_hash)
+                const updatePass = await model.putUser(getUser.user_id, pass_hash)
 
                 if (updatePass) {
                     return res.json({
                         status: 200,
                         message: "Success",
                         data: updatePass
+                    })
+                } else {
+                    return res.json({
+                        status: 400,
+                        message: "Bad request"
                     })
                 }
             }
