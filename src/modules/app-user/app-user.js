@@ -3,27 +3,10 @@ const model = require('./model')
 module.exports = {
     GET_APP_USERS: async (req, res) => {
         try {
-            const { name, key, userId, position, id, phone } = req.query
+            const { name, key, userId, position, id, phone, sort, offset } = req.query
 
-            if (name || key || userId || position || phone) {
-                if (position === 'next' && id) {
-                    const appUserByLimitNext = await model.getAppUserByLimitNext(id)
-
-                    return res.json({
-                        status: 200,
-                        message: "Success",
-                        data: appUserByLimitNext
-                    });
-
-                } else if (position === 'prev' && id) {
-                    const appUserByLimitPrev = await model.getAppUserByLimitPrev(id)
-
-                    return res.json({
-                        status: 200,
-                        message: "Success",
-                        data: appUserByLimitPrev
-                    });
-                } else if (userId && key) {
+            if (name || key || userId || position || phone || sort || offset) {
+                if (userId && key) {
                     const appUserByUserIdKEy = await model.getAppUserByUserIdKEy(userId, key)
 
                     return res.json({
@@ -32,8 +15,8 @@ module.exports = {
                         data: appUserByUserIdKEy
                     });
 
-                } else if (name) {
-                    const appUserByName = await model.getByName(`%${name}%`)
+                } else if (offset && name) {
+                    const appUserByName = await model.getByName(offset, `%${name}%`)
 
                     return res.json({
                         status: 200,
@@ -48,31 +31,38 @@ module.exports = {
                         message: "Success",
                         data: appUserById
                     });
-                } else if (phone) {
+                } else if (offset && phone) {
                     console.log(phone);
-                    const getByPhone = await model.getByPhone(`%${phone}%`)
+                    const getByPhone = await model.getByPhone(offset, `%${phone}%`)
 
                     return res.json({
                         status: 200,
                         message: "Success",
                         data: getByPhone
                     });
-                } else if (key) {
-                    const appUserByKey = await model.getByKey(`${key}%`)
+                } else if (offset && key) {
+                    const appUserByKey = await model.getByKey(offset, `${key}%`)
 
                     return res.json({
                         status: 200,
                         message: "Success",
                         data: appUserByKey
                     });
+                } else if (offset) {
+                    const AppUsersByLimitPagination = await model.getAppUsersByLimitPagination(offset)
+                    return res.json({
+                        status: 200,
+                        message: "Success",
+                        data: AppUsersByLimitPagination
+                    });
+                } else {
+                    const allAppUser = await model.getAllAppUser()
+                    return res.json({
+                        status: 200,
+                        message: "Success",
+                        data: allAppUser
+                    });
                 }
-            } else {
-                const allAppUser = await model.getAllAppUser()
-                return res.json({
-                    status: 200,
-                    message: "Success",
-                    data: allAppUser
-                });
             }
 
 
