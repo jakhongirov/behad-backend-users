@@ -241,9 +241,35 @@ const getAppUsersByLimitPagination = (offset) => {
     return fetchALL(ALL_APP_USER)
 }
 
+const getAppUsersByLimitPaginationBySort = (offset, sort) => {
+
+    const ALL_APP_USER_BY_SORT = `
+        select 
+            *, to_char(app_user_install_date at time zone 'Asia/Tashkent', 'HH24:MI/DD.MM.YYYY')
+        from
+                apps_user a
+        inner join
+                users b
+        on 
+            a.user_id = b.user_id
+        inner join
+                apps c
+        on 
+            a.app_key = c.app_key
+        ORDER BY
+            ${sort}
+        OFFSET
+            ${offset}
+        LIMIT 50;
+    `;
+
+    return fetchALL(ALL_APP_USER_BY_SORT)
+}
+
 module.exports = {
     getAllAppUser,
     getAppUsersByLimitPagination,
+    getAppUsersByLimitPaginationBySort,
     getByName,
     getById,
     getByPhone,

@@ -48,6 +48,13 @@ module.exports = {
                         message: "Success",
                         data: appUserByKey
                     });
+                } else if (offset && sort) {
+                    const AppUsersByLimitPaginationBySort = await model.getAppUsersByLimitPaginationBySort(offset, sort)
+                    return res.json({
+                        status: 200,
+                        message: "Success",
+                        data: AppUsersByLimitPaginationBySort
+                    });
                 } else if (offset) {
                     const AppUsersByLimitPagination = await model.getAppUsersByLimitPagination(offset)
                     return res.json({
