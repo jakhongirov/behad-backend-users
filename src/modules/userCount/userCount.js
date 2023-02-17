@@ -156,7 +156,7 @@ module.exports = {
         }
     },
 
-    GET_USERS_ALL_COUNT: async (req, res) => {
+    GET_USERS_ALL_COUNT: async (_, res) => {
         try {
             const allUsersCount = await model.allUsersCount()
 
@@ -175,5 +175,25 @@ module.exports = {
                 message: "Internal Server Error"
             })
         }
-    }
+    },
+
+    GET_USERS_GENDER_COUNT: async (_, res) => {
+        try {
+            const usersGenderCount = await model.usersGenderCount()
+
+            if (usersGenderCount) {
+                return res.json({
+                    status: 200,
+                    message: "Success",
+                    count: usersGenderCount
+                })
+            }
+        } catch (error) {
+            console.log(error);
+            res.json({
+                status: 500,
+                message: "Internal Server Error"
+            })
+        }
+    },
 }
