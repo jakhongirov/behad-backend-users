@@ -132,13 +132,13 @@ const getUserByCountryCity = (country, city) => fetchALL(USER_CITY_BY_COUNTRY_CI
 const getUserByCountryCityLimitNext = (id, country, city) => fetchALL(USER_CITY_BY_COUNTRY_CITY_NEXT, id, country, city)
 const getUserByCountryCityLimitPrev = (id, country, city) => fetchALL(USER_CITY_BY_COUNTRY_CITY_PREV, id, country, city)
 const allUsersCount = () => fetch(ALL_USERS_COUNT)
-const usersGenderCount = () => fetchALL(USERS_GENDER_COUNT)
-const usersCountAge15 = () => fetchALL(USERS_COUNT_AGE_15)
-const usersCountAge25 = () => fetchALL(USERS_COUNT_AGE_25)
-const usersCountAge40 = () => fetchALL(USERS_COUNT_AGE_40)
-const usersCountAge60 = () => fetchALL(USERS_COUNT_AGE_60)
-const usersCountAge80 = () => fetchALL(USERS_COUNT_AGE_80)
-const usersCountAge = () => fetchALL(USERS_COUNT_AGE)
+const usersGenderCount = () => fetch(USERS_GENDER_COUNT)
+const usersCountAge15 = () => fetch(USERS_COUNT_AGE_15)
+const usersCountAge25 = () => fetch(USERS_COUNT_AGE_25)
+const usersCountAge40 = () => fetch(USERS_COUNT_AGE_40)
+const usersCountAge60 = () => fetch(USERS_COUNT_AGE_60)
+const usersCountAge80 = () => fetch(USERS_COUNT_AGE_80)
+const usersCountAge = () => fetch(USERS_COUNT_AGE)
 
 module.exports = {
     getUserCountry,
