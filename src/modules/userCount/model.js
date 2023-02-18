@@ -74,7 +74,7 @@ const USERS_GENDER_COUNT = `
 
 const USERS_COUNT_AGE_15 = `
     SELECT
-        count(user_id)
+        count(user_id) as counts
     FROM
         users
     WHERE

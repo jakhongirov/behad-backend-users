@@ -36,7 +36,7 @@ router
     .get('/userCountry-City', AUTH, UserCount.GET_COUNTRY_CITY)
     .get('/userCount', AUTH, UserCount.GET_USERS_ALL_COUNT)
     .get('/userCountGender', AUTH, UserCount.GET_USERS_GENDER_COUNT)
-    .get('/userCountAge', AUTH, UserCount.GET_USERS_AGE_COUNT_FILTER)
+    .get('/userCountAge', UserCount.GET_USERS_AGE_COUNT_FILTER)
 
     .get('/apps', App.GET_APP)
     .post('/addApp', AUTH, App.ADD_APP)

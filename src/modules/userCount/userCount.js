@@ -210,12 +210,12 @@ module.exports = {
                 status: 200,
                 message: "Success",
                 data: {
-                    "15": usersCountAge15.count,
-                    "25": usersCountAge25.count,
-                    "40": usersCountAge40.count,
-                    "60": usersCountAge60.count,
-                    "80": usersCountAge80.count,
-                    "unlimit": usersCountAge.count
+                    "15": usersCountAge15,
+                    "25": usersCountAge25,
+                    "40": usersCountAge40,
+                    "60": usersCountAge60,
+                    "80": usersCountAge80,
+                    "unlimit": usersCountAge
                 }
             })
 
