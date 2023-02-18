@@ -87,6 +87,15 @@ const USERS_COUNT_AGE_25 = `
     FROM
         users
     WHERE
+        user_age >= 16 and user_age <= 25;
+`;
+
+const USERS_COUNT_AGE_40 = `
+    SELECT
+        count(user_id)
+    FROM
+        users
+    WHERE
         user_age >= 26 and user_age <= 40;
 `;
 
