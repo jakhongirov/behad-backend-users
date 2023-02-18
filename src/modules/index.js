@@ -15,9 +15,11 @@ const Tracking = require("./tracking/tracking")
 const UserCount = require('./userCount/userCount')
 
 router
-    .get('/users', Users.GET_USERS)
     .post("/login/:temptoken/:app_key/:notification_token", Login.LOGIN)
     .post("/register/:temptoken/:app_key/:notification_token", Login.REGISTER)
+    .post('/forgetPassword/:url', Forget.POST_PHONE)
+
+    .get('/users', Users.GET_USERS)
     .put('/editUser', AUTH, Users.PUT_USER)
     .put('/adminAddcomment', AUTH, Users.PUT_COMMENT_USER_ADMIN)
     .put('/Addcomment', Users.POST_COMMENT_USER)
@@ -34,6 +36,7 @@ router
     .get('/userCountry-City', AUTH, UserCount.GET_COUNTRY_CITY)
     .get('/userCount', AUTH, UserCount.GET_USERS_ALL_COUNT)
     .get('/userCountGender', AUTH, UserCount.GET_USERS_GENDER_COUNT)
+    .get('/userCountAge', AUTH, UserCount.GET_USERS_AGE_COUNT_FILTER)
 
     .get('/apps', App.GET_APP)
     .post('/addApp', AUTH, App.ADD_APP)
@@ -54,8 +57,6 @@ router
     .post('/addnew', AUTH, FileUpload.single("photo"), News.POST_NEW)
     .put('/updatenew', AUTH, FileUpload.single("photo"), News.PUT_NEW)
     .put('/updateCount/:url', News.UPDATE_COUNT)
-    .delete('/deletenew', AUTH, News.DELETE_NEW)
-
-    .post('/forgetPassword/:url', Forget.POST_PHONE);
+    .delete('/deletenew', AUTH, News.DELETE_NEW);
 
 module.exports = router
