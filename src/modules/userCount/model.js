@@ -69,7 +69,9 @@ const USERS_GENDER_COUNT = `
     from 
         users 
     group by 
-        user_who;
+        user_who
+    order by
+        user_who desc;
 `
 
 const USERS_COUNT_AGE_15 = `

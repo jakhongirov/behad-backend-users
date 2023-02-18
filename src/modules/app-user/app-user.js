@@ -82,20 +82,26 @@ module.exports = {
         }
     },
 
-    GET_USER_BY_APP_KEY_COUNT: async (req, res) => {
+    GET_USER_BY_APP_KEY_COUNT_GENDER: async (req, res) => {
         try {
-            const { sort } = req.query
+            const { appKey } = req.query
 
-            if (sort) {
+            if (appKey) {
                 const APP_USER_BY_APP_KEY_COUNT = `
-                    SELECT 
-                        app_key, count(app_user_id) 
-                    FROM 
-                        apps_user 
-                    GROUP BY 
-                        app_key
-                    ORDER BY
-                        ${sort};
+                    select 
+                        b.user_who, count(b.user_id)
+                    from
+                            apps_user a
+                    inner join
+                            users b
+                    on 
+                        a.user_id = b.user_id
+                    where
+                        a.app_key = '${appKey}'
+                    group by 
+                        b.user_who
+                    order by
+                        b.user_who desc
                 `
                 const appUserByAppKeyCount = await model.appUserByAppKeyCount(APP_USER_BY_APP_KEY_COUNT)
 
@@ -104,6 +110,46 @@ module.exports = {
                         status: 200,
                         message: "Success",
                         data: appUserByAppKeyCount
+                    });
+                }
+            } else {
+                return res.json({
+                    status: 400,
+                    message: "Bad request"
+                })
+            }
+
+        } catch (error) {
+            console.log(error);
+            res.json({
+                status: 500,
+                message: "Internal Server Error"
+            })
+        }
+    },
+
+    GET_USER_BY_APP_KEY_COUNT: async (req, res) => {
+        try {
+            const { sort } = req.query
+
+            if (sort) {
+                const APP_USER_BY_APP_KEY_COUNT_GENDER = `
+                    SELECT 
+                        app_key, count(app_user_id) 
+                    FROM 
+                        apps_user 
+                    GROUP BY 
+                        app_key 
+                    ORDER BY
+                        ${sort};
+                `
+                const appUserByAppKeyCountGender = await model.appUserByAppKeyCountGender(APP_USER_BY_APP_KEY_COUNT_GENDER)
+
+                if (appUserByAppKeyCountGender) {
+                    return res.json({
+                        status: 200,
+                        message: "Success",
+                        data: appUserByAppKeyCountGender
                     });
                 }
             } else {

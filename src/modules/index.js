@@ -46,6 +46,7 @@ router
 
     .get('/appUsers', AUTH, AppUser.GET_APP_USERS)
     .get('/appUsersCount', AUTH, AppUser.GET_USER_BY_APP_KEY_COUNT)
+    .get('/appUsersCountGender', AUTH, AppUser.GET_USER_BY_APP_KEY_COUNT_GENDER)
     .get('/appUsersByKey', AUTH, AppUser.GET_USER_BY_APP_KEY_USERS)
     .put('/editProVersion', AUTH, AppUser.PUT_PRO_VERSION)
     .get('/updateInterested', AUTH, AppUser.UPDATE_USER_INTERESTED)

@@ -135,6 +135,7 @@ const updateUserInterested = (key, userId) => fetch(UPDATE_USER_INTERESTED, key,
 const getAppUserByLimitNext = (id) => fetchALL(APP_USER_LIMIT_NEXT_BY_ID, id)
 const getAppUserByLimitPrev = (id) => fetchALL(APP_USER_LIMIT_PREV_BY_ID, id)
 const appUserByAppKeyCount = (query) => fetchALL(query)
+const appUserByAppKeyCountGender = (query) => fetchALL(query)
 const appUserByAppKeyUsers = (key) => fetchALL(APP_USER_BY_APP_KEY_USERS, key)
 
 const getByName = (offset, name) => {
@@ -281,5 +282,6 @@ module.exports = {
     getAppUserByLimitPrev,
     appUserByAppKeyCount,
     appUserByAppKeyUsers,
+    appUserByAppKeyCountGender
 }
 
