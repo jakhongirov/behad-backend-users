@@ -72,6 +72,51 @@ const USERS_GENDER_COUNT = `
         user_who;
 `
 
+const USERS_COUNT_AGE_15 = `
+    SELECT
+        count(user_id)
+    FROM
+        users
+    WHERE
+        user_age >= 0 and user_age <= 15;
+`;
+
+const USERS_COUNT_AGE_25 = `
+    SELECT
+        count(user_id)
+    FROM
+        users
+    WHERE
+        user_age >= 26 and user_age <= 40;
+`;
+
+const USERS_COUNT_AGE_60 = `
+    SELECT
+        count(user_id)
+    FROM
+        users
+    WHERE
+        user_age >= 41 and user_age <= 60;
+`;
+
+const USERS_COUNT_AGE_80 = `
+    SELECT
+        count(user_id)
+    FROM
+        users
+    WHERE
+        user_age >= 61 and user_age <= 80;
+`;
+
+const USERS_COUNT_AGE= `
+    SELECT
+        count(user_id)
+    FROM
+        users
+    WHERE
+        user_age >= 80;
+`;
+
 const getUserCountry = (query) => fetchALL(query)
 const getUserCityByCountry = (query) => fetchALL(query)
 const getUserByCountryCity = (country, city) => fetchALL(USER_CITY_BY_COUNTRY_CITY, country, city)
@@ -79,6 +124,12 @@ const getUserByCountryCityLimitNext = (id, country, city) => fetchALL(USER_CITY_
 const getUserByCountryCityLimitPrev = (id, country, city) => fetchALL(USER_CITY_BY_COUNTRY_CITY_PREV, id, country, city)
 const allUsersCount = () => fetch(ALL_USERS_COUNT)
 const usersGenderCount = () => fetchALL(USERS_GENDER_COUNT)
+const usersCountAge15 = () => fetchALL(USERS_COUNT_AGE_15)
+const usersCountAge25 = () => fetchALL(USERS_COUNT_AGE_25)
+const usersCountAge40 = () => fetchALL(USERS_COUNT_AGE_40)
+const usersCountAge60 = () => fetchALL(USERS_COUNT_AGE_60)
+const usersCountAge80 = () => fetchALL(USERS_COUNT_AGE_80)
+const usersCountAge = () => fetchALL(USERS_COUNT_AGE)
 
 module.exports = {
     getUserCountry,
@@ -87,5 +138,11 @@ module.exports = {
     getUserByCountryCityLimitNext,
     getUserByCountryCityLimitPrev,
     allUsersCount,
-    usersGenderCount
+    usersGenderCount,
+    usersCountAge15,
+    usersCountAge25,
+    usersCountAge40,
+    usersCountAge60,
+    usersCountAge80,
+    usersCountAge,
 }

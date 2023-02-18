@@ -196,4 +196,35 @@ module.exports = {
             })
         }
     },
+
+    GET_USERS_AGE_COUNT_FILTER: async (_, res) => {
+        try {
+            const usersCountAge15 = await model.usersCountAge15()
+            const usersCountAge25 = await model.usersCountAge25()
+            const usersCountAge40 = await model.usersCountAge40()
+            const usersCountAge60 = await model.usersCountAge60()
+            const usersCountAge80 = await model.usersCountAge80()
+            const usersCountAge = await model.usersCountAge()
+
+            return res.json({
+                status: 200,
+                message: "Success",
+                data: {
+                    "15": usersCountAge15.count,
+                    "25": usersCountAge25.count,
+                    "40": usersCountAge40.count,
+                    "60": usersCountAge60.count,
+                    "80": usersCountAge80.count,
+                    "unlimit": usersCountAge.count
+                }
+            })
+
+        } catch (error) {
+            console.log(error);
+            res.json({
+                status: 500,
+                message: "Internal Server Error"
+            })
+        }
+    }
 }

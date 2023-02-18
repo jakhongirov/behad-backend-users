@@ -34,6 +34,7 @@ router
     .get('/userCountry-City', AUTH, UserCount.GET_COUNTRY_CITY)
     .get('/userCount', AUTH, UserCount.GET_USERS_ALL_COUNT)
     .get('/userCountGender', AUTH, UserCount.GET_USERS_GENDER_COUNT)
+    .get('/userCountAge', AUTH, UserCount.GET_USERS_AGE_COUNT_FILTER)
 
     .get('/apps', App.GET_APP)
     .post('/addApp', AUTH, App.ADD_APP)
@@ -55,7 +56,7 @@ router
     .put('/updatenew', AUTH, FileUpload.single("photo"), News.PUT_NEW)
     .put('/updateCount/:url', News.UPDATE_COUNT)
     .delete('/deletenew', AUTH, News.DELETE_NEW)
-
+``
     .post('/forgetPassword/:url', Forget.POST_PHONE);
 
 module.exports = router
