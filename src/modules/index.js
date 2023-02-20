@@ -28,7 +28,7 @@ router
 
     .post('/admin', Admin.LOGIN)
 
-    .get('/trackingUsers', AUTH, Tracking.GET)
+    .get('/trackingUsers',  Tracking.GET)
     .get('/trackingUsersFilter', AUTH, Tracking.GET_USER_TRACKING_FILTER)
     .get('/trackingUsersCount', AUTH, Tracking.GET_USERS_TRACKING_COUNT)
 
