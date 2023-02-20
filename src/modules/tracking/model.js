@@ -35,13 +35,15 @@ const getTrackingUsers = (userId, key, offset) => {
 
     return fetchALL(ALL_TRACKING_USERS, userId, key)
 };
-const usersTrackingFilter = (offset, day) => {
+
+const usersTrackingFilter = (offset, day, sort) => {
     const USER_TRACKING_FILTER_DAYS = `
         select 
-            *, to_char(new_tracking_user_create_date at time zone 'Asia/Tashkent', 'HH24:MI/DD.MM.YYYY')
+            a.app_key,
+            count(a.user_id)
         from
             tracking_users a
-        inner join
+         inner join
             users b
         on 
             a.user_id = b.user_id
@@ -51,18 +53,52 @@ const usersTrackingFilter = (offset, day) => {
             a.app_key = c.app_key
         WHERE
             new_tracking_user_create_date > current_date - interval '${day} days'
-        ORDER BY
-            a.tracking_user_id DESC
-        OFFSET ${offset}
-        LIMIT 50;
+        group by  
+            a.app_key
+        Order by
+            ${sort}
+        offset ${offset};
     `;
 
     return fetchALL(USER_TRACKING_FILTER_DAYS)
 }
-const usersTrackingFilterBykey = (offset, day, key) => {
+const usersTrackingFilterUsers = (offset, day, sort) => {
+    const USER_TRACKING_FILTER_DAYS = `
+        select 
+            a.user_id,
+            b.user_name,
+            a.app_key,
+            count(a.app_key)
+        from
+            tracking_users a
+         inner join
+            users b
+        on 
+            a.user_id = b.user_id
+        inner join
+            apps c
+        on 
+            a.app_key = c.app_key
+        WHERE
+            new_tracking_user_create_date > current_date - interval '${day} days'
+        group by  
+            a.app_key, a.user_id, b.user_name
+        order by 
+            ${sort}
+        offset ${offset}
+        limit 50;
+    `;
+
+    return fetchALL(USER_TRACKING_FILTER_DAYS)
+}
+
+const usersTrackingFilterBykey = (offset, day, key, sort) => {
     const USER_TRACKING_FILTER_DAYS_BY_KEY = `
         select 
-            *, to_char(new_tracking_user_create_date at time zone 'Asia/Tashkent', 'HH24:MI/DD.MM.YYYY')
+            a.user_id,
+            b.user_name,
+            a.app_key,
+            count(a.app_key)
         from
             tracking_users a
         inner join
@@ -74,20 +110,50 @@ const usersTrackingFilterBykey = (offset, day, key) => {
         on 
             a.app_key = c.app_key
         WHERE
-             a.app_key =$1  and new_tracking_user_create_date > current_date - interval '${day} days'
-        ORDER BY
-            a.tracking_user_id DESC
-        OFFSET ${offset}
-        LIMIT 50;
+            a.app_key = $1 and new_tracking_user_create_date > current_date - interval '${day} days'
+        group by  
+            a.app_key, a.user_id, b.user_name
+        order by
+            ${sort}
+        offset ${offset}
+        limit 50;
     `;
 
     return fetchALL(USER_TRACKING_FILTER_DAYS_BY_KEY, key)
 }
+
+const usersTrackingFilterUsersBykey = (offset, day, key, sort) => {
+    const USER_TRACKING_FILTER_DAYS_BY_KEY = `
+        select 
+            a.app_key,
+            count(a.user_id)
+        from
+            tracking_users a
+        inner join
+            users b
+        on 
+            a.user_id = b.user_id
+        inner join
+            apps c
+        on 
+            a.app_key = c.app_key
+        WHERE
+            a.app_key = $1 and new_tracking_user_create_date > current_date - interval '${day} days'
+        group by  
+            a.app_key
+        offset ${offset};
+    `;
+
+    return fetchALL(USER_TRACKING_FILTER_DAYS_BY_KEY, key)
+}
+
 const usersTrackingCount = () => fetchALL(USERS_TACKING_COUNT)
 
 module.exports = {
     getTrackingUsers,
     usersTrackingFilter,
     usersTrackingFilterBykey,
-    usersTrackingCount
+    usersTrackingCount,
+    usersTrackingFilterUsers,
+    usersTrackingFilterUsersBykey
 }   
