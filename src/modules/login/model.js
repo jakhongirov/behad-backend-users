@@ -92,6 +92,19 @@ const DELETE_USER_DEVICE_ID = `
         $1 = any (user_device_id) RETURNING *;
 `
 
+const ADD_TRACKING_USER = `
+    INSERT INTO
+        tracking_users (
+            user_id,
+            app_key
+    )
+    VALUES
+    (
+        $1,
+        $2
+    ) RETURNING *;
+`;
+
 const getUser = (phone) => fetch(foundUser, phone);
 const registerUser = (name, surname, age, who, phone, pass_hash, country, capital, temptoken) => fetch(ADD_USER, name, surname, age, who, phone, pass_hash, country, capital, temptoken)
 const addTokenUser = (id, token) => fetch(ADD_TOKEN_USER, id, token)
@@ -99,6 +112,7 @@ const addAppUser = (notification_token, id, app_key) => fetch(ADD_APP_USER, noti
 const checkUser = (phone) => fetch(BY_PHONE, phone)
 const getAppUser = (id, key) => fetch(GET_APP_USER, id, key)
 const deleteUserDeviceId = (temptoken) => fetchALL(DELETE_USER_DEVICE_ID, temptoken)
+const addTrackingUser = (id, key) => fetch(ADD_TRACKING_USER, id, key)
 
 module.exports = {
     getUser,
@@ -107,5 +121,6 @@ module.exports = {
     addAppUser,
     checkUser,
     getAppUser,
-    deleteUserDeviceId
+    deleteUserDeviceId,
+    addTrackingUser
 }
