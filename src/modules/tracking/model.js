@@ -92,7 +92,7 @@ const usersTrackingFilterUsers = (offset, day, sort) => {
     return fetchALL(USER_TRACKING_FILTER_DAYS)
 }
 
-const usersTrackingFilterBykey = (offset, day, key, sort) => {
+const usersTrackingFilterUsersBykey = (offset, day, key, sort) => {
     const USER_TRACKING_FILTER_DAYS_BY_KEY = `
         select 
             a.user_id,
@@ -122,7 +122,7 @@ const usersTrackingFilterBykey = (offset, day, key, sort) => {
     return fetchALL(USER_TRACKING_FILTER_DAYS_BY_KEY, key)
 }
 
-const usersTrackingFilterUsersBykey = (offset, day, key, sort) => {
+const usersTrackingFilterBykey = (offset, day, key, sort) => {
     const USER_TRACKING_FILTER_DAYS_BY_KEY = `
         select 
             a.app_key,
