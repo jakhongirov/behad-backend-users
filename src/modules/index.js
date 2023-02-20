@@ -30,6 +30,7 @@ router
 
     .get('/trackingUsers', AUTH, Tracking.GET)
     .get('/trackingUsersFilter', AUTH, Tracking.GET_USER_TRACKING_FILTER)
+    .get('/trackingUsersCount', AUTH, Tracking.GET_USERS_TRACKING_COUNT)
 
     .get('/userCountry', UserCount.GET_COUNTRY)
     .get('/userCity', AUTH, UserCount.GET_CITY)

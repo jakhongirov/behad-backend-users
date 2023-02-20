@@ -780,6 +780,16 @@ const USER_TRACKING_FILTER_DAYS_3_BY_KEY_LIMIT_PREV = `
     LIMIT 50;
 `;
 
+const USERS_TACKING_COUNT =`
+    SELECT 
+        user_id, count(user_id) 
+    FROM 
+        tracking_users 
+    group by 
+        user_id 
+    order by 
+        user_id desc;
+`;
 const getTrackingUsers = (userId, key) => fetchALL(ALL_TRACKING_USERS, userId, key)
 const userTrackingLimitNext = (userId, id, key) => fetchALL(TRACKING_USERS_LIMIT_NEXT, userId, id, key)
 const userTrackingLimitPrev = (userId, id, key) => fetchALL(TRACKING_USERS_LIMIT_PREV, userId, id, key)
@@ -825,6 +835,8 @@ const userTrackingFilterDay3LimitPrev = (id) => fetchALL(USER_TRACKING_FILTER_DA
 const userTrackingFilterDay3LimitNextByKey = (id, key) => fetchALL(USER_TRACKING_FILTER_DAYS_3_BY_KEY_LIMIT_NEXT, id, key)
 const userTrackingFilterDay3LimitPrevByKey = (id, key) => fetchALL(USER_TRACKING_FILTER_DAYS_3_BY_KEY_LIMIT_PREV, id, key)
 
+const usersTrackingCount = () => fetchALL(USERS_TACKING_COUNT)
+
 module.exports = {
     getTrackingUsers,
     userTrackingLimitNext,
@@ -865,4 +877,5 @@ module.exports = {
     userTrackingFilterDay3LimitPrev,
     userTrackingFilterDay3LimitNextByKey,
     userTrackingFilterDay3LimitPrevByKey,
+    usersTrackingCount
 }   

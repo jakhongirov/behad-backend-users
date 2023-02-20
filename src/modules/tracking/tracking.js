@@ -642,4 +642,23 @@ module.exports = {
             })
         }
     },
+
+    GET_USERS_TRACKING_COUNT: async (_, res) => {
+        try {
+            const usersTrackingCount = await model.usersTrackingCount()
+
+            return res.json({
+                status: 200,
+                message: "Success",
+                data: usersTrackingCount
+            })
+
+        } catch (error) {
+            console.log(error);
+            res.json({
+                status: 500,
+                message: "Internal Server Error"
+            })
+        }
+    }
 }
