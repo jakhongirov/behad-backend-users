@@ -141,6 +141,8 @@ const usersTrackingFilterBykey = (offset, day, key, sort) => {
             a.app_key = $1 and new_tracking_user_create_date > current_date - interval '${day} days'
         group by  
             a.app_key
+        order by
+            ${sort}
         offset ${offset};
     `;
 
