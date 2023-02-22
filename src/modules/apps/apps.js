@@ -98,7 +98,7 @@ module.exports = {
         try {
             const { id, name, current_vs, min_vs, key, price, six_monthly, yearly, payment, app_token, app_post } = req.body
 
-            const updateApp = await model.putApp(id, name, current_vs, min_vs, key, six_monthly, yearly, price, payment, app_token, app_post)
+            const updateApp = await model.putApp(id, name, current_vs, min_vs, key, price, six_monthly, yearly, payment, app_token, app_post)
 
             res.json({
                 status: 200,
