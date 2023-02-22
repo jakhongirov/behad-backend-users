@@ -180,7 +180,7 @@ module.exports = {
             const { id, comment } = req.body
             const foundbyIdUser = await model.getfoundbyIdUser(id);
 
-            if (foundbyIdUser) {
+            if (foundbyIdUser[0].user_id == id) {
                 const addComment = await model.addComment(id, comment)
 
                 if (addComment) {
