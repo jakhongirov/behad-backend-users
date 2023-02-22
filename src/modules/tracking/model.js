@@ -40,7 +40,8 @@ const usersTrackingFilter = (offset, day, sort) => {
     const USER_TRACKING_FILTER_DAYS = `
         select 
             a.app_key,
-            count(DISTINCT a.user_id)
+            count(DISTINCT a.user_id),
+            count(a.user_id) as tracking_count
         from
             tracking_users a
          inner join
@@ -126,7 +127,8 @@ const usersTrackingFilterBykey = (offset, day, key, sort) => {
     const USER_TRACKING_FILTER_DAYS_BY_KEY = `
         select 
             a.app_key,
-            count(DISTINCT a.user_id)
+            count(DISTINCT a.user_id),
+            count(a.user_id) as tracking_count
         from
             tracking_users a
         inner join
