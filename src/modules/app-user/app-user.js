@@ -273,10 +273,9 @@ module.exports = {
         }
     },
 
-    GET_USERS_APPS_COUNT: async (req, res) => {
+    GET_USERS_APPS_COUNT: async (_, res) => {
         try {
-            const { offset, sort } = req.query
-            const usersAppsCount = await model.usersAppsCount(offset, sort)
+            const usersAppsCount = await model.usersAppsCount()
 
             if (usersAppsCount) {
                 return res.json({

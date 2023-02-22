@@ -267,7 +267,7 @@ const getAppUsersByLimitPaginationBySort = (offset, sort) => {
     return fetchALL(ALL_APP_USER_BY_SORT)
 }
 
-const usersAppsCount = (offset, sort) => {
+const usersAppsCount = () => {
     const USERS_APPS_COUNT = `
         select 
             user_id, count(app_key) 
@@ -276,10 +276,7 @@ const usersAppsCount = (offset, sort) => {
         group by 
             user_id 
         order by 
-            ${sort}
-        offset
-            ${offset}
-        limit 50;
+            user_id desc;
     `;
 
     return fetchALL(USERS_APPS_COUNT)
