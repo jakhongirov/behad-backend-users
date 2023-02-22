@@ -177,17 +177,47 @@ module.exports = {
         }
     },
 
-    GET_USERS_GENDER_COUNT: async (_, res) => {
+    GET_USERS_GENDER_COUNT: async (req, res) => {
         try {
-            const usersGenderCount = await model.usersGenderCount()
+            const { country, city } = req.query
 
-            if (usersGenderCount) {
+            if (country == 'all' && city == 'all') {
+                const usersGenderCount = await model.usersGenderCount()
+
+                if (usersGenderCount) {
+                    return res.json({
+                        status: 200,
+                        message: "Success",
+                        count: usersGenderCount
+                    })
+                }
+            } else if (country && city == 'all') {
+                const usersGenderCountByCountry = await model.usersGenderCountByCountry(country)
+
+                if (usersGenderCountByCountry) {
+                    return res.json({
+                        status: 200,
+                        message: "Success",
+                        count: usersGenderCountByCountry
+                    })
+                }
+            } else if (country && city) {
+                const usersGenderCountByCountryByCountryCity = await model.usersGenderCountByCountryByCountryCity(country, city)
+
+                if (usersGenderCountByCountryByCountryCity) {
+                    return res.json({
+                        status: 200,
+                        message: "Success",
+                        count: usersGenderCountByCountryByCountryCity
+                    })
+                }
+            } else {
                 return res.json({
-                    status: 200,
-                    message: "Success",
-                    count: usersGenderCount
+                    status: 400,
+                    message: "Bad request"
                 })
             }
+
         } catch (error) {
             console.log(error);
             res.json({
@@ -197,27 +227,71 @@ module.exports = {
         }
     },
 
-    GET_USERS_AGE_COUNT_FILTER: async (_, res) => {
+    GET_USERS_AGE_COUNT_FILTER: async (req, res) => {
         try {
-            const usersCountAge15 = await model.usersCountAge15()
-            const usersCountAge25 = await model.usersCountAge25()
-            const usersCountAge40 = await model.usersCountAge40()
-            const usersCountAge60 = await model.usersCountAge60()
-            const usersCountAge80 = await model.usersCountAge80()
-            const usersCountAge = await model.usersCountAge()
+            const { country, city } = req.query
 
-            return res.json({
-                status: 200,
-                message: "Success",
-                data: {
-                    "15": usersCountAge15,
-                    "25": usersCountAge25,
-                    "40": usersCountAge40,
-                    "60": usersCountAge60,
-                    "80": usersCountAge80,
-                    "unlimit": usersCountAge
-                }
-            })
+            if (country == 'all' && city == 'all') {
+                const usersCountAge15 = await model.usersCountAge15()
+                const usersCountAge25 = await model.usersCountAge25()
+                const usersCountAge40 = await model.usersCountAge40()
+                const usersCountAge60 = await model.usersCountAge60()
+                const usersCountAge80 = await model.usersCountAge80()
+                const usersCountAge = await model.usersCountAge()
+
+                return res.json({
+                    status: 200,
+                    message: "Success",
+                    data: {
+                        "15": usersCountAge15,
+                        "25": usersCountAge25,
+                        "40": usersCountAge40,
+                        "60": usersCountAge60,
+                        "80": usersCountAge80,
+                        "unlimit": usersCountAge
+                    }
+                })
+            } else if (country && city == 'all') {
+                const usersCountAge15ByCountry = await model.usersCountAge15ByCountry(country)
+                const usersCountAge25ByCountry = await model.usersCountAge25ByCountry(country)
+                const usersCountAge40ByCountry = await model.usersCountAge40ByCountry(country)
+                const usersCountAge60ByCountry = await model.usersCountAge60ByCountry(country)
+                const usersCountAge80ByCountry = await model.usersCountAge80ByCountry(country)
+                const usersCountAgeByCountry = await model.usersCountAgeByCountry(country)
+
+                return res.json({
+                    status: 200,
+                    message: "Success",
+                    data: {
+                        "15": usersCountAge15ByCountry,
+                        "25": usersCountAge25ByCountry,
+                        "40": usersCountAge40ByCountry,
+                        "60": usersCountAge60ByCountry,
+                        "80": usersCountAge80ByCountry,
+                        "unlimit": usersCountAgeByCountry
+                    }
+                })
+            } if (country && city) {
+                const usersCountAge15ByCountryCity = await model.usersCountAge15ByCountryCity(country, city)
+                const usersCountAge25ByCountryCity = await model.usersCountAge25ByCountryCity(country, city)
+                const usersCountAge40ByCountryCity = await model.usersCountAge40ByCountryCity(country, city)
+                const usersCountAge60ByCountryCity = await model.usersCountAge60ByCountryCity(country, city)
+                const usersCountAge80ByCountryCity = await model.usersCountAge80ByCountryCity(country, city)
+                const usersCountAgeByCountryCity = await model.usersCountAgeByCountryCity(country, city)
+
+                return res.json({
+                    status: 200,
+                    message: "Success",
+                    data: {
+                        "15": usersCountAge15ByCountryCity,
+                        "25": usersCountAge25ByCountryCity,
+                        "40": usersCountAge40ByCountryCity,
+                        "60": usersCountAge60ByCountryCity,
+                        "80": usersCountAge80ByCountryCity,
+                        "unlimit": usersCountAgeByCountryCity
+                    }
+                })
+            }
 
         } catch (error) {
             console.log(error);
