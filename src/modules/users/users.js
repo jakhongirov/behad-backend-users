@@ -178,30 +178,23 @@ module.exports = {
     PUT_COMMENT_USER_ADMIN: async (req, res) => {
         try {
             const { id, comment } = req.body
-            const foundbyIdUser = await model.getfoundbyIdUser(id);
 
-            if (foundbyIdUser[0].user_id == id) {
-                const addComment = await model.addComment(id, comment)
+            const addComment = await model.addComment(id, comment)
 
-                if (addComment) {
-                    return res.json({
-                        status: 200,
-                        message: "Added comment",
-                        data: addComment
-                    })
-                } else {
-                    return res.json({
-                        status: 400,
-                        message: "Bad request",
-                    })
-                }
-
+            if (addComment) {
+                return res.json({
+                    status: 200,
+                    message: "Added comment",
+                    data: addComment
+                })
             } else {
                 return res.json({
-                    status: 404,
-                    message: "Not found",
-                });
+                    status: 400,
+                    message: "Bad request",
+                })
             }
+
+
         } catch (error) {
             console.log(error);
             res.json({
@@ -254,7 +247,7 @@ module.exports = {
             const { id, phone_model, phone_brand, phone_lang, phone_android_v, app_key, app_version } = req.body
             const checkAndroidVersion = await model.checkAndroidVersion(id, phone_android_v)
 
-            if(app_key  && app_version) {
+            if (app_key && app_version) {
                 await model.putAppUserAppVersion(id, app_key, app_version)
             }
 
