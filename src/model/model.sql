@@ -37,6 +37,7 @@ CREATE TABLE apps(
     app_price_six_monthly int,
     app_price_yearly int,
     app_payment text,
+    app_token text,
     app_post BOOLEAN DEFAULT false,
     content_version int DEFAULT 0,
     app_create_date timestamptz DEFAULT CURRENT_TIMESTAMP

@@ -75,9 +75,9 @@ module.exports = {
 
     ADD_APP: async (req, res) => {
         try {
-            const { name, current_vs, min_vs, key, price, six_monthly, yearly, payment, app_post } = req.body
+            const { name, current_vs, min_vs, key, price, six_monthly, yearly, payment, app_token, app_post } = req.body
 
-            const AddApp = await model.addApp(name, current_vs, min_vs, key, price, six_monthly, yearly, payment, app_post)
+            const AddApp = await model.addApp(name, current_vs, min_vs, key, price, six_monthly, yearly, payment, app_token, app_post)
 
             res.json({
                 status: 200,
@@ -96,9 +96,9 @@ module.exports = {
 
     PUT_APP: async (req, res) => {
         try {
-            const { id, name, current_vs, min_vs, key, price, six_monthly, yearly, payment, app_post } = req.body
+            const { id, name, current_vs, min_vs, key, price, six_monthly, yearly, payment, app_token, app_post } = req.body
 
-            const updateApp = await model.putApp(id, name, current_vs, min_vs, key, six_monthly, yearly, price, payment, app_post)
+            const updateApp = await model.putApp(id, name, current_vs, min_vs, key, six_monthly, yearly, price, payment, app_token, app_post)
 
             res.json({
                 status: 200,
