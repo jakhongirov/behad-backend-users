@@ -267,6 +267,24 @@ const getAppUsersByLimitPaginationBySort = (offset, sort) => {
     return fetchALL(ALL_APP_USER_BY_SORT)
 }
 
+const usersAppsCount = (offset, sort) => {
+    const USERS_APPS_COUNT = `
+        select 
+            user_id, count(app_key) 
+        from 
+            apps_user 
+        group by 
+            user_id 
+        order by 
+            ${sort}
+        offset
+            ${offset}
+        limit 50;
+    `;
+
+    return fetchALL(USERS_APPS_COUNT)
+}
+
 module.exports = {
     getAllAppUser,
     getAppUsersByLimitPagination,
@@ -282,6 +300,7 @@ module.exports = {
     getAppUserByLimitPrev,
     appUserByAppKeyCount,
     appUserByAppKeyUsers,
-    appUserByAppKeyCountGender
+    appUserByAppKeyCountGender,
+    usersAppsCount
 }
 

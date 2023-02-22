@@ -12,7 +12,7 @@ CREATE TABLE users (
     user_who text DEFAULT 'erkak',
     user_phone text not null,
     user_password text not null,
-    user_country text not null,  
+    user_country text not null,
     user_capital text not null,
     user_region text,
     user_balance int DEFAULT 0,
@@ -23,6 +23,7 @@ CREATE TABLE users (
     user_phone_brand text DEFAULT '-',
     user_phone_lang text DEFAULT '-',
     user_phone_android_version text [],
+    user_interest text [],
     user_create_date timestamptz DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -33,6 +34,8 @@ CREATE TABLE apps(
     app_min_version int not null,
     app_key text not null PRIMARY KEY,
     app_price int not null,
+    app_price_six_monthly int,
+    app_price_yearly int,
     app_payment text,
     app_post BOOLEAN DEFAULT false,
     content_version int DEFAULT 0,
@@ -48,6 +51,7 @@ CREATE TABLE apps_user (
     user_id int not null REFERENCES users(user_id) ON DELETE CASCADE,
     app_key text not null REFERENCES apps(app_key) ON DELETE CASCADE,
     click_id text,
+    app_user_current_version int,
     app_user_install_date timestamptz DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -84,6 +88,5 @@ CREATE TABLE tracking_users (
     app_key text not null REFERENCES apps(app_key) ON DELETE CASCADE,
     new_tracking_user_create_date timestamptz DEFAULT CURRENT_TIMESTAMP
 );
-
 
 -- select count(user_id) as users_count from users group by user_country;

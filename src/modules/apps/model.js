@@ -62,6 +62,8 @@ const ADD_APP = `
             app_min_version,
             app_key,
             app_price,
+            app_price_six_monthly,
+            app_price_yearly,
             app_payment,
             app_post
         )
@@ -73,7 +75,9 @@ const ADD_APP = `
             $4,
             $5,
             $6,
-            $7
+            $7,
+            $8,
+            $9
         ) RETURNING *;
 `
 
@@ -86,8 +90,10 @@ const UPADATE_APP = `
         app_min_version = $4,
         app_key = $5,
         app_price = $6,
-        app_payment = $7,
-        app_post = $8
+        app_price_six_monthly = $7,
+        app_price_yearly = $8,
+        app_payment = $9,
+        app_post = $10
     WHERE
         app_id = $1 RETURNING * ;
 `;
@@ -138,8 +144,8 @@ const getAppbyId = (id) => fetchALL(BY_ID, id);
 const getAppbyName = (name) => fetchALL(BY_NAME, name)
 const getAppbyKey = (app_key) => fetchALL(BY_KEY, app_key)
 const getAppbyKeyApp = (key) => fetchALL(BY_KEY_2, key)
-const addApp = (name, current_vs, min_vs, key, price, payment, app_post) => fetch(ADD_APP, name, current_vs, min_vs, key, price, payment, app_post)
-const putApp = (id, name, current_vs, min_vs, key, price, payment, app_post) => fetch(UPADATE_APP, id, name, current_vs, min_vs, key, price, payment, app_post)
+const addApp = (name, current_vs, min_vs, key, price, six_monthly, yearly, payment, app_post) => fetch(ADD_APP, name, current_vs, min_vs, key, price, six_monthly, yearly, payment, app_post)
+const putApp = (id, name, current_vs, min_vs, key, price, six_monthly, yearly, payment, app_post) => fetch(UPADATE_APP, id, name, current_vs, min_vs, key, price, six_monthly, yearly, payment, app_post)
 const deleteApp = (id) => fetch(DELETE_APP, id)
 const appLimitByIdNext = (id) => fetchALL(BY_ID_LIMIT_NEXT, id)
 const appLimitByIdPrev = (id) => fetchALL(BY_ID_LIMIT_PREV, id)

@@ -251,8 +251,12 @@ module.exports = {
 
     PUT_USER_PHONE_INFO: async (req, res) => {
         try {
-            const { id, phone_model, phone_brand, phone_lang, phone_android_v } = req.body
+            const { id, phone_model, phone_brand, phone_lang, phone_android_v, app_key, app_version } = req.body
             const checkAndroidVersion = await model.checkAndroidVersion(id, phone_android_v)
+
+            if(app_key  && app_version) {
+                await model.putAppUserAppVersion(id, app_key, app_version)
+            }
 
             if (checkAndroidVersion) {
                 const putUserPhoneInfoWithoutAndroidVersion = await model.putUserPhoneInfoWithoutAndroidVersion(id, phone_model, phone_brand, phone_lang)
@@ -282,6 +286,42 @@ module.exports = {
                         message: "Bad request",
                     })
                 }
+            }
+
+        } catch (error) {
+            console.log(error);
+            res.json({
+                status: 500,
+                message: "Internal Server Error"
+            })
+        }
+    },
+
+    PUT_USER_INTEREST: async (req, res) => {
+        try {
+            const { id, text } = req.body
+            const foundbyIdUser = await model.getfoundbyIdUser(id);
+
+            if (foundbyIdUser) {
+                const addUserInterest = await model.addUserInterest(id, text)
+
+                if (addUserInterest) {
+                    return res.json({
+                        status: 200,
+                        message: "Success"
+                    })
+                } else {
+                    return res.json({
+                        status: 400,
+                        message: "Bad request",
+                    })
+                }
+
+            } else {
+                return res.json({
+                    status: 404,
+                    message: "Not found",
+                });
             }
 
         } catch (error) {

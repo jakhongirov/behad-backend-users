@@ -191,6 +191,26 @@ const PUT_USER_PHONE_INFO = `
         user_id = $1 RETURNING * ;
 `;
 
+const ADD_USER_INTEREST = `
+    Update 
+        users 
+    SET 
+        user_interest = array_append(user_interest, $2)
+    WHERE
+        user_id = $1
+    RETURNING *;
+`;
+
+const UPDATE_APP_USER_APP_VERSION = `
+    Update 
+        apps_user  
+    SET 
+        app_user_current_version = $3
+    WHERE
+        user_id = $1 and app_key = $2
+    RETURNING *;
+`;
+
 const getallUsers = () => fetchALL(All_USERS);
 const getfoundbyIdUser = (id) => fetchALL(BY_ID, id);
 const getfoundbyTokenUser = (token) => fetch(BY_TOKEN, token)
@@ -208,7 +228,8 @@ const updateUserNotification = (id, key, notification) => fetch(UPDATE_USER_NOTI
 const checkAndroidVersion = (id, phone_android_v) => fetch(CHECK_USER_ANDROID_VERSION, id, phone_android_v)
 const putUserPhoneInfoWithoutAndroidVersion = (id, phone_model, phone_brand, phone_lang) => fetch(PUT_USER_PHONE_INFO_WITHOUT_ANDROID_V, id, phone_model, phone_brand, phone_lang)
 const putUserPhoneInfo = (id, phone_model, phone_brand, phone_lang, phone_android_v) => fetch(PUT_USER_PHONE_INFO, id, phone_model, phone_brand, phone_lang, phone_android_v)
-
+const addUserInterest = (id, text) => fetch(ADD_USER_INTEREST, id, text)
+const putAppUserAppVersion = (id, app_key, app_version) => fetch(UPDATE_APP_USER_APP_VERSION, id, app_key, app_version)
 const getusersByLimitPagination = (offset) => {
     const USER_LIMIT_PAGINATION = `
         SELECT
@@ -330,5 +351,7 @@ module.exports = {
     getusersByLimitPaginationBySort,
     checkAndroidVersion,
     putUserPhoneInfoWithoutAndroidVersion,
-    putUserPhoneInfo
+    putUserPhoneInfo,
+    addUserInterest,
+    putAppUserAppVersion
 };

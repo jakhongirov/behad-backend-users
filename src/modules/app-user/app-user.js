@@ -271,5 +271,33 @@ module.exports = {
                 message: "Internal Server Error"
             })
         }
+    },
+
+    GET_USERS_APPS_COUNT: async (req, res) => {
+        try {
+            const { offset, sort } = req.query
+            const usersAppsCount = await model.usersAppsCount(offset, sort)
+
+            if (usersAppsCount) {
+                return res.json({
+                    status: 200,
+                    message: "Success",
+                    data: usersAppsCount
+                })
+            } else {
+                console.log(error);
+                res.json({
+                    status: 500,
+                    message: "Internal Server Error"
+                })
+            }
+
+        } catch (error) {
+            console.log(error);
+            res.json({
+                status: 500,
+                message: "Internal Server Error"
+            })
+        }
     }
 }

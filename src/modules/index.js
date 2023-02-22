@@ -24,6 +24,7 @@ router
     .put('/adminAddcomment', AUTH, Users.PUT_COMMENT_USER_ADMIN)
     .put('/Addcomment', Users.POST_COMMENT_USER)
     .put('/putUserPhoneInfo', Users.PUT_USER_PHONE_INFO)
+    .put('/putUserInterest', AUTH, Users.PUT_USER_INTEREST)
     .delete('/deleteUser', AUTH, Users.DELETE_USER)
 
     .post('/admin', Admin.LOGIN)
@@ -47,6 +48,7 @@ router
 
     .get('/appUsers', AUTH, AppUser.GET_APP_USERS)
     .get('/appUsersCount', AUTH, AppUser.GET_USER_BY_APP_KEY_COUNT)
+    .get('/usersAppsCount', AUTH, AppUser.GET_USERS_APPS_COUNT)
     .get('/appUsersCountGender', AUTH, AppUser.GET_USER_BY_APP_KEY_COUNT_GENDER)
     .get('/appUsersByKey', AUTH, AppUser.GET_USER_BY_APP_KEY_USERS)
     .put('/editProVersion', AUTH, AppUser.PUT_PRO_VERSION)
