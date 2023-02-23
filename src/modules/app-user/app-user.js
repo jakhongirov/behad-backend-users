@@ -303,7 +303,7 @@ module.exports = {
 
     SEND_NOTIFICATION: async (req, res) => {
         try {
-            const { id, key, message } = req.body
+            const { id, key, title, message } = req.body
             const appUser = await model.getAppUserByUserIdKEy(id, key)
             const AppbyKey = await model.getAppbyKey(key)
 
@@ -316,6 +316,7 @@ module.exports = {
                 body: JSON.stringify(
                     {
                         app_id: AppbyKey.app_token,
+                        headings: { "en": title },
                         contents: { "en": message },
                         include_player_ids: [appUser.app_user_notification_token]
                     }
