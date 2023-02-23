@@ -52,6 +52,7 @@ router
     .get('/appUsersCountGender', AUTH, AppUser.GET_USER_BY_APP_KEY_COUNT_GENDER)
     .get('/appUsersByKey', AUTH, AppUser.GET_USER_BY_APP_KEY_USERS)
     .put('/editProVersion', AUTH, AppUser.PUT_PRO_VERSION)
+    .put('/sendNotification', AppUser.SEND_NOTIFICATION)
     .get('/updateInterested', AUTH, AppUser.UPDATE_USER_INTERESTED)
 
     .post('/clickPrepare', Click.POST)

@@ -127,6 +127,16 @@ const APP_USER_BY_APP_KEY_USERS = `
     LIMIT 50;
 `
 
+const GET_APP_BY_KEY = `
+    SELECT
+        *, to_char(app_create_date at time zone 'Asia/Tashkent', 'HH24:MM/MM.DD.YYYY')
+    FROM
+        apps
+    WHERE
+        app_key = $1;
+`
+
+const getAppbyKey = (key) => fetch(GET_APP_BY_KEY, key)
 const getAllAppUser = () => fetchALL(ALL_APP_USER)
 const getById = (id) => fetchALL(BY_ID, id)
 const getAppUserByUserIdKEy = (userId, key) => fetch(USER_ID_BY_KEY, userId, key)
@@ -298,6 +308,7 @@ module.exports = {
     appUserByAppKeyCount,
     appUserByAppKeyUsers,
     appUserByAppKeyCountGender,
-    usersAppsCount
+    usersAppsCount,
+    getAppbyKey
 }
 

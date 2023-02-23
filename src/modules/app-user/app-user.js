@@ -1,4 +1,5 @@
 const model = require('./model')
+const fetch = require('node-fetch')
 
 module.exports = {
     GET_APP_USERS: async (req, res) => {
@@ -290,6 +291,53 @@ module.exports = {
                     message: "Internal Server Error"
                 })
             }
+
+        } catch (error) {
+            console.log(error);
+            res.json({
+                status: 500,
+                message: "Internal Server Error"
+            })
+        }
+    },
+
+    SEND_NOTIFICATION: async (req, res) => {
+        try {
+            const { id, key, message } = req.body
+            const appUser = await model.getAppUserByUserIdKEy(id, key)
+            const AppbyKey = await model.getAppbyKey(key)
+
+            fetch('https://onesignal.com/api/v1/notifications', {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": "Basic MWZhZTZjNzctNDAzNi00ZWY0LWIxOTEtODhiOGFkYmFlYmI4"
+                },
+                body: JSON.stringify(
+                    {
+                        app_id: AppbyKey.app_token,
+                        contents: { "en": message },
+                        include_player_ids: [appUser.app_user_notification_token]
+                    }
+                )
+            })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.id) {
+                        return res.json({
+                            status: 200,
+                            message: "Send"
+                        })
+                    } else {
+                        return res.json({
+                            status: 400,
+                            message: "Bad request"
+                        })
+                    }
+                })
+                .catch((e) => console.log(e))
+
+
 
         } catch (error) {
             console.log(error);
