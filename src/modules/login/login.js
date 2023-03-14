@@ -18,12 +18,11 @@ module.exports = {
                     await model.addTokenUser(foundUser.user_id, temptoken)
                     await model.addTrackingUser(foundUser.user_id, app_key)
                     const app_user = await model.getAppUser(foundUser.user_id, app_key)
-
+                    await model.updateTrackLoginSuccess()
 
                     if (!app_user) {
                         await model.addAppUser(notification_token ? notification_token : "", foundUser.user_id, app_key)
                     }
-
 
                     return res.json({
                         status: 200,
@@ -88,6 +87,7 @@ module.exports = {
 
                 const token = await new JWT({ id: newUser.user_id, name: newUser.user_name }).sign()
                 await model.addTrackingUser(newUser.user_id, app_key)
+                await model.updateTrackLoginSuccess()
 
                 return res.json({
                     status: 200,

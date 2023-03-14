@@ -95,6 +95,7 @@ CREATE TABLE track_login (
     track_login_enter int DEFAULT 0,
     track_login_phone int DEFAULT 0,
     track_login_success int DEFAULT 0,
+    track_login_fail int DEFAULT 0,
     track_login_create timestamptz DEFAULT CURRENT_TIMESTAMP
 );
 

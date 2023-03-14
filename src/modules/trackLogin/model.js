@@ -34,11 +34,11 @@ const UPDATE_TRACK_LOGIN_PHONE = `
     RETURNING *;
 `;
 
-const UPDATE_TRACK_LOGIN_SUCCESS = `
+const UPDATE_TRACK_LOGIN_FAIL = `
     UPDATE
         track_login
     SET
-        track_login_success = track_login_success + 1
+        track_login_fail = track_login_fail + 1
     WHERE 
         track_login_id IN(SELECT max(track_login_id) FROM track_login)
     RETURNING *;
@@ -47,11 +47,11 @@ const UPDATE_TRACK_LOGIN_SUCCESS = `
 const createTrackLogin = () => fetch(CREATE_TRACK_LOGIN)
 const updateTrackLoginEnter = () => fetch(UPDATE_TRACK_LOGIN_ENTER)
 const updateTrackLoginPhone = () => fetch(UPDATE_TRACK_LOGIN_PHONE)
-const updateTrackLoginSuccess = () => fetch(UPDATE_TRACK_LOGIN_SUCCESS)
+const updateTrackLoginFail = () => fetch(UPDATE_TRACK_LOGIN_FAIL)
 
 module.exports = {
     createTrackLogin,
     updateTrackLoginEnter,
     updateTrackLoginPhone,
-    updateTrackLoginSuccess
+    updateTrackLoginFail
 }

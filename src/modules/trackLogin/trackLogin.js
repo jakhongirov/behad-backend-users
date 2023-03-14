@@ -32,9 +32,9 @@ module.exports = {
                         message: 'Bad request'
                     })
                 }
-            } else if (type === 'success') {
-                const updateTrackLoginSuccess = await model.updateTrackLoginSuccess()
-                if (updateTrackLoginSuccess) {
+            } else if (type === 'fail') {
+                const updateTrackLoginFail = await model.updateTrackLoginFail()
+                if (updateTrackLoginFail) {
                     return res.json({
                         status: 200,
                         message: "Success"
