@@ -90,4 +90,12 @@ CREATE TABLE tracking_users (
     new_tracking_user_create_date timestamptz DEFAULT CURRENT_TIMESTAMP
 );
 
+CREATE TABLE track_login (
+    track_login_id bigserial PRIMARY KEY,
+    track_login_enter int DEFAULT 0,
+    track_login_phone int DEFAULT 0,
+    track_login_success int DEFAULT 0,
+    track_login_create timestamptz DEFAULT CURRENT_TIMESTAMP
+);
+
 -- select count(user_id) as users_count from users group by user_country;

@@ -21,7 +21,7 @@ module.exports = {
 
 
                     if (!app_user) {
-                        const addApp = await model.addAppUser(notification_token ? notification_token : "", foundUser.user_id, app_key)
+                        await model.addAppUser(notification_token ? notification_token : "", foundUser.user_id, app_key)
                     }
 
 

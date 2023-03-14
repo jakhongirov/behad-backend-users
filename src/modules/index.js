@@ -13,11 +13,15 @@ const News = require("./news/news")
 const Click = require('./click/click')
 const Tracking = require("./tracking/tracking")
 const UserCount = require('./userCount/userCount')
+const TrackLogin = require('./trackLogin/trackLogin')
 
 router
     .post("/login/:temptoken/:app_key/:notification_token", Login.LOGIN)
     .post("/register/:temptoken/:app_key/:notification_token", Login.REGISTER)
     .post('/forgetPassword/:url', Forget.POST_PHONE)
+
+    .put('/UpdateTrackLogin', TrackLogin.PUT)
+    .get('/trackLogin', TrackLogin.USE_CRON)
 
     .get('/users', Users.GET_USERS)
     .put('/editUser', AUTH, Users.PUT_USER)
@@ -29,7 +33,7 @@ router
 
     .post('/admin', Admin.LOGIN)
 
-    .get('/trackingUsers',  Tracking.GET)
+    .get('/trackingUsers', Tracking.GET)
     .get('/trackingUsersFilter/:url', AUTH, Tracking.GET_USER_TRACKING_FILTER)
     .get('/trackingUsersCount', AUTH, Tracking.GET_USERS_TRACKING_COUNT)
 
