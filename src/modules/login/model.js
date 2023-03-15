@@ -107,7 +107,7 @@ const ADD_TRACKING_USER = `
 
 const UPDATE_TRACK_LOGIN_SUCCESS = `
     UPDATE
-        track_login
+    track_register
     SET
         track_login_success = track_login_success + 1
     WHERE 
