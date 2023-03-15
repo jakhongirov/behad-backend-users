@@ -90,13 +90,17 @@ CREATE TABLE tracking_users (
     new_tracking_user_create_date timestamptz DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE TABLE track_login (
+CREATE TABLE track_register (
     track_login_id bigserial PRIMARY KEY,
     track_login_enter int DEFAULT 0,
     track_login_phone int DEFAULT 0,
+    track_register_phone int DEFAULT 0,
     track_login_success int DEFAULT 0,
+    track_register_success int DEFAULT 0,
     track_login_fail int DEFAULT 0,
+    track_register_fail int DEFAULT 0,
     track_login_password int DEFAULT 0,
+    track_register_password int DEFAULT 0,
     track_login_create timestamptz DEFAULT CURRENT_TIMESTAMP
 );
 

@@ -4,7 +4,7 @@ const cron = require('node-cron')
 module.exports = {
     PUT: async (req, res) => {
         try {
-            const { type } = req.body
+            const { type, url } = req.body
 
             if (type === 'entered') {
                 const updateTrackLoginEnter = await model.updateTrackLoginEnter()
@@ -19,7 +19,7 @@ module.exports = {
                         message: 'Bad request'
                     })
                 }
-            } else if (type === 'phone') {
+            } else if (type === 'phone' && url === 'login') {
                 const updateTrackLoginPhone = await model.updateTrackLoginPhone()
                 if (updateTrackLoginPhone) {
                     return res.json({
@@ -32,7 +32,7 @@ module.exports = {
                         message: 'Bad request'
                     })
                 }
-            } else if (type === 'pass') {
+            } else if (type === 'pass' && url === 'login') {
                 const updateTrackLoginPass = await model.updateTrackLoginPass()
                 if (updateTrackLoginPass) {
                     return res.json({
@@ -45,9 +45,48 @@ module.exports = {
                         message: 'Bad request'
                     })
                 }
-            } else if (type === 'fail') {
+            } else if (type === 'fail' && url === 'login') {
                 const updateTrackLoginFail = await model.updateTrackLoginFail()
                 if (updateTrackLoginFail) {
+                    return res.json({
+                        status: 200,
+                        message: "Success"
+                    })
+                } else {
+                    return res.json({
+                        status: 400,
+                        message: 'Bad request'
+                    })
+                }
+            } else if (type === 'phone' && url === 'register') {
+                const updateTrackRegisterPhone = await model.updateTrackRegisterPhone()
+                if (updateTrackRegisterPhone) {
+                    return res.json({
+                        status: 200,
+                        message: "Success"
+                    })
+                } else {
+                    return res.json({
+                        status: 400,
+                        message: 'Bad request'
+                    })
+                }
+            } else if (type === 'pass' && url === 'register') {
+                const updateTrackRegisterPass = await model.updateTrackRegisterPass()
+                if (updateTrackRegisterPass) {
+                    return res.json({
+                        status: 200,
+                        message: "Success"
+                    })
+                } else {
+                    return res.json({
+                        status: 400,
+                        message: 'Bad request'
+                    })
+                }
+            } else if (type === 'fail' && url === 'register') {
+                const updateTrackRegisterFail = await model.updateTrackRegisterFail()
+                if (updateTrackRegisterFail) {
                     return res.json({
                         status: 200,
                         message: "Success"
@@ -69,7 +108,7 @@ module.exports = {
         }
     },
 
-    USE_CRON: async (req, res) => {
+    USE_CRON: async (_, res) => {
         try {
 
             cron.schedule('59 */23 * * * ', async () => {

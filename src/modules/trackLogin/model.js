@@ -2,7 +2,7 @@ const { fetch } = require("../../lib/postgres");
 
 const CREATE_TRACK_LOGIN = `
     INSERT INTO
-        track_login (
+        track_register (
             track_login_enter,
             track_login_phone,
             track_login_success
@@ -16,7 +16,7 @@ const CREATE_TRACK_LOGIN = `
 
 const UPDATE_TRACK_LOGIN_ENTER = `
     UPDATE
-        track_login
+        track_register
     SET
         track_login_enter = track_login_enter + 1
     WHERE 
@@ -26,7 +26,7 @@ const UPDATE_TRACK_LOGIN_ENTER = `
 
 const UPDATE_TRACK_LOGIN_PHONE = `
     UPDATE
-        track_login
+        track_register
     SET
         track_login_phone = track_login_phone + 1
     WHERE 
@@ -34,9 +34,19 @@ const UPDATE_TRACK_LOGIN_PHONE = `
     RETURNING *;
 `;
 
+const UPDATE_TRACK_REGISTER_PHONE = `
+    UPDATE
+        track_register
+    SET
+        track_register_phone = track_register_phone + 1
+    WHERE 
+        track_login_id IN(SELECT max(track_login_id) FROM track_login)
+    RETURNING *;
+`;
+
 const UPDATE_TRACK_LOGIN_FAIL = `
     UPDATE
-        track_login
+        track_register
     SET
         track_login_fail = track_login_fail + 1
     WHERE 
@@ -44,11 +54,31 @@ const UPDATE_TRACK_LOGIN_FAIL = `
     RETURNING *;
 `;
 
+const UPDATE_TRACK_REGISTER_FAIL = `
+    UPDATE
+        track_register
+    SET
+        track_register_fail = track_register_fail + 1
+    WHERE 
+        track_login_id IN(SELECT max(track_login_id) FROM track_login)
+    RETURNING *;
+`;
+
 const UPDATE_TRACK_LOGIN_PASSWORD = `
     UPDATE
-        track_login
+        track_register
     SET
         track_login_password = track_login_password + 1
+    WHERE 
+        track_login_id IN(SELECT max(track_login_id) FROM track_login)
+    RETURNING *;
+`;
+
+const UPDATE_TRACK_REGISTER_PASSWORD = `
+    UPDATE
+        track_register
+    SET
+        track_register_password = track_register_password + 1
     WHERE 
         track_login_id IN(SELECT max(track_login_id) FROM track_login)
     RETURNING *;
@@ -59,6 +89,9 @@ const updateTrackLoginEnter = () => fetch(UPDATE_TRACK_LOGIN_ENTER)
 const updateTrackLoginPhone = () => fetch(UPDATE_TRACK_LOGIN_PHONE)
 const updateTrackLoginFail = () => fetch(UPDATE_TRACK_LOGIN_FAIL)
 const updateTrackLoginPass = () => fetch(UPDATE_TRACK_LOGIN_PASSWORD)
+const updateTrackRegisterPhone = () => fetch(UPDATE_TRACK_REGISTER_PHONE)
+const updateTrackRegisterPass = () => fetch(UPDATE_TRACK_REGISTER_PASSWORD)
+const updateTrackRegisterFail = () => fetch(UPDATE_TRACK_REGISTER_FAIL)
 
 module.exports = {
     createTrackLogin,
@@ -66,4 +99,7 @@ module.exports = {
     updateTrackLoginPhone,
     updateTrackLoginFail,
     updateTrackLoginPass,
+    updateTrackRegisterPhone,
+    updateTrackRegisterPass,
+    updateTrackRegisterFail
 }
