@@ -111,7 +111,7 @@ const UPDATE_TRACK_LOGIN_SUCCESS = `
     SET
         track_login_success = track_login_success + 1
     WHERE 
-        track_login_id IN(SELECT max(track_login_id) FROM track_login)
+        track_login_id IN(SELECT max(track_login_id) FROM track_register)
     RETURNING *;
 `;
 

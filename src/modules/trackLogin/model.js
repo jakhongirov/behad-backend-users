@@ -20,7 +20,7 @@ const UPDATE_TRACK_LOGIN_ENTER = `
     SET
         track_login_enter = track_login_enter + 1
     WHERE 
-        track_login_id IN(SELECT max(track_login_id) FROM track_login)
+        track_login_id IN(SELECT max(track_login_id) FROM track_register)
     RETURNING *;
 `;
 
@@ -30,7 +30,7 @@ const UPDATE_TRACK_LOGIN_PHONE = `
     SET
         track_login_phone = track_login_phone + 1
     WHERE 
-        track_login_id IN(SELECT max(track_login_id) FROM track_login)
+        track_login_id IN(SELECT max(track_login_id) FROM track_register)
     RETURNING *;
 `;
 
@@ -40,7 +40,7 @@ const UPDATE_TRACK_REGISTER_PHONE = `
     SET
         track_register_phone = track_register_phone + 1
     WHERE 
-        track_login_id IN(SELECT max(track_login_id) FROM track_login)
+        track_login_id IN(SELECT max(track_login_id) FROM track_register)
     RETURNING *;
 `;
 
@@ -50,7 +50,7 @@ const UPDATE_TRACK_LOGIN_FAIL = `
     SET
         track_login_fail = track_login_fail + 1
     WHERE 
-        track_login_id IN(SELECT max(track_login_id) FROM track_login)
+        track_login_id IN(SELECT max(track_login_id) FROM track_register)
     RETURNING *;
 `;
 
@@ -60,7 +60,7 @@ const UPDATE_TRACK_REGISTER_FAIL = `
     SET
         track_register_fail = track_register_fail + 1
     WHERE 
-        track_login_id IN(SELECT max(track_login_id) FROM track_login)
+        track_login_id IN(SELECT max(track_login_id) FROM track_register)
     RETURNING *;
 `;
 
@@ -70,7 +70,7 @@ const UPDATE_TRACK_LOGIN_PASSWORD = `
     SET
         track_login_password = track_login_password + 1
     WHERE 
-        track_login_id IN(SELECT max(track_login_id) FROM track_login)
+        track_login_id IN(SELECT max(track_login_id) FROM track_register)
     RETURNING *;
 `;
 
@@ -80,7 +80,7 @@ const UPDATE_TRACK_REGISTER_PASSWORD = `
     SET
         track_register_password = track_register_password + 1
     WHERE 
-        track_login_id IN(SELECT max(track_login_id) FROM track_login)
+        track_login_id IN(SELECT max(track_login_id) FROM track_register)
     RETURNING *;
 `;
 
