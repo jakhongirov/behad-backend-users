@@ -100,7 +100,7 @@ module.exports = {
             }
 
         } catch (error) {
-            console.log(err)
+            console.log(error)
             res.json({
                 status: 500,
                 message: "Internal Server Error",
@@ -127,7 +127,7 @@ module.exports = {
             })
 
         } catch (error) {
-            console.log(err)
+            console.log(error)
             res.json({
                 status: 500,
                 message: "Internal Server Error",
