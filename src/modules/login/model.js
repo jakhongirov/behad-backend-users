@@ -115,6 +115,16 @@ const UPDATE_TRACK_LOGIN_SUCCESS = `
     RETURNING *;
 `;
 
+const UPDATE_TRACK_REGISTER_SUCCESS = `
+    UPDATE
+    track_register
+    SET
+    track_register_success = track_register_success + 1
+    WHERE 
+        track_login_id IN(SELECT max(track_login_id) FROM track_register)
+    RETURNING *;
+`;
+
 const getUser = (phone) => fetch(foundUser, phone);
 const registerUser = (name, surname, age, who, phone, pass_hash, country, capital, temptoken) => fetch(ADD_USER, name, surname, age, who, phone, pass_hash, country, capital, temptoken)
 const addTokenUser = (id, token) => fetch(ADD_TOKEN_USER, id, token)
@@ -124,6 +134,7 @@ const getAppUser = (id, key) => fetch(GET_APP_USER, id, key)
 const deleteUserDeviceId = (temptoken) => fetchALL(DELETE_USER_DEVICE_ID, temptoken)
 const addTrackingUser = (id, key) => fetch(ADD_TRACKING_USER, id, key)
 const updateTrackLoginSuccess = () => fetch(UPDATE_TRACK_LOGIN_SUCCESS)
+const updateTrackRegisterSuccess = () => fetch(UPDATE_TRACK_REGISTER_SUCCESS)
 
 module.exports = {
     getUser,
@@ -134,5 +145,6 @@ module.exports = {
     getAppUser,
     deleteUserDeviceId,
     addTrackingUser,
-    updateTrackLoginSuccess
+    updateTrackLoginSuccess,
+    updateTrackRegisterSuccess
 }

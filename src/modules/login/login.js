@@ -77,7 +77,7 @@ module.exports = {
                 if (temptoken == '00000000-0000-0000-0000-000000000000') {
                     await makeCode(16)
                     const addUser = await model.registerUser(name, surname, age, who, phone, pass_hash, country, capital, code)
-                    await model.updateTrackLoginSuccess()
+                    await model.updateTrackRegisterSuccess()
                     newUser = addUser
                 } else {
                     const addUser = await model.registerUser(name, surname, age, who, phone, pass_hash, country, capital, temptoken)
