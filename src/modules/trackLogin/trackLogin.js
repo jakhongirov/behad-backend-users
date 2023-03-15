@@ -32,6 +32,19 @@ module.exports = {
                         message: 'Bad request'
                     })
                 }
+            } else if (type === 'pass') {
+                const updateTrackLoginPass = await model.updateTrackLoginPass()
+                if (updateTrackLoginPass) {
+                    return res.json({
+                        status: 200,
+                        message: "Success"
+                    })
+                } else {
+                    return res.json({
+                        status: 400,
+                        message: 'Bad request'
+                    })
+                }
             } else if (type === 'fail') {
                 const updateTrackLoginFail = await model.updateTrackLoginFail()
                 if (updateTrackLoginFail) {
@@ -59,10 +72,10 @@ module.exports = {
     USE_CRON: async (req, res) => {
         try {
 
-            cron.schedule('0 1 * * *', async () => {
+            cron.schedule('59 */23 * * * ', async () => {
                 const createTrackLogin = await model.createTrackLogin()
 
-                if(createTrackLogin) {
+                if (createTrackLogin) {
                     console.log(createTrackLogin);
                 } else {
                     console.log("ERROR");
