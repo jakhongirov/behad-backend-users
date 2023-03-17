@@ -7,7 +7,7 @@ module.exports = {
             const { type, url } = req.body
 
             if (type === 'entered') {
-                const updateTrackLoginEnter = await model.updateTrackLoginEnter()
+                const updateTrackLoginEnter = await model.updateTrackEnter()
                 if (updateTrackLoginEnter) {
                     return res.json({
                         status: 200,

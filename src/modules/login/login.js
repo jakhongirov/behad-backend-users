@@ -77,18 +77,18 @@ module.exports = {
                 if (temptoken == '00000000-0000-0000-0000-000000000000') {
                     await makeCode(16)
                     const addUser = await model.registerUser(name, surname, age, who, phone, pass_hash, country, capital, code)
-                    await model.updateTrackRegisterSuccess()
                     newUser = addUser
                 } else {
                     const addUser = await model.registerUser(name, surname, age, who, phone, pass_hash, country, capital, temptoken)
                     newUser = addUser
                 }
-
+                
                 await model.addAppUser(notification_token ? notification_token : "", newUser.user_id, app_key)
-
+                
                 const token = await new JWT({ id: newUser.user_id, name: newUser.user_name }).sign()
                 await model.addTrackingUser(newUser.user_id, app_key)
-
+                await model.updateTrackRegisterSuccess()
+                
                 return res.json({
                     status: 200,
                     message: "Success",

@@ -3,7 +3,7 @@ const { fetch } = require("../../lib/postgres");
 const CREATE_TRACK_LOGIN = `
     INSERT INTO
         track_register (
-            track_login_enter,
+            track_enter,
             track_login_phone,
             track_login_success
         ) 
@@ -14,11 +14,11 @@ const CREATE_TRACK_LOGIN = `
     ) RETURNING *;
 `;
 
-const UPDATE_TRACK_LOGIN_ENTER = `
+const UPDATE_TRACK_ENTER = `
     UPDATE
         track_register
     SET
-        track_login_enter = track_login_enter + 1
+        track_enter = track_enter + 1
     WHERE 
         track_login_id IN(SELECT max(track_login_id) FROM track_register)
     RETURNING *;
@@ -85,7 +85,7 @@ const UPDATE_TRACK_REGISTER_PASSWORD = `
 `;
 
 const createTrackLogin = () => fetch(CREATE_TRACK_LOGIN)
-const updateTrackLoginEnter = () => fetch(UPDATE_TRACK_LOGIN_ENTER)
+const updateTrackEnter = () => fetch(UPDATE_TRACK_ENTER)
 const updateTrackLoginPhone = () => fetch(UPDATE_TRACK_LOGIN_PHONE)
 const updateTrackLoginFail = () => fetch(UPDATE_TRACK_LOGIN_FAIL)
 const updateTrackLoginPass = () => fetch(UPDATE_TRACK_LOGIN_PASSWORD)
@@ -95,7 +95,7 @@ const updateTrackRegisterFail = () => fetch(UPDATE_TRACK_REGISTER_FAIL)
 
 module.exports = {
     createTrackLogin,
-    updateTrackLoginEnter,
+    updateTrackEnter,
     updateTrackLoginPhone,
     updateTrackLoginFail,
     updateTrackLoginPass,
