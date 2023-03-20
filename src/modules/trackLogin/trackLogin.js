@@ -111,7 +111,7 @@ module.exports = {
     USE_CRON: async (_, res) => {
         try {
 
-            cron.schedule('59 */23 * * * ', async () => {
+            cron.schedule('0 */24 * * *', async () => {
                 const createTrackLogin = await model.createTrackLogin()
 
                 if (createTrackLogin) {
