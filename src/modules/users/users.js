@@ -1,5 +1,8 @@
 const model = require('./model');
 const bcryptjs = require('bcryptjs')
+const path = require('path')
+const FS = require('../../lib/fs')
+
 
 module.exports = {
     GET_USERS: async (req, res) => {
@@ -325,4 +328,40 @@ module.exports = {
             })
         }
     },
+
+    ADD_AVATAR: async (req, res) => {
+        try {
+            const { user_id } = req.body
+            const foundbyIdUser = await model.getfoundbyIdUser(user_id);
+
+            const image_name = uploadPhoto.filename;
+            const image_url = `https://users.behad.uz/public/images/${uploadPhoto.filename}`;
+
+            if (foundbyIdUser[0]?.user_image_name) {
+                const deleteOldLogo = new FS(path.resolve(__dirname, '..', '..', '..', 'public', 'images', `${foundbyIdUser[0]?.user_image_name}`))
+                deleteOldLogo.delete()
+            }
+
+            const addImgUser = await model.addImgUser(user_id, image_url, image_name)
+
+            if (addImgUser) {
+                return res.json({
+                    status: 200,
+                    message: "Success"
+                })
+            } else {
+                return res.json({
+                    status: 404,
+                    message: "Bad request"
+                })
+            }
+
+        } catch (error) {
+            console.log(error);
+            res.json({
+                status: 500,
+                message: "Internal Server Error"
+            })
+        }
+    }
 }

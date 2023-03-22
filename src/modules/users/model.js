@@ -211,6 +211,17 @@ const UPDATE_APP_USER_APP_VERSION = `
     RETURNING *;
 `;
 
+const ADD_IMAGE_USER =`
+        UPDATE
+            users
+        SET
+            user_image_url = $2,
+            user_image_name = $3
+        WHERE
+            user_id =  $1
+        RETURNING *;
+`;
+
 const getallUsers = () => fetchALL(All_USERS);
 const getfoundbyIdUser = (id) => fetchALL(BY_ID, id);
 const getfoundbyTokenUser = (token) => fetch(BY_TOKEN, token)
@@ -327,6 +338,7 @@ const getfoundbyAgeUser = (offset, age) => {
 
     return fetchALL(BY_AGE)
 }
+const addImgUser = (user_id, image_url, image_name) => fetch(ADD_IMAGE_USER, user_id, image_url, image_name)
 
 module.exports = {
     getallUsers,
@@ -353,5 +365,6 @@ module.exports = {
     putUserPhoneInfoWithoutAndroidVersion,
     putUserPhoneInfo,
     addUserInterest,
-    putAppUserAppVersion
+    putAppUserAppVersion,
+    addImgUser
 };

@@ -24,6 +24,8 @@ CREATE TABLE users (
     user_phone_lang text DEFAULT '-',
     user_phone_android_version text [],
     user_interest text [],
+    user_image_url text,
+    user_image_name text,
     user_create_date timestamptz DEFAULT CURRENT_TIMESTAMP
 );
 
