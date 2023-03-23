@@ -332,6 +332,7 @@ module.exports = {
     ADD_AVATAR: async (req, res) => {
         try {
             const { user_id } = req.body
+            const uploadPhoto = req.file;
             const foundbyIdUser = await model.getfoundbyIdUser(user_id);
 
             const image_name = uploadPhoto.filename;
