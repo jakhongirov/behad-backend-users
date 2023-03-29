@@ -1,4 +1,11 @@
-const { fetch } = require("../../lib/postgres");
+const { fetch, fetchALL } = require("../../lib/postgres");
+
+const ALL_DATA = `
+    SELECT 
+        * 
+    FROM 
+        track_register;
+`
 
 const CREATE_TRACK_LOGIN = `
     INSERT INTO
@@ -84,6 +91,7 @@ const UPDATE_TRACK_REGISTER_PASSWORD = `
     RETURNING *;
 `;
 
+const getData = () => fetchALL(ALL_DATA)
 const createTrackLogin = () => fetch(CREATE_TRACK_LOGIN)
 const updateTrackEnter = () => fetch(UPDATE_TRACK_ENTER)
 const updateTrackLoginPhone = () => fetch(UPDATE_TRACK_LOGIN_PHONE)
@@ -94,6 +102,7 @@ const updateTrackRegisterPass = () => fetch(UPDATE_TRACK_REGISTER_PASSWORD)
 const updateTrackRegisterFail = () => fetch(UPDATE_TRACK_REGISTER_FAIL)
 
 module.exports = {
+    getData,
     createTrackLogin,
     updateTrackEnter,
     updateTrackLoginPhone,

@@ -110,6 +110,7 @@ module.exports = {
 
     USE_CRON: async (_, res) => {
         try {
+            const getData = await model.getData()
 
             cron.schedule('0 0 * * *', async () => {
                 const createTrackLogin = await model.createTrackLogin()
@@ -123,7 +124,8 @@ module.exports = {
 
             return res.json({
                 status: 200,
-                message: 'START'
+                message: 'Success',
+                data: getData
             })
 
         } catch (error) {
