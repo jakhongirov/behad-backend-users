@@ -4,7 +4,9 @@ const ALL_DATA = `
     SELECT 
         *, to_char(track_login_create at time zone 'Asia/Tashkent', 'HH24:MI/DD.MM.YYYY')
     FROM 
-        track_register;
+        track_register
+    ORDER BY
+        track_login_id;
 `
 
 const CREATE_TRACK_LOGIN = `
