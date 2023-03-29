@@ -2,7 +2,7 @@ const { fetch, fetchALL } = require("../../lib/postgres");
 
 const ALL_DATA = `
     SELECT 
-        * 
+        *, to_char(track_login_create at time zone 'Asia/Tashkent', 'HH24:MI/DD.MM.YYYY')
     FROM 
         track_register;
 `
