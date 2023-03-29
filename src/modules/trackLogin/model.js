@@ -6,7 +6,7 @@ const ALL_DATA = `
     FROM 
         track_register
     ORDER BY
-        track_login_id;
+        track_login_id desc;
 `
 
 const CREATE_TRACK_LOGIN = `
