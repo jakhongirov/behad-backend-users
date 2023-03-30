@@ -329,6 +329,32 @@ module.exports = {
         }
     },
 
+    PUT_USER_INTEREST_BY_APP_KEY: async (req, res) => {
+        try {
+            const { app_key, text } = req.body
+            const addUserInterestByAppKey = await model.addUserInterestByAppKey(app_key, text)
+
+            if (addUserInterestByAppKey) {
+                return res.json({
+                    status: 200,
+                    message: "Success"
+                })
+            } else {
+                return res.json({
+                    status: 400,
+                    message: "Bad request",
+                })
+            }
+
+        } catch (error) {
+            console.log(error);
+            res.json({
+                status: 500,
+                message: "Internal Server Error"
+            })
+        }
+    },
+
     ADD_AVATAR: async (req, res) => {
         try {
             const { user_id } = req.body

@@ -29,6 +29,7 @@ router
     .put('/Addcomment', Users.POST_COMMENT_USER)
     .put('/putUserPhoneInfo', Users.PUT_USER_PHONE_INFO)
     .put('/putUserInterest', AUTH, Users.PUT_USER_INTEREST)
+    .put('/putUsersInterestByAppKey', AUTH, Users.PUT_USER_INTEREST_BY_APP_KEY)
     .put('/addAvatar', AUTH, FileUpload.single("photo"), Users.ADD_AVATAR)
     .delete('/deleteUser', AUTH, Users.DELETE_USER)
 

@@ -212,14 +212,26 @@ const UPDATE_APP_USER_APP_VERSION = `
 `;
 
 const ADD_IMAGE_USER =`
-        UPDATE
-            users
-        SET
-            user_image_url = $2,
-            user_image_name = $3
-        WHERE
-            user_id =  $1
-        RETURNING *;
+    UPDATE
+        users
+    SET
+        user_image_url = $2,
+        user_image_name = $3
+    WHERE
+        user_id =  $1
+    RETURNING *;
+`;
+
+const ADD_USER_INTEREST_BY_APP_KEY = `
+    UPDATE 
+        users a
+    SET 
+        a.user_interest = array_append(a.user_interest, $2)
+    FROM 
+        apps_user b
+    WHERE 
+        a.user_id = b.user_id and b.app_key = $1
+    RETURNING a.user_id;
 `;
 
 const getallUsers = () => fetchALL(All_USERS);
@@ -339,6 +351,7 @@ const getfoundbyAgeUser = (offset, age) => {
     return fetchALL(BY_AGE)
 }
 const addImgUser = (user_id, image_url, image_name) => fetch(ADD_IMAGE_USER, user_id, image_url, image_name)
+const addUserInterestByAppKey = (app_key, text) => fetch(ADD_USER_INTEREST_BY_APP_KEY, app_key, text)
 
 module.exports = {
     getallUsers,
@@ -366,5 +379,6 @@ module.exports = {
     putUserPhoneInfo,
     addUserInterest,
     putAppUserAppVersion,
-    addImgUser
+    addImgUser,
+    addUserInterestByAppKey
 };
