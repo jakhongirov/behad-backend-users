@@ -56,7 +56,7 @@ module.exports = {
     REGISTER: async (req, res) => {
         try {
             const { temptoken, app_key, notification_token } = req.params
-            const { name, surname, age, who, phone, password, country, capital } = req.body
+            const { name, surname, age, who, birthday, phone, password, country, capital } = req.body
 
             const checkUser = await model.checkUser(phone)
 
@@ -76,19 +76,19 @@ module.exports = {
 
                 if (temptoken == '00000000-0000-0000-0000-000000000000') {
                     await makeCode(16)
-                    const addUser = await model.registerUser(name, surname, age, who, phone, pass_hash, country, capital, code)
+                    const addUser = await model.registerUser(name, surname, age, who, birthday, phone, pass_hash, country, capital, code)
                     newUser = addUser
                 } else {
-                    const addUser = await model.registerUser(name, surname, age, who, phone, pass_hash, country, capital, temptoken)
+                    const addUser = await model.registerUser(name, surname, age, who, birthday, phone, pass_hash, country, capital, temptoken)
                     newUser = addUser
                 }
-                
+
                 await model.addAppUser(notification_token ? notification_token : "", newUser.user_id, app_key)
-                
+
                 const token = await new JWT({ id: newUser.user_id, name: newUser.user_name }).sign()
                 await model.addTrackingUser(newUser.user_id, app_key)
                 await model.updateTrackRegisterSuccess()
-                
+
                 return res.json({
                     status: 200,
                     message: "Success",

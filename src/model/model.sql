@@ -10,6 +10,7 @@ CREATE TABLE users (
     user_surname text not null,
     user_age int DEFAULT 0,
     user_who text DEFAULT 'erkak',
+    user_birthday text,
     user_phone text not null,
     user_password text not null,
     user_country text not null,

@@ -16,6 +16,7 @@ const ADD_USER = `
             user_surname,
             user_age,
             user_who,
+            user_birthday,
             user_phone,
             user_password,
             user_country,
@@ -32,7 +33,8 @@ const ADD_USER = `
             $6,
             $7,
             $8,
-            ARRAY [ $9 ]  
+            $9,
+            ARRAY [ $10 ]  
         ) RETURNING *;
 `;
 
@@ -126,7 +128,7 @@ const UPDATE_TRACK_REGISTER_SUCCESS = `
 `;
 
 const getUser = (phone) => fetch(foundUser, phone);
-const registerUser = (name, surname, age, who, phone, pass_hash, country, capital, temptoken) => fetch(ADD_USER, name, surname, age, who, phone, pass_hash, country, capital, temptoken)
+const registerUser = (name, surname, age, who, birthday, phone, pass_hash, country, capital, temptoken) => fetch(ADD_USER, name, surname, age, who, birthday, phone, pass_hash, country, capital, temptoken)
 const addTokenUser = (id, token) => fetch(ADD_TOKEN_USER, id, token)
 const addAppUser = (notification_token, id, app_key) => fetch(ADD_APP_USER, notification_token, id, app_key)
 const checkUser = (phone) => fetch(BY_PHONE, phone)
