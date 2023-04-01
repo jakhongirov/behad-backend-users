@@ -171,9 +171,9 @@ module.exports = {
 
     GET_USER_BY_APP_KEY_USERS: async (req, res) => {
         try {
-            const { offset, key } = req.query
+            const { key, offset } = req.query
 
-            if (key) {
+            if (key && offset) {
                 const appUserByAppKeyUsers = await model.appUserByAppKeyUsers(key, offset)
 
                 if (appUserByAppKeyUsers) {

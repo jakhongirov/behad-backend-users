@@ -144,7 +144,8 @@ const appUserByAppKeyUsers = (key, offset) => {
             a.app_key = '${key}'
         ORDER BY
             a.app_user_id DESC
-        offset ${offset}
+        OFFSET
+            ${offset}
         LIMIT 50;
 `
 
