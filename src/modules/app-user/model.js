@@ -107,26 +107,6 @@ const APP_USER_LIMIT_PREV_BY_ID = `
     LIMIT 50;
 `
 
-const APP_USER_BY_APP_KEY_USERS = `
-    select
-        *, to_char(app_user_install_date at time zone 'Asia/Tashkent', 'HH24:MI/DD.MM.YYYY')
-    from
-        apps_user a
-    inner join
-        users b
-    on 
-        a.user_id = b.user_id
-    inner join
-        apps c
-    on 
-        a.app_key = c.app_key
-    where 
-        a.app_key = $1
-    ORDER BY
-        a.app_user_id DESC
-    LIMIT 50;
-`
-
 const GET_APP_BY_KEY = `
     SELECT
         *, to_char(app_create_date at time zone 'Asia/Tashkent', 'HH24:MM/MM.DD.YYYY')
@@ -146,7 +126,30 @@ const getAppUserByLimitNext = (id) => fetchALL(APP_USER_LIMIT_NEXT_BY_ID, id)
 const getAppUserByLimitPrev = (id) => fetchALL(APP_USER_LIMIT_PREV_BY_ID, id)
 const appUserByAppKeyCount = (query) => fetchALL(query)
 const appUserByAppKeyCountGender = (query) => fetchALL(query)
-const appUserByAppKeyUsers = (key) => fetchALL(APP_USER_BY_APP_KEY_USERS, key)
+const appUserByAppKeyUsers = (key, offset) => {
+    const APP_USER_BY_APP_KEY_USERS = `
+        select
+            *, to_char(app_user_install_date at time zone 'Asia/Tashkent', 'HH24:MI/DD.MM.YYYY')
+        from
+            apps_user a
+        inner join
+            users b
+        on 
+            a.user_id = b.user_id
+        inner join
+            apps c
+        on 
+            a.app_key = c.app_key
+        where 
+            a.app_key = '${key}'
+        ORDER BY
+            a.app_user_id DESC
+        offset ${offset}
+        LIMIT 50;
+`
+
+    return fetchALL(APP_USER_BY_APP_KEY_USERS)
+}
 
 const getByName = (offset, name) => {
     const APP_USER_BY_NAME = `

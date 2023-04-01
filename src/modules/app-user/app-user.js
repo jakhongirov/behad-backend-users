@@ -171,31 +171,10 @@ module.exports = {
 
     GET_USER_BY_APP_KEY_USERS: async (req, res) => {
         try {
-            const { position, id, key } = req.query
+            const { offset, key } = req.query
 
-            if (position == 'next' && id && key) {
-                const appUserByAppKeyUsersLimitNext = await model.appUserByAppKeyUsersLimitNext(id, key)
-
-                if (appUserByAppKeyUsersLimitNext) {
-                    return res.json({
-                        status: 200,
-                        message: "Success",
-                        data: appUserByAppKeyUsersLimitNext
-                    });
-                }
-            } else if (position == 'prev' && id && key) {
-                const appUserByAppKeyUsersLimitPrev = await model.appUserByAppKeyUsersLimitPrev(id, key)
-
-                if (appUserByAppKeyUsersLimitPrev) {
-                    return res.json({
-                        status: 200,
-                        message: "Success",
-                        data: appUserByAppKeyUsersLimitPrev
-                    });
-                }
-
-            } else if (key) {
-                const appUserByAppKeyUsers = await model.appUserByAppKeyUsers(key)
+            if (key && offset) {
+                const appUserByAppKeyUsers = await model.appUserByAppKeyUsers(key, offset)
 
                 if (appUserByAppKeyUsers) {
                     return res.json({
