@@ -173,7 +173,7 @@ module.exports = {
         try {
             const { offset, key } = req.query
 
-            if (key && offset) {
+            if (key) {
                 const appUserByAppKeyUsers = await model.appUserByAppKeyUsers(key, offset)
 
                 if (appUserByAppKeyUsers) {
