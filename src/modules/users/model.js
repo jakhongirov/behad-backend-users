@@ -39,9 +39,10 @@ const UPDATE_USER = `
         user_name = $2,
         user_surname = $3,
         user_age = $4,
-        user_who = $5,
-        user_phone = $6,
-        user_password = $7
+        user_birthday = $5,
+        user_who = $6,
+        user_phone = $7,
+        user_password = $8
     WHERE
         user_id = $1 RETURNING * ;
 `;
@@ -211,7 +212,7 @@ const UPDATE_APP_USER_APP_VERSION = `
     RETURNING *;
 `;
 
-const ADD_IMAGE_USER =`
+const ADD_IMAGE_USER = `
     UPDATE
         users
     SET
@@ -237,7 +238,7 @@ const ADD_USER_INTEREST_BY_APP_KEY = `
 const getallUsers = () => fetchALL(All_USERS);
 const getfoundbyIdUser = (id) => fetchALL(BY_ID, id);
 const getfoundbyTokenUser = (token) => fetch(BY_TOKEN, token)
-const putUser = (id, name, surname, age, who, phone, pass_hash,) => fetch(UPDATE_USER, id, name, surname, age, who, phone, pass_hash);
+const putUser = (id, name, surname, age, date, who, phone, pass_hash,) => fetch(UPDATE_USER, id, name, surname, age, date, who, phone, pass_hash);
 const putUserWithoutPass = (id, name, surname, age, who, phone) => fetch(UPDATE_USER_WITHOUT_PASS, id, name, surname, age, who, phone);
 const deleteUser = (id) => fetch(DELETE_USER, id);
 const addComment = (id, comment) => fetch(ADD_COMMENT_ADMIN, id, comment)

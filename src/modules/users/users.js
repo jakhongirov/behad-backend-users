@@ -131,11 +131,11 @@ module.exports = {
 
     PUT_USER: async (req, res) => {
         try {
-            const { id, name, surname, age, phone, password, who } = req.body
+            const { id, name, surname, age, date, phone, password, who } = req.body
 
             if (password) {
                 const pass_hash = await bcryptjs.hash(password, 10)
-                const updatedUser = await model.putUser(id, name, surname, age, who, phone, pass_hash,);
+                const updatedUser = await model.putUser(id, name, surname, age, date, who, phone, pass_hash,);
                 return res.json({
                     status: 200,
                     message: "Updated",
